@@ -1,12 +1,28 @@
 package mro.arcade.game;
 
+import mro.arcade.game.model.Color;
+import mro.arcade.game.model.Position;
+import mro.arcade.game.view.ASCIIRenderer;
+import mro.arcade.game.view.RenderData;
+
 public class ArcadeGameMain {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello World");
-        System.out.println("Hello World 2");
-        System.out.println("Hello World 3");
+        ASCIIRenderer renderer = new ASCIIRenderer();
+
+        RenderData data = new RenderData() {
+            @Override
+            public Color getFieldColor(Position position) {
+                if (position.equals(new Position(2, 2))) {
+                    return Color.RED;
+                }
+                return Color.BLACK;
+            }
+        };
+
+        renderer.render(data);
+
     }
 
 }

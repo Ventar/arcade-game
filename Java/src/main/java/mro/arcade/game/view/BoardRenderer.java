@@ -1,5 +1,7 @@
 package mro.arcade.game.view;
 
+import mro.arcade.game.view.RenderData;
+
 /**
  *
  * Implementation of the BoardRenderer Interface

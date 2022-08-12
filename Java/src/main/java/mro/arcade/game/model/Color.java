@@ -12,6 +12,10 @@ public class Color {
      * Black color (0,0,0)
      */
     public static Color BLACK = new Color(0, 0, 0);
+    public static Color RED = new Color(255, 0, 0);
+    public static Color GREEN = new Color(0, 255, 0);
+    public static Color BLUE = new Color(0, 0, 255);
+    public static Color YELLOW = new Color(255, 255, 0);
 
 
     private int red;
@@ -56,5 +60,10 @@ public class Color {
      */
     public int getGreen() {
         return green;
+    }
+
+    public String getHexString() {
+        ;
+        return String.format("%02X", red) + String.format("%02X", green) + String.format("%02X", blue);
     }
 }
