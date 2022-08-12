@@ -1,0 +1,21 @@
+@startuml
+actor PC_Michael as PCM
+actor PC_Leon as PCL
+database GitHub as GH
+actor PC_Noel as PCN
+
+PCM -> GH: create new project arcade-game
+PCN -> GH: git clone https://github.com/Ventar/arcade-game.git
+PCN -> PCN: add new source code
+PCN -> PCN: git add .
+PCN -> PCN: git commit -m "Add new source code"
+PCN -> GH: git push
+PCL -> GH: git pull --rebase
+PCL -> PCL: add new source code
+PCL -> PCL: git add .
+PCL -> PCL: git commit -m "Add new source code"
+PCL -> GH: git push
+PCM -> GH: git pull --rebase
+
+
+@enduml
