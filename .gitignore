@@ -1,4 +1,9 @@
+# IntelliJ
+.DS_Store
+.idea
+
 # Compiled class file
+target/
 *.class
 
 # Log file
