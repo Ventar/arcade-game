@@ -5,8 +5,15 @@ import mro.arcade.game.model.Position;
 
 public class ASCIIRenderer implements BoardRenderer {
 
-    private static int COLUMN_WIDTH = 8;
-    private static int ROW_HEIGHT = 3;
+    /**
+     * Number of - columns.
+     */
+    private static final int COLUMN_WIDTH = 8;
+
+    /**
+     * Number of | rows.
+     */
+    private static final int ROW_HEIGHT = 3;
 
 
     @Override
