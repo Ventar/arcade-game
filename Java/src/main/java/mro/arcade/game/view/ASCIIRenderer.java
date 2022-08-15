@@ -43,7 +43,7 @@ public class ASCIIRenderer implements BoardRenderer {
 
                 if (rHeight == 0) {
                     result += " (" + column + "|" + rowNumber + ")" + " ".repeat(COLUMN_WIDTH - 6);
-                } else if (rHeight == ROW_HEIGHT - 1 && !color.equals(Color.BLACK)) {
+                } else if (rHeight == ROW_HEIGHT - 1 && !color.equals(Color.COLOR_BLACK)) {
                     result += " ";
                     result += color.getHexString();
                     result += " ".repeat(COLUMN_WIDTH - 7);

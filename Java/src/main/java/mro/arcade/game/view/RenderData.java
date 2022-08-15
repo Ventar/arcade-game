@@ -14,7 +14,7 @@ public interface RenderData {
     /**
      * Get color from certain position.
      *
-     * @param position the position to fetch the color. If no color is set at that position {@link Color#BLACK} is returned
+     * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
      *
      * @return the color or black if no color was set.
      */

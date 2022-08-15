@@ -15,9 +15,9 @@ public class ArcadeGameMain {
             @Override
             public Color getFieldColor(Position position) {
                 if (position.equals(new Position(2, 2))) {
-                    return Color.RED;
+                    return Color.COLOR_RED;
                 }
-                return Color.BLACK;
+                return Color.COLOR_BLACK;
             }
         };
 

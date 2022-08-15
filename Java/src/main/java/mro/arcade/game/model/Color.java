@@ -11,16 +11,43 @@ public class Color {
     /**
      * Black color (0,0,0)
      */
-    public static Color BLACK = new Color(0, 0, 0);
-    public static Color RED = new Color(255, 0, 0);
-    public static Color GREEN = new Color(0, 255, 0);
-    public static Color BLUE = new Color(0, 0, 255);
-    public static Color YELLOW = new Color(255, 255, 0);
+    public static final Color COLOR_BLACK = new Color(0, 0, 0);
+
+    /**
+     * Red color (255,0,0)
+     */
+    public static final Color COLOR_RED = new Color(255, 0, 0);
+
+    /**
+     * Red green (0,255,0)
+     */
+    public static final Color COLOR_GREEN = new Color(0, 255, 0);
+
+    /**
+     * Red blue (0,0,255)
+     */
+    public static final Color COLOR_BLUE = new Color(0, 0, 255);
+
+    /**
+     * Red yellow (255,255,255)
+     */
+    public static final Color COLOR_YELLOW = new Color(255, 255, 0);
 
 
-    private int red;
-    private int blue;
-    private int green;
+    /**
+     * Red.
+     */
+    private final int red;
+
+    /**
+     * Green.
+     */
+    private final int blue;
+
+    /**
+     * Blue.
+     */
+    private final int green;
 
     /**
      * Creates a new color instance.
@@ -63,7 +90,6 @@ public class Color {
     }
 
     public String getHexString() {
-        ;
         return String.format("%02X", red) + String.format("%02X", green) + String.format("%02X", blue);
     }
 }
