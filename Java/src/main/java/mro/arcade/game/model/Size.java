@@ -1,14 +1,16 @@
 package mro.arcade.game.model;
 
 /**
+ * Implementation of the size class.
  *
- * Implementation of the size class
+ * <p>
+ * <img src="doc-files/Example.png"/>
+ * <p>
  *
  * @author Noel Masur, Leon Federau
  * @since 12.08.2022
- *
- *Get the size from the field/board
- *
+ * <p>
+ * Get the size from the field/board
  */
 
 public class Size {
@@ -22,6 +24,7 @@ public class Size {
     public int getHeight() {
         return height;
     }
+
     /**
      * Get the width from the board
      */
