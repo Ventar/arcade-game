@@ -1,7 +1,7 @@
 package mro.arcade.game.view;
 
 /**
- * Implementation of the BoardRenderer Interface
+ * BoardRenderer Interface
  *
  * @author Noel Masur, Leon Federau
  * @since 12.08.2022

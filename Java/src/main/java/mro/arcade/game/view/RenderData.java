@@ -12,7 +12,7 @@ import mro.arcade.game.model.Position;
 public interface RenderData {
 
     /**
-     * Get color from certain position.
+     * Get color from specific position.
      *
      * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
      *

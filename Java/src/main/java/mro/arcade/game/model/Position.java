@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Noel Masur, Leon Federau
  * @since 12.08.2022
  * <p>
- * Get the certain position from the field
+ *Get the certain position from the field
  */
 public class Position {
 
@@ -21,14 +21,16 @@ public class Position {
     }
 
     /**
-     * Get the position from the row
+     * Returns the row from the game field
+     * @return row
      */
     public int getRow() {
         return row;
     }
 
     /**
-     * Get the Position from the Column
+     * Returns the column of the game field
+     * @return
      */
     public int getColumn() {
         return column;

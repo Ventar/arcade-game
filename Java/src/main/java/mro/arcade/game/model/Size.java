@@ -19,14 +19,16 @@ public class Size {
     private int width;
 
     /**
-     * Get the height from the board
+     * Get the height of the...
+     * @return height
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     * Get the width from the board
+     * Returns the width of the...
+     * @return width
      */
     public int getWidth() {
         return width;
