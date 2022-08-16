@@ -12,4 +12,5 @@ public interface BoardRenderer {
 
     void render(RenderData data);
 
+    ;
 }
