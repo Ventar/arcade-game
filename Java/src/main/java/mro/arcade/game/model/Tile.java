@@ -1,7 +1,6 @@
 package mro.arcade.game.model;
 
-import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -23,10 +22,6 @@ public class Tile extends TileTemplate{
         this.rotation = rotation;
     }
 
-    public void addTileToField(int columnTile, int rowTile, int columnField, int rowField, int rotation){
-
-    }
-
     /**
      * Get the Color of the tile
      * @return
@@ -42,5 +37,4 @@ public class Tile extends TileTemplate{
     public void setColor(Color color) {
         this.color = color;
     }
-
 }

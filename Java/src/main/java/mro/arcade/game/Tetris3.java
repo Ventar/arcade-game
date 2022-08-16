@@ -23,8 +23,6 @@ public class Tetris3 {
     private static void move(int column, int row, Direction direction) {
         String game = data[column][row];
         if (direction.equals(Direction.UP)) {
-
-
             add(game, column + 1, row);
             delete(column, row);
 
@@ -42,21 +40,13 @@ public class Tetris3 {
     }
 
     private static void delete(int column, int row) {
-
         if (!data[column][row].equals("")) {
-
             data[column][row] = "";
-
         }
-
-
     }
 
-
     private static void add(String adder, int column, int row) {
-
         data[column][row] = adder;
-
     }
 
     public static void main(String[] args) {

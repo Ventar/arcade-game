@@ -25,7 +25,7 @@ public class TileTemplate {
      *
      * @return the size
      */
-    public Size getSize() {
+    public Size getTemplateSize() {
         return size;
     }
 
@@ -34,7 +34,7 @@ public class TileTemplate {
      *
      * @param size of the template
      */
-    public void setSize(Size size) {
+    public void setTemplateSize(Size size) {
         this.size = size;
     }
 
@@ -43,7 +43,7 @@ public class TileTemplate {
      *
      * @return tile fields
      */
-    public List<Position> getFields() {
+    public List<Position> getTemplateFields() {
         return fields;
     }
 
@@ -52,7 +52,7 @@ public class TileTemplate {
      *
      * @param fields the tile is claiming
      */
-    public void setFields(List<Position> fields) {
+    public void setTemplateFields(List<Position> fields) {
         this.fields = fields;
     }
 }
