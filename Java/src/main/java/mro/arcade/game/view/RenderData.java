@@ -2,6 +2,7 @@ package mro.arcade.game.view;
 
 import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
+import mro.arcade.game.model.Size;
 
 /**
  * RenderData interface
@@ -20,4 +21,9 @@ public interface RenderData {
      */
     Color getFieldColor(Position position);
 
+
+    Size getSize();
+
+
 }
+

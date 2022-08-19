@@ -64,10 +64,11 @@ public class TileTemplate {
 
             switch (rotation) {
                 case DEGREE_0:
-
+                    Position p = new Position(pos.getColumn(),  pos.getRow());
+                    tileRotations.add(p);
                     break;
                 case DEGREE_90:
-                    Position p = new Position(pos.getRow(), -1 * pos.getColumn());
+                    p = new Position(pos.getRow(), -1 * pos.getColumn());
                     tileRotations.add(p);
 
 

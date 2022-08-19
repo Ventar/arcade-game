@@ -18,21 +18,25 @@ public class ASCIIRenderer implements BoardRenderer {
 
     @Override
     public void render(RenderData data) {
-        int columnCount = 8;
-        int rowCount = 8;
+
+        int columnCount = data.getSize().getWidth();
+        int rowCount = data.getSize().getHeight();
 
         String result = "";
 
 
-        result += tetrisFrame(columnCount, "┌", "─", "┬", "┐");
-        result += fillerSign(data, columnCount, 0);
 
-        for (int row = 1; row < rowCount; row++) {
-            result += tetrisFrame(columnCount, "├", "─", "┼", "┤");
-            result += fillerSign(data, columnCount, row);
+
+        for (int row = 0; row < rowCount; row++) {
+            if (row == 0) {
+                result += tetrisFrame(columnCount, "┌", "─", "┬", "┐");
+                result += fillerSign(data, columnCount, rowCount - 1 - row);
+            } else {
+                result += tetrisFrame(columnCount, "├", "─", "┼", "┤");
+                result += fillerSign(data, columnCount, rowCount - 1 - row);
+            }
         }
-
-        result += tetrisFrame(rowCount, "└", "─", "┴", "┘");
+        result += tetrisFrame(columnCount, "└", "─", "┴", "┘");
 
         System.out.println(result);
 
