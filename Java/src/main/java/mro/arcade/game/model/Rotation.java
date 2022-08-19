@@ -15,6 +15,7 @@ public enum Rotation {
      * Enumirations of the position from the tiles
      */
 
+    // L Tile
     //Represents a rotation by 0°
     DEGREE_0,
 
