@@ -40,7 +40,7 @@ public class TileTemplate {
      *
      * @param fields files the tile could take place
      */
-    public TileTemplate(List<Position> fields) {
+    private TileTemplate(List<Position> fields) {
         this.fields = fields;
     }
 
@@ -70,20 +70,14 @@ public class TileTemplate {
                 case DEGREE_90:
                     p = new Position(pos.getRow(), -1 * pos.getColumn());
                     tileRotations.add(p);
-
-
                     break;
                 case DEGREE_180:
                     p = new Position(-1 * pos.getColumn(), -1 * pos.getRow());
                     tileRotations.add(p);
-
-
                     break;
                 case DEGREE_270:
                     p = new Position(-1 * pos.getRow(), pos.getColumn());
                     tileRotations.add(p);
-
-
                     break;
                 default:
                     throw new IllegalArgumentException("Passed rotation is not supported");
@@ -108,5 +102,7 @@ public class TileTemplate {
     public String toString() {
         return fields.toString();
     }
+
+
 }
 

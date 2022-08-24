@@ -5,6 +5,7 @@ import mro.arcade.game.view.RenderData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Gameboard implements RenderData {
 
@@ -69,7 +70,6 @@ public class Gameboard implements RenderData {
      * The  method checks if the posititon is outside of the border. Or is already loaded with another tile.
      *
      * @param position the position to check
-     *
      * @throws InterruptedException if the check fails.
      */
     private void validatePosition(Position position) {
@@ -93,19 +93,29 @@ public class Gameboard implements RenderData {
     @Override
     public String toString() {
         return "Gameboard{" +
-                       "tiles=" + tiles +
-                       ", size=" + size +
-                       '}';
+                "tiles=" + tiles +
+                ", size=" + size +
+                '}';
     }
 
     public static void main(String[] args) {
+        int rounds = 3;
 
-        Gameboard board = new Gameboard(new Size(8, 5));
+
+        Gameboard board = new Gameboard(new Size(8, 8));
         board.addTileToField(TileTemplate.L_TEMPLATE, Rotation.DEGREE_270, new Position(2, 0), Color.COLOR_RED);
-        board.addTileToField(TileTemplate.O_TEMPLATE, Rotation.DEGREE_0, new Position(3, 0), Color.COLOR_GREEN);
-        board.addTileToField(TileTemplate.I_TEMPLATE, Rotation.DEGREE_0, new Position(3, 2), Color.COLOR_BLUE);
+        Tile t = board.addTileToField(TileTemplate.S_TEMPLATE, Rotation.DEGREE_90, new Position(2, 4), Color.COLOR_BLUE);
+        board.rotate(t, Rotation.DEGREE_90);
+
         ASCIIRenderer renderer = new ASCIIRenderer();
         renderer.render(board);
+
+
     }
 
+    private void rotate(Tile t, Rotation rotation) {
+
+
+
+    }
 }

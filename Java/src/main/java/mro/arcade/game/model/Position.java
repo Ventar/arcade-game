@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Noel Masur, Leon Federau
  * @since 12.08.2022
  * <p>
- *Get the certain position from the field
+ * Get the certain position from the field
  */
 public class Position {
 
@@ -22,6 +22,7 @@ public class Position {
 
     /**
      * Returns the row from the game field
+     *
      * @return row
      */
     public int getRow() {
@@ -30,11 +31,35 @@ public class Position {
 
     /**
      * Returns the column of the game field
+     *
      * @return
      */
     public int getColumn() {
         return column;
     }
+
+    public Position add(Position pos) {
+        return new Position(this.column + pos.getColumn(), this.row + pos.getRow());
+    }
+
+    public Position sub(Position pos) {
+        return new Position(this.column - pos.getColumn(), this.row - pos.getRow());
+    }
+
+    public Position rotate(Rotation rotation) {
+        return switch (rotation) {
+            case DEGREE_0 -> new Position(this.column, this.row);
+            case DEGREE_90 -> new Position(this.row, -1 * this.column);
+            case DEGREE_180 -> new Position(-1 * this.column, -1 * this.row);
+            case DEGREE_270 -> new Position(-1 * this.row, this.column);
+            default -> throw new IllegalArgumentException();
+        };
+    }
+
+//    public Position normalizeAndRotate(Position anchor, Rotation rotation) {
+//         return this.sub(anchor).rotate(rotation).add(anchor);
+//    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -51,11 +76,7 @@ public class Position {
 
     @Override
     public String toString() {
-
-        String s = "("+ column + "|" + row + ")";
-
-        return s;
-
+        return "(" + column + "|" + row + ")";
     }
 
 }
