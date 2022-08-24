@@ -61,5 +61,24 @@ public class Tile {
         return tile;
     }
 
+	public Tile move(Tile tile, Direction direction){
+        Position newPosition;
+        List<Position> newTilePositions = new ArrayList<>();
 
+        for (Position tilePosition : tile.getPositions()) {
+            if(direction == Direction.DOWN){
+
+                newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() - 1);
+                newTilePositions.add(newPosition);
+            }else if(direction == Direction.LEFT){
+                newPosition = new Position(tilePosition.getColumn() - 1, tilePosition.getRow());
+                newTilePositions.add(newPosition);
+            }else if(direction == Direction.RIGHT){
+                newPosition = new Position(tilePosition.getColumn() + 1, tilePosition.getRow());
+                newTilePositions.add(newPosition);
+            }
+        }
+        Tile tileToReturn = new Tile(newTilePositions, tile.getColor());
+        return tileToReturn;
+    }
 }

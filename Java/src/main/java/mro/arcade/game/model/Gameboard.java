@@ -18,6 +18,27 @@ public class Gameboard implements RenderData {
 
     }
 
+    public Tile moveTile(Tile tile, Direction direction) {
+
+        this.tiles.remove(tile);
+
+        Tile newTile = tile.move(tile, direction);
+
+        for (Position tilePosition : newTile.getPositions()) {
+            for (Tile boardTile : this.tiles) {
+                for (Position boardTilePosition : boardTile.getPositions()) {
+                    if (tilePosition.equals(boardTilePosition)) {
+                        this.tiles.add(tile);
+                        return null;
+                    }
+                }
+            }
+        }
+
+        this.tiles.add(newTile);
+        return newTile;
+    }
+
     public Tile addTileToField(TileTemplate tileTemplate, Rotation rotation, Position boardPosition, Color color) {
 
         // The apprentice solution
