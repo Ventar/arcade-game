@@ -83,8 +83,8 @@ public class TileTemplate {
                     throw new IllegalArgumentException("Passed rotation is not supported");
             }
         }
-        TileTemplate tileTemplate = new TileTemplate(tileRotations);
-        return tileTemplate;
+
+        return new TileTemplate(tileRotations);
 
     }
 

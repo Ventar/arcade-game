@@ -49,16 +49,12 @@ public class Tile {
             newPositions.add(finalPos);
         }
 
-        Tile tile = new Tile(newPositions, this.color);
-
-//        Tile tile = new Tile(
-//                fields.stream()
-//                        .map(pos -> pos.sub(anchor).rotate(rotation).add(anchor))
-//                        .toList(),
-//                this.color);
 
 
-        return tile;
+
+
+
+        return new Tile(newPositions, this.color) ;
     }
 
 	public Tile move(Tile tile, Direction direction){
@@ -78,8 +74,8 @@ public class Tile {
                 newTilePositions.add(newPosition);
             }
         }
-        Tile tileToReturn = new Tile(newTilePositions, tile.getColor());
-        return tileToReturn;
+
+        return new Tile (newTilePositions, tile.getColor());
     }
 
     @Override

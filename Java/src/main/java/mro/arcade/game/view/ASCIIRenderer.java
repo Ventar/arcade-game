@@ -2,7 +2,7 @@ package mro.arcade.game.view;
 
 import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
-
+@SuppressWarnings("java:S106")
 public class ASCIIRenderer implements BoardRenderer {
 
     /**
@@ -22,21 +22,21 @@ public class ASCIIRenderer implements BoardRenderer {
         int columnCount = data.getSize().getWidth();
         int rowCount = data.getSize().getHeight();
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
 
 
 
         for (int row = 0; row < rowCount; row++) {
             if (row == 0) {
-                result += tetrisFrame(columnCount, "┌", "─", "┬", "┐");
-                result += fillerSign(data, columnCount, rowCount - 1 - row);
+                result.append( tetrisFrame(columnCount, "┌", "─", "┬", "┐"));
+                result.append(fillerSign(data, columnCount, rowCount - 1 - row));
             } else {
-                result += tetrisFrame(columnCount, "├", "─", "┼", "┤");
-                result += fillerSign(data, columnCount, rowCount - 1 - row);
+                result.append( tetrisFrame(columnCount, "├", "─", "┼", "┤"));
+                result.append(fillerSign(data, columnCount, rowCount - 1 - row));
             }
         }
-        result += tetrisFrame(columnCount, "└", "─", "┴", "┘");
+        result.append( tetrisFrame(columnCount, "└", "─", "┴", "┘"));
 
         System.out.println(result);
 

@@ -56,9 +56,7 @@ public class Position {
         };
     }
 
-//    public Position normalizeAndRotate(Position anchor, Rotation rotation) {
-//         return this.sub(anchor).rotate(rotation).add(anchor);
-//    }
+
 
 
     @Override

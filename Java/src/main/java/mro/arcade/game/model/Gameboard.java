@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("java:S106")
 public class Gameboard implements RenderData {
 
     private List<Tile> tiles = new ArrayList<>();
@@ -65,6 +66,7 @@ public class Gameboard implements RenderData {
         System.out.println("Tile to add : " + tile);
         tiles.add(tile);
 
+
         return tile;
     }
 
@@ -95,17 +97,19 @@ public class Gameboard implements RenderData {
      */
     private void validatePosition(Position position) {
 
+        String pos = "The position";
+
         if (position.getColumn() > size.getWidth() - 1) {
-            throw new IllegalArgumentException("The position " + position + " has an invalid column, max column is " + (size.getWidth() - 1));
+            throw new IllegalArgumentException(pos + position + " has an invalid column, max column is " + (size.getWidth() - 1));
         }
         if (position.getRow() > size.getHeight() - 1) {
-            throw new IllegalArgumentException("The position " + position + " has an invalid row, max row is " + (size.getHeight() - 1));
+            throw new IllegalArgumentException(pos + position + " has an invalid row, max row is " + (size.getHeight() - 1));
         }
         if (position.getRow() < 0) {
-            throw new IllegalArgumentException("The position " + position + " has an invalid row, min row is 0 ");
+            throw new IllegalArgumentException(pos + position + " has an invalid row, min row is 0 ");
         }
         if (position.getColumn() < 0) {
-            throw new IllegalArgumentException("The position " + position + " has an invalid column, min column is 0 ");
+            throw new IllegalArgumentException(pos + position + " has an invalid column, min column is 0 ");
         }
 
     }
@@ -119,24 +123,11 @@ public class Gameboard implements RenderData {
                 '}';
     }
 
-    public static void main(String[] args) {
-        int rounds = 3;
-
-
-        Gameboard board = new Gameboard(new Size(8, 8));
-        board.addTileToField(TileTemplate.L_TEMPLATE, Rotation.DEGREE_270, new Position(2, 0), Color.COLOR_RED);
-        Tile t = board.addTileToField(TileTemplate.S_TEMPLATE, Rotation.DEGREE_90, new Position(2, 4), Color.COLOR_BLUE);
-        board.rotate(t, Rotation.DEGREE_90);
-
-        ASCIIRenderer renderer = new ASCIIRenderer();
-        renderer.render(board);
-
-
-    }
 
 
 
-    private void rotate(Tile t, Rotation rotation) {
+
+    public void rotate(Tile t, Rotation rotation) {
 
         tiles.remove(t);
         Tile rotatedTile = t.rotate(rotation);
