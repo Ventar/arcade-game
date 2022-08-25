@@ -134,9 +134,23 @@ public class Gameboard implements RenderData {
 
     }
 
+
+
     private void rotate(Tile t, Rotation rotation) {
 
-
-
+        tiles.remove(t);
+        Tile rotatedTile = t.rotate(rotation);
+        for (Position rotatedTilePos : rotatedTile.getPositions()) {
+            for (Tile tileCheck : tiles) {
+                for (Position positioncheck : tileCheck.getPositions())
+                    if (rotatedTilePos.equals(positioncheck)) {
+                        tiles.add(t);
+                        return;
+                    }
+            }
+        }
+        tiles.add(rotatedTile);
     }
 }
+
+

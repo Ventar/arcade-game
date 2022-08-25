@@ -60,10 +60,17 @@ public class Tile {
 
         return tile;
     }
+<<<<<<< HEAD
 
 	public Tile move(Tile tile, Direction direction){
         Position newPosition;
         List<Position> newTilePositions = new ArrayList<>();
+=======
+    @Override
+    public String toString() {
+        return fields.toString();
+    }
+>>>>>>> 345cefa (Add rotate method)
 
         for (Position tilePosition : tile.getPositions()) {
             if(direction == Direction.DOWN){
