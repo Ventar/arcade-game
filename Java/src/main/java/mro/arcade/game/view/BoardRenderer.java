@@ -11,4 +11,6 @@ package mro.arcade.game.view;
 public interface BoardRenderer {
 
     void render(RenderData data);
+
+    void clear();
 }

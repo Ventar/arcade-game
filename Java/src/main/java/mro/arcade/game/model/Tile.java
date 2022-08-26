@@ -2,11 +2,13 @@ package mro.arcade.game.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Tiles to play the game Tetris
  */
 public class Tile {
+
     private Color color;
     protected List<Position> fields;
 
@@ -49,37 +51,44 @@ public class Tile {
             newPositions.add(finalPos);
         }
 
-
-
-
-
-
-        return new Tile(newPositions, this.color) ;
+        return new Tile(newPositions, this.color);
     }
 
-	public Tile move(Tile tile, Direction direction){
+    public Tile move(Tile tile, Direction direction) {
         Position newPosition;
         List<Position> newTilePositions = new ArrayList<>();
 
         for (Position tilePosition : tile.getPositions()) {
-            if(direction == Direction.DOWN){
-
+            if (direction == Direction.DOWN) {
                 newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() - 1);
                 newTilePositions.add(newPosition);
-            }else if(direction == Direction.LEFT){
+            } else if (direction == Direction.LEFT) {
                 newPosition = new Position(tilePosition.getColumn() - 1, tilePosition.getRow());
                 newTilePositions.add(newPosition);
-            }else if(direction == Direction.RIGHT){
+            } else if (direction == Direction.RIGHT) {
                 newPosition = new Position(tilePosition.getColumn() + 1, tilePosition.getRow());
                 newTilePositions.add(newPosition);
             }
         }
 
-        return new Tile (newTilePositions, tile.getColor());
+        return new Tile(newTilePositions, tile.getColor());
     }
 
     @Override
     public String toString() {
         return fields.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return fields.equals(tile.fields);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fields);
     }
 }

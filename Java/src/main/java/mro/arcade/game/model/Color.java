@@ -1,5 +1,7 @@
 package mro.arcade.game.model;
 
+import java.util.Objects;
+
 /**
  * Implementation of the color class. A color is defined by the RGB model where every part of the color (R means read, G means green, B means blue) has a value between 0 and 255.
  *
@@ -91,5 +93,18 @@ public class Color {
 
     public String getHexString() {
         return String.format("%02X", red) + String.format("%02X", green) + String.format("%02X", blue);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return red == color.red && blue == color.blue && green == color.green;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(red, blue, green);
     }
 }
