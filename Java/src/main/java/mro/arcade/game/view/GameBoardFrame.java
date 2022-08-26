@@ -1,6 +1,7 @@
 package mro.arcade.game.view;
 
 import mro.arcade.game.model.Gameboard;
+import mro.arcade.game.model.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,11 +58,9 @@ public class GameBoardFrame {
                     x = column * FIELD_SIZE_PX;
                     y = row * FIELD_SIZE_PX;
 
-                    g2d.setColor(Color.BLACK);
+                    mro.arcade.game.model.Color color = model.getFieldColor(new Position(column, row));
+                    g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
                     g2d.fillRect(x, y, FIELD_SIZE_PX, FIELD_SIZE_PX);
-
-                    //g2d.setColor(model.getFields()[column][row]);
-                    //g2d.fillArc(x + 10, y + 10, FIELD_SIZE_PX - 20, FIELD_SIZE_PX - 20, 0, 360);
                 }
             }
 

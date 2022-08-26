@@ -6,17 +6,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("java:S106")
+/**
+ * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
+ * Render an Asci board or a Frame board
+ */
 public class Gameboard implements RenderData {
 
+    /**
+     * The list contains all Tiles which are laid on the Gameboard
+     */
     private List<Tile> tiles = new ArrayList<>();
 
+    /**
+     * Indicates the size of the Gameboard
+     */
     private Size size;
 
+    /**
+     * Creates a new instance of the Gameboard with a specific size
+     * @param size of the Gameboard
+     */
     public Gameboard(Size size) {
         this.size = size;
 
     }
 
+    /**
+     * Moving a Tile on the Gameboard, deleting its old position the new position
+     * @param tile to move
+     * @param direction to move the tile
+     * @return the moved Tile
+     */
 
 
     public Tile addTileToField(TileTemplate tileTemplate, Rotation rotation, Position boardPosition, Color color) {
