@@ -4,31 +4,57 @@ skinparam BackgroundColor #2B2B2B
 skinparam linetype ortho
 
 
-interface DeviceEventHandler << Interface >> {
-    + handle(DeviceDataPackage) : void
+class DeviceEventHandler << Gameboard >> {
+    + getFieldcolor = fieldcolor
+    + getsize = size
+    + rotate = rotate
+    + validatePosition = Check if position is empty or filled
 }
 
-interface GameEventListener<E extends GameEvent> << Interface >> {
-    + onEvent(E) : void
+class GameEventListener << ASCIIRenderer >> {
+    + render : render the outer frame of the board
+    + fillersign : render the inner board
+    + tetrisframe : render the complete board
 }
 
-interface GameEventProducer<E extends GameEvent,\n L extends GameEventListener> << Interface >> {
-    + addListener(E) : void
-    + removeListener(E) : void
-    + waitForEvent() : E
+class GameEventProducer << Color >> {
++ Red : getColor
++ Green : getColor
++ Blue : getColor
 }
 
-interface GameEvent << Interface >> {}
+enum GameEvent <<Direction>> {
++ Down
++ Left
++ Right
+}
 
-interface DeviceEventService << Interface >> {}
-class DeviceDataPackage {}
+class DeviceEventService << TileTemplate >> {
++ Templates:
++ L Template
++ S Template
++ O Template
++ I Template
+}
 
-GameEventProducer <-- GameEventListener : registers
-GameEventProducer --o DeviceEventHandler : implements
-GameEventProducer --> GameEvent : creates
-GameEvent .. GameEventListener : processes
-DeviceEventService --* DeviceEventHandler : @Auowired
-DeviceEventHandler -- DeviceDataPackage : handles
+
+
+
+
+enum Rotation {
++ DEGREE_0
++ DEGREE_90
++ DEGREE_180
++ DEGREE_270
+}
+
+GameEventProducer <-- GameEventListener
+GameEventProducer o-- DeviceEventHandler
+GameEventProducer --> GameEvent
+GameEvent .. GameEventListener
+DeviceEventService *-- DeviceEventHandler
+DeviceEventHandler -- Rotation
+
 
 
 @enduml
