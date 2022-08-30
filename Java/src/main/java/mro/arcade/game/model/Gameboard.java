@@ -38,7 +38,6 @@ public class Gameboard implements RenderData {
      * @return the moved Tile
      */
 
-
     public Tile addTileToField(TileTemplate tileTemplate, Rotation rotation, Position boardPosition, Color color) {
 
         // The apprentice solution
@@ -54,7 +53,7 @@ public class Gameboard implements RenderData {
 
             // all tiles on the field have a color, if no tile is available on a field the color black is returned, i.e. if a color
             // is returned for a given position the field was already set.
-            if (!getFieldColor(newBoardPosition).equals(Color.COLOR_BLACK)) {
+            if (checkIfSet(newBoardPosition)) {
                 throw new IllegalArgumentException("Position " + newBoardPosition + " is already filled");
             }
 
@@ -92,7 +91,6 @@ public class Gameboard implements RenderData {
      * The  method checks if the posititon is outside of the border. Or is already loaded with another tile.
      *
      * @param position the position to check
-     *
      * @throws InterruptedException if the check fails.
      */
     private void validatePosition(Position position) {
@@ -118,9 +116,9 @@ public class Gameboard implements RenderData {
     @Override
     public String toString() {
         return "Gameboard{" +
-                       "tiles=" + tiles +
-                       ", size=" + size +
-                       '}';
+                "tiles=" + tiles +
+                ", size=" + size +
+                '}';
     }
 
 
@@ -130,14 +128,12 @@ public class Gameboard implements RenderData {
 
         Tile rotatedTile = t.rotate(rotation);
 
-        for (Position rotatedTilePos : rotatedTile.getPositions()) {
-            for (Tile tileCheck : tiles) {
-                for (Position positioncheck : tileCheck.getPositions())
-                    if (rotatedTilePos.equals(positioncheck)) {
-                        System.out.println("Collision: " + positioncheck + ", do not move, board = " + tiles);
-                        tiles.add(t);
-                        return t;
-                    }
+
+        for (Position tilePosition : rotatedTile.getPositions()) {
+            if (checkIfSet(tilePosition)) {
+                System.out.println("Collision: " + tilePosition + ", do not move, board = " + tiles);
+                tiles.add(t);
+                return t;
             }
         }
 
@@ -146,6 +142,17 @@ public class Gameboard implements RenderData {
     }
 
 
+    public boolean checkIfSet(Position position) {
+        for (Tile tile : tiles) {
+            for (Position pos : tile.getPositions()) {
+                if (pos.equals(position)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Tile moveTile(Tile tile, Direction direction) {
 
         this.tiles.remove(tile);
@@ -153,14 +160,10 @@ public class Gameboard implements RenderData {
         Tile newTile = tile.move(tile, direction);
 
         for (Position tilePosition : newTile.getPositions()) {
-            for (Tile boardTile : this.tiles) {
-                for (Position boardTilePosition : boardTile.getPositions()) {
-                    if (tilePosition.equals(boardTilePosition)) {
-                        System.out.println("Collision: " + tilePosition + ", do not move, board = " + tiles);
-                        this.tiles.add(tile);
-                        return tile;
-                    }
-                }
+            if (checkIfSet(tilePosition)) {
+                System.out.println("Collision: " + tilePosition + ", do not move, board = " + tiles);
+                this.tiles.add(tile);
+                return tile;
             }
         }
 
