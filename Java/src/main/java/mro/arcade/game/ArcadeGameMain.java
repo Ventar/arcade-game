@@ -8,12 +8,14 @@ import mro.arcade.game.model.*;
 import mro.arcade.game.view.ASCIIRenderer;
 import mro.arcade.game.view.ArduinoHTTPRenderer;
 import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.SwingRenderer;
 
 public class ArcadeGameMain implements NativeKeyListener {
 
 
-    private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
+    //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
+    private BoardRenderer renderer = new SwingRenderer(new Size(12, 12));
 
     private Gameboard board = new Gameboard(new Size(12, 12));
 
