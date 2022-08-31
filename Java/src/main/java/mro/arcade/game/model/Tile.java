@@ -1,6 +1,7 @@
 package mro.arcade.game.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,11 @@ public class Tile {
     public Tile(List<Position> fields, Color color) {
         this.fields = fields;
         this.color = color;
+    }
+
+    public Tile(List<Position> fields) {
+        this.fields = fields;
+        this.color = null;
     }
 
     /**
@@ -68,10 +74,64 @@ public class Tile {
             } else if (direction == Direction.RIGHT) {
                 newPosition = new Position(tilePosition.getColumn() + 1, tilePosition.getRow());
                 newTilePositions.add(newPosition);
+            } else if (direction == Direction.UP) {
+                newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() + 1);
+                newTilePositions.add(newPosition);
             }
         }
 
         return new Tile(newTilePositions, tile.getColor());
+    }
+
+    public int getWidth() {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+
+        for (Position position : fields) {
+            if (min > position.getColumn()) {
+                min = position.getColumn();
+
+            }
+            if (max < position.getColumn()) {
+                max = position.getColumn();
+            }
+        }
+        return max - min + 1;
+    }
+
+    public int getHeight() {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+
+        for (Position position : fields) {
+            if (min > position.getRow()) {
+                min = position.getRow();
+
+            }
+            if (max < position.getRow()) {
+                max = position.getRow();
+            }
+        }
+        return max - min + 1;
+    }
+
+
+    public boolean removeRow(int row) {
+
+        boolean removed = false;
+
+        for (Iterator<Position> iterator = fields.iterator(); iterator.hasNext(); ) {
+            Position position = iterator.next();
+
+            if (position.getRow() == row) {
+                removed = true;
+                iterator.remove();
+            }
+        }
+
+        return removed;
     }
 
     @Override

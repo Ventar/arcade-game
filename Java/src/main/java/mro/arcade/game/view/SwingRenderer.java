@@ -12,6 +12,7 @@ public class SwingRenderer implements BoardRenderer {
     private static int FIELD_SIZE_PX = 50;
     private JFrame frame = new JFrame();
 
+    private Size size;
     private RenderData model;
 
     public JFrame getFrame() {
@@ -19,14 +20,30 @@ public class SwingRenderer implements BoardRenderer {
     }
 
     public SwingRenderer(Size size) {
+        this.size = size;
+
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                System.out.println(info);
+                if ("Metal".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+        }
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.setPreferredSize(new Dimension(size.getWidth() * (FIELD_SIZE_PX + 2), size.getHeight() * (FIELD_SIZE_PX + 2) + 25));
+                frame.setPreferredSize(new Dimension((size.getWidth() * (FIELD_SIZE_PX + 1)) +4, (size.getHeight() * (FIELD_SIZE_PX + 1)  + 28)));
                 frame.setContentPane(new PaintPane());
                 frame.pack();
                 frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
                 frame.setVisible(true);
                 frame.setTitle("Tetris");
             }
@@ -51,21 +68,37 @@ public class SwingRenderer implements BoardRenderer {
 
     private class PaintPane extends JPanel {
 
+        public PaintPane() {
+            setOpaque(true);
+            setBackground(new Color(192,192,192));
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
             Graphics2D g2d = (Graphics2D) g.create();
             int x, y = 0;
-            for (int column = 0; column < model.getSize().getWidth(); column++) {
-                for (int row = 0; row < model.getSize().getHeight(); row++) {
+            for (int column = 0; column < size.getWidth(); column++) {
+                for (int row = 0; row < size.getHeight(); row++) {
                     x = column * FIELD_SIZE_PX;
                     y = row * FIELD_SIZE_PX;
 
                     mro.arcade.game.model.Color color = mro.arcade.game.model.Color.COLOR_BLACK;
                     if (model != null) {
-                        color = model.getFieldColor(new Position(column, model.getSize().getHeight() -1 - row));
+                        color = model.getFieldColor(new Position(column, size.getHeight() - 1 - row));
                     }
-                    g2d.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue()));
-                    g2d.fillRect(x, y, FIELD_SIZE_PX, FIELD_SIZE_PX);
+
+                    Color awtColor =null;
+
+                    if (color.equals(mro.arcade.game.model.Color.COLOR_BLACK)) {
+                           awtColor = new Color(120,140,160);
+                    } else {
+                        awtColor = convertToAwtColor(color);
+                    }
+
+                    g2d.setColor(awtColor);
+                    g2d.fillRect(x + 2, y + 2, FIELD_SIZE_PX - 2, FIELD_SIZE_PX - 2);
                 }
             }
 
@@ -73,6 +106,8 @@ public class SwingRenderer implements BoardRenderer {
 
         }
 
+        public Color convertToAwtColor(mro.arcade.game.model.Color ourColor) {
+            return new Color(ourColor.getRed(), ourColor.getGreen(), ourColor.getBlue());
+        }
     }
-
 }

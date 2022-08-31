@@ -19,5 +19,10 @@ public enum Direction {
      */
     RIGHT,
 
+    /**
+     * Moving the Tile Up
+     */
+    UP
+
 
 }

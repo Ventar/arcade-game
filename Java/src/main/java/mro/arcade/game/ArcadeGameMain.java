@@ -10,22 +10,23 @@ import mro.arcade.game.view.ArduinoHTTPRenderer;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.SwingRenderer;
 
+import java.util.Random;
+
 public class ArcadeGameMain implements NativeKeyListener {
 
 
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    private BoardRenderer renderer = new SwingRenderer(new Size(12, 12));
+    private BoardRenderer renderer = new SwingRenderer(new Size(24, 24));
 
     private Gameboard board = new Gameboard(new Size(12, 12));
 
     private Tile activeTile;
 
-    public ArcadeGameMain() {
-        board.addTileToField(TileTemplate.L_TEMPLATE, Rotation.DEGREE_270, new Position(2, 0), Color.COLOR_RED);
-        activeTile = board.addTileToField(TileTemplate.S_TEMPLATE, Rotation.DEGREE_90, new Position(2, 4), Color.COLOR_BLUE);
-        renderer.render(board);
-    }
+    private Tile nextTile;
+
+    private Color nextColor;
+
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
@@ -36,17 +37,75 @@ public class ArcadeGameMain implements NativeKeyListener {
             System.exit(0);
         }
 
-        activeTile = switch (nativeEvent.getKeyCode()) {
-            case 30 -> board.rotate(activeTile, Rotation.DEGREE_270);
-            case 32 -> board.rotate(activeTile, Rotation.DEGREE_90);
-            case 57421 -> board.moveTile(activeTile, Direction.RIGHT);
-            case 57419 -> board.moveTile(activeTile, Direction.LEFT);
-            case 57424 -> board.moveTile(activeTile, Direction.DOWN);
-            default -> activeTile; // nothing to do
-        };
+        switch (nativeEvent.getKeyCode()) {
+            case 30:
+                activeTile = board.rotate(activeTile, Rotation.DEGREE_270);
+                break;
+            case 32:
+                activeTile = board.rotate(activeTile, Rotation.DEGREE_90);
+                break;
+            case 57421:
+                activeTile = board.moveTile(activeTile, Direction.RIGHT);
+                break;
+            case 57419:
+                activeTile = board.moveTile(activeTile, Direction.LEFT);
+                break;
+            case 57424:
+                while (board.canMove(activeTile, Direction.DOWN)) {
+                    activeTile = board.moveTile(activeTile, Direction.DOWN);
+                }
+                break;
+            case 57416:
+                activeTile = board.moveTile(activeTile, Direction.UP);
+                break;
+            default:
+                break;  // nothing to do
+        }
+        ;
 
         renderer.render(board);
 
+    }
+
+    public void generateNextTile() {
+        Random random = new Random();
+        int nextint = random.nextInt(4);
+        nextTile = TileLibary.TILE_TEMPLATES[nextint];
+        generateNextColor();
+
+    }
+
+    public void generateNextColor() {
+        Random random = new Random();
+        int nextint = random.nextInt(11);
+        nextColor = Color.COLORS[nextint];
+    }
+
+    public void run() throws InterruptedException {
+        generateNextTile();
+        activeTile = board.addTileToField(nextTile, Rotation.DEGREE_90, new Position(5, 11), nextColor);
+
+        generateNextTile();
+        renderer.render(board);
+
+        while (true) {
+
+            Thread.sleep(1000);
+
+
+            if (board.canMove(activeTile, Direction.DOWN)) {
+                activeTile = board.moveTile(activeTile, Direction.DOWN);
+            } else {
+                System.out.println("End of board reached");
+                board.removeFullRows();
+
+                activeTile = board.addTileToField(nextTile, Rotation.DEGREE_0, new Position(6, 12 - nextTile.getHeight()), nextColor);
+
+                generateNextTile();
+
+            }
+            renderer.render(board);
+        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -55,6 +114,7 @@ public class ArcadeGameMain implements NativeKeyListener {
 
         ArcadeGameMain game = new ArcadeGameMain();
         GlobalScreen.addNativeKeyListener(game);
+        game.run();
 
     }
 }

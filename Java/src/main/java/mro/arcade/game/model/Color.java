@@ -35,6 +35,60 @@ public class Color {
      */
     public static final Color COLOR_YELLOW = new Color(255, 255, 0);
 
+    /**
+     * Red purple (255,255,255)
+     */
+    public static final Color COLOR_PURPLE = new Color(136,0,255);
+
+    /**
+     * Red brown (255,255,255)
+     */
+    public static final Color COLOR_BROWN = new Color(101,67,255);
+
+    /**
+     * Red peppermint(255,255,255)
+     */
+    public static final Color COLOR_PEPPERMINT = new Color(197,234,218);
+
+    /**
+     * Red orange (255,165,0)
+     */
+    public static final Color COLOR_ORANGE = new Color(255,165,0);
+
+    /**
+     * Red babyblue (255,165,0)
+     */
+    public static final Color COLOR_BABYBLUE = new Color(137,207,240);
+
+    /**
+     * Red rose (255,165,0)
+     */
+    public static final Color COLOR_ROSE = new Color(225,166,173);
+
+    /**
+     * Red rose (255,165,0)
+     */
+    public static final Color COLOR_SPRINGGREEN = new Color(0,255,127);
+
+
+    public static final Color[] COLORS = new Color[]{
+
+            COLOR_BABYBLUE,
+            COLOR_ORANGE,
+            COLOR_PEPPERMINT,
+            COLOR_BLUE,
+            COLOR_ROSE,
+            COLOR_GREEN,
+            COLOR_SPRINGGREEN,
+            COLOR_PURPLE,
+            COLOR_YELLOW,
+            COLOR_BROWN,
+            COLOR_RED,
+
+    };
+
+
+
 
     /**
      * Red.
