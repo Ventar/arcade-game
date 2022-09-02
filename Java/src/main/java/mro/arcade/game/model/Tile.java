@@ -12,20 +12,24 @@ public class Tile {
 
     private Color color;
     protected List<Position> fields;
+    private String name;
+
 
     /**
      * Create a new instance of a tile template
      *
      * @param fields files the tile could take place
      */
-    public Tile(List<Position> fields, Color color) {
+    public Tile(String name, List<Position> fields, Color color) {
         this.fields = fields;
         this.color = color;
+        this.name = name;
     }
 
-    public Tile(List<Position> fields) {
+    public Tile(String name, List<Position> fields) {
         this.fields = fields;
         this.color = null;
+        this.name = name;
     }
 
     /**
@@ -36,6 +40,9 @@ public class Tile {
     public Color getColor() {
         return color;
     }
+
+
+    public String getName(){return name;}
 
 
     /**
@@ -57,7 +64,7 @@ public class Tile {
             newPositions.add(finalPos);
         }
 
-        return new Tile(newPositions, this.color);
+        return new Tile(getName(),newPositions, this.color);
     }
 
     public Tile move(Tile tile, Direction direction) {
@@ -80,7 +87,7 @@ public class Tile {
             }
         }
 
-        return new Tile(newTilePositions, tile.getColor());
+        return new Tile(getName(),newTilePositions, tile.getColor());
     }
 
     public int getWidth() {
@@ -136,7 +143,11 @@ public class Tile {
 
     @Override
     public String toString() {
-        return fields.toString();
+        return "Tile{" +
+                "name='" + name + '\'' +
+                ", fields=" + fields +
+                ", color=" + color +
+                '}';
     }
 
     @Override

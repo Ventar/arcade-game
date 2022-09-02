@@ -161,4 +161,13 @@ public class Color {
     public int hashCode() {
         return Objects.hash(red, blue, green);
     }
+
+
+    @Override
+    public String toString() {
+        return "#"+getHexString();
+    }
 }
+
+
+

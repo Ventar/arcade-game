@@ -5,6 +5,9 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.model.*;
+import mro.arcade.game.view.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.SwingRenderer;
 
@@ -12,7 +15,7 @@ import java.util.Random;
 
 public class ArcadeGameMain implements NativeKeyListener {
 
-
+    private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
     private BoardRenderer renderer = new SwingRenderer(new Size(12, 12));
@@ -23,10 +26,6 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     private Tile nextTile;
 
-    private Color nextColor;
-
-    private Rotation nextRotation;
-
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
@@ -36,30 +35,31 @@ public class ArcadeGameMain implements NativeKeyListener {
             renderer.clear();
             System.exit(0);
         }
-
-        switch (nativeEvent.getKeyCode()) {
-            case 30:
-                activeTile = board.rotate(activeTile, Rotation.DEGREE_270);
-                break;
-            case 32:
-                activeTile = board.rotate(activeTile, Rotation.DEGREE_90);
-                break;
-            case 57421:
-                activeTile = board.moveTile(activeTile, Direction.RIGHT);
-                break;
-            case 57419:
-                activeTile = board.moveTile(activeTile, Direction.LEFT);
-                break;
-            case 57424:
-                while (board.canMove(activeTile, Direction.DOWN)) {
-                    activeTile = board.moveTile(activeTile, Direction.DOWN);
-                }
-                break;
-            case 57416:
-                activeTile = board.moveTile(activeTile, Direction.UP);
-                break;
-            default:
-                break;  // nothing to do
+        if (activeTile != null) {
+            switch (nativeEvent.getKeyCode()) {
+                case 30:
+                    activeTile = board.rotate(activeTile, Rotation.DEGREE_270);
+                    break;
+                case 32:
+                    activeTile = board.rotate(activeTile, Rotation.DEGREE_90);
+                    break;
+                case 57421:
+                    activeTile = board.moveTile(activeTile, Direction.RIGHT);
+                    break;
+                case 57419:
+                    activeTile = board.moveTile(activeTile, Direction.LEFT);
+                    break;
+                case 57424:
+                    while (board.canMove(activeTile, Direction.DOWN)) {
+                        activeTile = board.moveTile(activeTile, Direction.DOWN);
+                    }
+                    break;
+                case 57416:
+                    activeTile = board.moveTile(activeTile, Direction.UP);
+                    break;
+                default:
+                    break;  // nothing to do
+            }
         }
 
 
@@ -69,19 +69,24 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     public void generateNextTile() {
         Random random = new Random();
-        int nextint = random.nextInt(8);
-        nextTile = TileLibary.TILE_TEMPLATES[nextint];
-        nextint = random.nextInt(11);
-        nextColor = Color.COLORS[nextint];
-        nextint = random.nextInt(4);
-        nextRotation = Rotation.ROTATIONS[nextint];
 
+        // Take a random tile from the TileLibary
+        nextTile = TileLibary.TILE_TEMPLATES[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
+
+        // Create a copy of the random tile and assign a random color. This is necessary because TileTemplates
+        // do not have a color.
+        nextTile = new Tile(nextTile.getName(), nextTile.getPositions(), Color.COLORS[random.nextInt(Color.COLORS.length)]);
+
+        // Perform a random rotation.
+        nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
     }
 
 
     public void run() throws InterruptedException {
         generateNextTile();
-        activeTile = board.addTileToField(nextTile, nextRotation, new Position(5, 12-nextTile.getHeight()), nextColor);
+
+
+        activeTile = board.addTileToField(nextTile, new Position(5, 12 - nextTile.getHeight()));
 
         generateNextTile();
         renderer.render(board);
@@ -93,11 +98,15 @@ public class ArcadeGameMain implements NativeKeyListener {
             if (board.canMove(activeTile, Direction.DOWN)) {
                 activeTile = board.moveTile(activeTile, Direction.DOWN);
             } else {
-                System.out.println("End of board reached");
+                LOG.trace("End of board reached");
                 board.removeFullRows();
 
-                activeTile = board.addTileToField(nextTile, nextRotation, new Position(6, 12 - nextTile.getHeight()), nextColor);
 
+                activeTile = board.addTileToField(nextTile, new Position(6, 12 - nextTile.getHeight()));
+                if (activeTile == null) {
+                    LOG.trace("GAME OVER");
+                    System.exit(0);
+                }
                 generateNextTile();
 
             }
