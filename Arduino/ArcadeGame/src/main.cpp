@@ -1,7 +1,5 @@
 #include <Arduino.h>
-#include <webserver.h>
-
-
+#include <udp_connection.h>
 
 void setup()
 {
@@ -13,12 +11,27 @@ void setup()
   Serial.println("\n\nApprentice Arcade Game 1.0");
 
   connectToWifi();
+  setupUDP();
 
   Serial.println("\n\nStarted Arcade Game...");
 }
 
 void loop()
 {
-  server.handleClient();          // Handling of incoming requests
-  delay(250);
+  MDNS.update();
+  handleUDP();
+  server.handleClient(); // Handling of incoming requests
+
+  if (sleepMS != 0)
+    delay(sleepMS);
+
+  /*
+    for (int i = 0; i < 144 * 2; i++)
+    {
+      strip.clear();
+      strip.setPixelColor(i, 128, 0, 0);
+      strip.show();
+      delay(100);
+    }
+    */
 }

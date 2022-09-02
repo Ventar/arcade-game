@@ -5,8 +5,6 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.model.*;
-import mro.arcade.game.view.ASCIIRenderer;
-import mro.arcade.game.view.ArduinoHTTPRenderer;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.SwingRenderer;
 

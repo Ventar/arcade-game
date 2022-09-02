@@ -42,10 +42,9 @@ public class Gameboard implements RenderData {
      *
      * @return the moved Tile
      */
-
     public Tile addTileToField(Tile tileTemplate, Rotation rotation, Position boardPosition, Color color) {
-
         LOG.trace("Try to add tile ::= [{}] with rotation ::= [{}] to position ::= [{}], color ::= [{}]", tileTemplate, rotation, boardPosition, color);
+
 
         // The apprentice solution
         // ----------------------------------------------------------------------------------------------------------------------
@@ -121,7 +120,6 @@ public class Gameboard implements RenderData {
 
         for (Position tilePosition : newTile.getPositions()) {
             if (checkIfSet(tilePosition)) {
-                ;
                 System.out.println("Collision: " + tilePosition + ", do not move, board = " + tiles);
                 tiles.add(t);
                 return t;
@@ -133,8 +131,8 @@ public class Gameboard implements RenderData {
     }
 
 
-    public synchronized Tile moveTile(Tile tile, Direction direction) {
 
+    public synchronized Tile moveTile(Tile tile, Direction direction) {
         Tile newTile = tile.move(tile, direction);
 
         if (!validateTile(newTile)) {

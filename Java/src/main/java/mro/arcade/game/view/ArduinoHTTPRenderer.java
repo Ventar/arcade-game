@@ -41,12 +41,7 @@ public class ArduinoHTTPRenderer implements BoardRenderer {
 
         if (colorData == null) {
             colorData = new Color[columns][rows];
-            executeHttp("code=0");
-            for (int row = 0; row < rows; row++) {
-                for (int column = 0; column < columns; column++) {
-                    colorData[column][row] = Color.COLOR_BLACK;
-                }
-            }
+            clear();
         }
 
         for (int row = 0; row < rows; row++) {
