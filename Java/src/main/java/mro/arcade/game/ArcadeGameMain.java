@@ -17,7 +17,7 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    private BoardRenderer renderer = new SwingRenderer(new Size(24, 24));
+    private BoardRenderer renderer = new SwingRenderer(new Size(12, 12));
 
     private Gameboard board = new Gameboard(new Size(12, 12));
 
@@ -27,10 +27,12 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     private Color nextColor;
 
+    private Rotation nextRotation;
+
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-        System.out.println(nativeEvent.getKeyCode());
+        // To see key codes use: System.out.println(nativeEvent.getKeyCode());
 
         if (nativeEvent.getKeyCode() == 1) {
             renderer.clear();
@@ -61,7 +63,7 @@ public class ArcadeGameMain implements NativeKeyListener {
             default:
                 break;  // nothing to do
         }
-        ;
+
 
         renderer.render(board);
 
@@ -69,21 +71,19 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     public void generateNextTile() {
         Random random = new Random();
-        int nextint = random.nextInt(4);
+        int nextint = random.nextInt(8);
         nextTile = TileLibary.TILE_TEMPLATES[nextint];
-        generateNextColor();
-
-    }
-
-    public void generateNextColor() {
-        Random random = new Random();
-        int nextint = random.nextInt(11);
+        nextint = random.nextInt(11);
         nextColor = Color.COLORS[nextint];
+        nextint = random.nextInt(4);
+        nextRotation = Rotation.ROTATIONS[nextint];
+
     }
+
 
     public void run() throws InterruptedException {
         generateNextTile();
-        activeTile = board.addTileToField(nextTile, Rotation.DEGREE_90, new Position(5, 11), nextColor);
+        activeTile = board.addTileToField(nextTile, nextRotation, new Position(5, 12-nextTile.getHeight()), nextColor);
 
         generateNextTile();
         renderer.render(board);
@@ -92,14 +92,13 @@ public class ArcadeGameMain implements NativeKeyListener {
 
             Thread.sleep(1000);
 
-
             if (board.canMove(activeTile, Direction.DOWN)) {
                 activeTile = board.moveTile(activeTile, Direction.DOWN);
             } else {
                 System.out.println("End of board reached");
                 board.removeFullRows();
 
-                activeTile = board.addTileToField(nextTile, Rotation.DEGREE_0, new Position(6, 12 - nextTile.getHeight()), nextColor);
+                activeTile = board.addTileToField(nextTile, nextRotation, new Position(6, 12 - nextTile.getHeight()), nextColor);
 
                 generateNextTile();
 

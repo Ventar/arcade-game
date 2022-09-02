@@ -1,16 +1,21 @@
 package mro.arcade.game.model;
 
+import mro.arcade.game.view.Logback;
 import mro.arcade.game.view.RenderData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("java:S106")
+
 /**
  * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
  * Render an Asci board or a Frame board
  */
 public class Gameboard implements RenderData {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Logback.class);
 
     /**
      * The list contains all Tiles which are laid on the Gameboard
@@ -40,12 +45,16 @@ public class Gameboard implements RenderData {
 
     public Tile addTileToField(Tile tileTemplate, Rotation rotation, Position boardPosition, Color color) {
 
+        LOG.trace("Try to add tile ::= [{}] with rotation ::= [{}] to position ::= [{}], color ::= [{}]", tileTemplate, rotation, boardPosition, color);
+
         // The apprentice solution
         // ----------------------------------------------------------------------------------------------------------------------
 
         // take the positions of the tile template which are (0|0), (0|1), (0|2), (1|0) fora regular L-Template for example
         List<Position> tileTemplatePositions = tileTemplate.rotate(rotation).getPositions();
-        List<Position> tilePositions = new ArrayList<>();
+        LOG.trace("Tile positions after rotation ::= [{}]: {}", rotation, tileTemplatePositions);
+
+                List<Position> tilePositions = new ArrayList<>();
 
         for (Position tilePosition : tileTemplatePositions) {
 
@@ -64,13 +73,14 @@ public class Gameboard implements RenderData {
         System.out.println("Tile to add : " + tile);
         tiles.add(tile);
 
+        LOG.debug("Added tile ::= [{}] to board", tile);
 
         return tile;
     }
 
     @Override
     public Color getFieldColor(Position position) {
-        //validatePosition(position);
+
         for (Tile tileInList : tiles) {
             for (Position positionInList : tileInList.getPositions()) {
                 if (positionInList.equals(position)) {
@@ -85,31 +95,6 @@ public class Gameboard implements RenderData {
     @Override
     public Size getSize() {
         return size;
-    }
-
-    /**
-     * The  method checks if the posititon is outside of the border. Or is already loaded with another tile.
-     *
-     * @param position the position to check
-     * @throws InterruptedException if the check fails.
-     */
-    private void validatePosition(Position position) {
-
-        String pos = "The position";
-
-        if (position.getColumn() > size.getWidth() - 1) {
-            throw new IllegalArgumentException(pos + position + " has an invalid column, max column is " + (size.getWidth() - 1));
-        }
-        if (position.getRow() > size.getHeight() - 1) {
-            throw new IllegalArgumentException(pos + position + " has an invalid row, max row is " + (size.getHeight() - 1));
-        }
-        if (position.getRow() < 0) {
-            throw new IllegalArgumentException(pos + position + " has an invalid row, min row is 0 ");
-        }
-        if (position.getColumn() < 0) {
-            throw new IllegalArgumentException(pos + position + " has an invalid column, min column is 0 ");
-        }
-
     }
 
 

@@ -26,7 +26,21 @@ public enum Rotation {
     DEGREE_180,
 
     // Represent a rotation by 270°
-    DEGREE_270,
+    DEGREE_270;
+
+
+
+    public final static Rotation[] ROTATIONS = new Rotation[]{
+
+            DEGREE_0,
+            DEGREE_90,
+            DEGREE_180,
+            DEGREE_270,
+
+    };
+
+
+
 
 
 }
