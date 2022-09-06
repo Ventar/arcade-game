@@ -1,7 +1,9 @@
-package mro.arcade.game.view;
+package mro.arcade.game.view.renderer;
 
 import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
+import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.RenderData;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

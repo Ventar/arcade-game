@@ -1,4 +1,4 @@
-package mro.arcade.game.view;
+package mro.arcade.game;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
