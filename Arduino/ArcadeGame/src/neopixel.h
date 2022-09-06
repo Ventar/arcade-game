@@ -12,16 +12,22 @@ Adafruit_NeoPixel strip(144 * 4, D5, NEO_GRB + NEO_KHZ800);
  */
 void setColor(int column, int row, int red, int green, int blue)
 {
-    int pixel = row * 12 + column;                         // every physical row has 12 pixel
-    strip.setPixelColor(pixel, red, green, blue);
+
+  int boardsIndRow = 2;
+
+  int pixelRow = (row / 12) * 144 * boardsIndRow; // the number of pixel we need to add for the rows of the boards below
+  int pixelColumn = (column / 12) * 144;          // the number of pixel we need to add for the columns of the boards to the left
+
+  int pixel = (row % 12) * 12 + (column % 12) + pixelColumn + pixelRow;
+  strip.setPixelColor(pixel, red, green, blue);
 }
 
-void setupNeopixel() {
+void setupNeopixel()
+{
 
   strip.begin();
-  strip.setBrightness(128);           
-  delay(500);                        // short delay so that the clear can work.
+  strip.setBrightness(128);
+  delay(500); // short delay so that the clear can work.
   strip.clear();
   strip.show();
-
 }
