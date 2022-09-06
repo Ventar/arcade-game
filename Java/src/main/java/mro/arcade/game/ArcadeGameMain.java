@@ -6,6 +6,7 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.model.*;
 import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
 import mro.arcade.game.view.renderer.SwingRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,11 @@ public class ArcadeGameMain implements NativeKeyListener {
     private static final Size SIZE = new Size(24, 24);
 
 
-    //private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
+    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
     //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    private BoardRenderer renderer = new SwingRenderer(SIZE);
+//    private BoardRenderer renderer = new SwingRenderer(SIZE);
 
     private Gameboard board = new Gameboard(new Size(12,12), new Position(7,1));
 
