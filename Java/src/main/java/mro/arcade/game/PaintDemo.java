@@ -52,10 +52,8 @@ public class PaintDemo {
                 return Color.COLOR_BLACK;
             }
 
-            @Override
-            public Size getSize() {
-                return new Size(24, 24);
-            }
+
+
         });
 
     }

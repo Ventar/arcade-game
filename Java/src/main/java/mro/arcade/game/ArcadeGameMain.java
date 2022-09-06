@@ -6,6 +6,8 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.model.*;
 import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.RenderData;
+import mro.arcade.game.view.RenderDataContainer;
 import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
 import mro.arcade.game.view.renderer.SwingRenderer;
 import org.slf4j.Logger;
@@ -19,11 +21,11 @@ public class ArcadeGameMain implements NativeKeyListener {
     private static final Size SIZE = new Size(24, 24);
 
 
-    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
+//    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
     //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
-//    private BoardRenderer renderer = new SwingRenderer(SIZE);
+    private BoardRenderer renderer = new SwingRenderer(SIZE);
 
     private Gameboard board = new Gameboard(new Size(12,12), new Position(7,1));
 
@@ -68,7 +70,7 @@ public class ArcadeGameMain implements NativeKeyListener {
         }
 
 
-        renderer.render(board);
+        render();
 
     }
 
@@ -94,7 +96,7 @@ public class ArcadeGameMain implements NativeKeyListener {
         activeTile = board.addTileToField(nextTile);
 
         generateNextTile();
-        renderer.render(board);
+        render();
 
         while (true) {
 
@@ -115,8 +117,28 @@ public class ArcadeGameMain implements NativeKeyListener {
                 generateNextTile();
 
             }
-            renderer.render(board);
+            render();
         }
+    }
+
+
+
+    public void render(){
+        RenderDataContainer container = new RenderDataContainer();
+        container.addRenderData(board);
+        container.addRenderData(new RenderData() {
+            @Override
+            public Color getFieldColor(Position position) {
+                if (position.equals(new Position(23, 23))){
+                    return Color.COLOR_RED;
+                }else {
+                    return Color.COLOR_BLACK;
+                }
+
+            }
+
+        });
+        renderer.render(container);
     }
 
     public static void main(String[] args) throws Exception {
