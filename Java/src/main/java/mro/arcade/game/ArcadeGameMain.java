@@ -5,25 +5,26 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.model.*;
-import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
+import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.renderer.SwingRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import mro.arcade.game.view.BoardRenderer;
 
 import java.util.Random;
 
 public class ArcadeGameMain implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
+    private static final Size SIZE = new Size(24, 24);
 
+
+    //private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
     //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
-    private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "192.168.51.52");
-
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    //private BoardRenderer renderer = new SwingRenderer(new Size(12, 12));
+    private BoardRenderer renderer = new SwingRenderer(SIZE);
 
-    private Gameboard board = new Gameboard(new Size(24, 24));
+    private Gameboard board = new Gameboard(SIZE);
 
     private Tile activeTile;
 
@@ -87,7 +88,7 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     public void run() throws InterruptedException {
         generateNextTile();
-        activeTile = board.addTileToField(nextTile, nextRotation, new Position(5, 12-nextTile.getHeight()), nextColor);
+        activeTile = board.addTileToField(nextTile, new Position(SIZE.getWidth() / 2, SIZE.getHeight() - nextTile.getHeight()));
 
         generateNextTile();
         renderer.render(board);
@@ -102,7 +103,7 @@ public class ArcadeGameMain implements NativeKeyListener {
                 LOG.trace("End of board reached");
                 board.removeFullRows();
 
-                activeTile = board.addTileToField(nextTile, new Position(12, 24 - nextTile.getHeight()));
+                activeTile = board.addTileToField(nextTile, new Position(SIZE.getWidth() / 2, SIZE.getHeight() - nextTile.getHeight()));
                 if (activeTile == null) {
                     LOG.trace("GAME OVER");
                     System.exit(0);

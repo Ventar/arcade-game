@@ -1,6 +1,5 @@
 package mro.arcade.game.view.renderer;
 
-import mro.arcade.game.model.Gameboard;
 import mro.arcade.game.model.Position;
 import mro.arcade.game.model.Size;
 import mro.arcade.game.view.BoardRenderer;
