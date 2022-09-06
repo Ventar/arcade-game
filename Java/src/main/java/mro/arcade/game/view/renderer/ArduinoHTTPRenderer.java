@@ -4,6 +4,7 @@ import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
+import mro.arcade.game.model.Size;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,7 +19,10 @@ public class ArduinoHTTPRenderer implements BoardRenderer {
 
     private Color[][] colorData;
 
-    public ArduinoHTTPRenderer(String ipAddress) {
+    private Size size;
+
+    public ArduinoHTTPRenderer(Size size, String ipAddress) {
+        this.size = size;
         this.ipAddress = ipAddress;
         executeHttp("code=0");
     }
@@ -38,8 +42,8 @@ public class ArduinoHTTPRenderer implements BoardRenderer {
     @Override
     public void render(RenderData data) {
 
-        int rows = data.getSize().getHeight();
-        int columns = data.getSize().getWidth();
+        int rows = size.getHeight();
+        int columns = size.getWidth();
 
         if (colorData == null) {
             colorData = new Color[columns][rows];

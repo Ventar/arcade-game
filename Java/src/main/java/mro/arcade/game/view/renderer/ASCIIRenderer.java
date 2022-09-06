@@ -4,6 +4,7 @@ import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
+import mro.arcade.game.model.Size;
 
 @SuppressWarnings("java:S106")
 public class ASCIIRenderer implements BoardRenderer {
@@ -18,17 +19,19 @@ public class ASCIIRenderer implements BoardRenderer {
      */
     private static final int ROW_HEIGHT = 3;
 
+    private Size size;
+
 
     @Override
     public void clear() {
         // nothing to do here
     }
 
-    @Override
+
     public void render(RenderData data) {
 
-        int columnCount = data.getSize().getWidth();
-        int rowCount = data.getSize().getHeight();
+        int columnCount = size.getWidth();
+        int rowCount = size.getHeight();
 
         StringBuilder result = new StringBuilder();
 

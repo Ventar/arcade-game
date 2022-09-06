@@ -58,6 +58,21 @@ public class TileLibary {
             new Position(1, 2)
     ));
 
+    public static final Tile NUMBER_TEMPLATE_ZERO = new Tile("NUMBER_TEMPLATE_ZERO", Arrays.asList(
+            new Position(0, 0),
+            new Position(1, 0),
+            new Position(-1, 0),
+            new Position(1, 1),
+            new Position(-1, 1),
+            new Position(1, 2),
+            new Position(-1, 2),
+            new Position(1, 3),
+            new Position(-1, 3),
+            new Position(1, 4),
+            new Position(-1, 4),
+            new Position(0, 4)
+    ));
+
 
     public static final Tile[] TILE_TEMPLATES = new Tile[]{
             L_TEMPLATE,

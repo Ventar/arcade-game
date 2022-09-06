@@ -22,7 +22,7 @@ public interface RenderData {
     Color getFieldColor(Position position);
 
 
-    Size getSize();
+
 
 
 }

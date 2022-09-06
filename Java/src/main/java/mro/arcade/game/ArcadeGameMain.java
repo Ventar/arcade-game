@@ -24,7 +24,7 @@ public class ArcadeGameMain implements NativeKeyListener {
     //private BoardRenderer renderer = new ASCIIRenderer();
     private BoardRenderer renderer = new SwingRenderer(SIZE);
 
-    private Gameboard board = new Gameboard(SIZE);
+    private Gameboard board = new Gameboard(new Size(12,12), new Position(7,1));
 
     private Tile activeTile;
 
@@ -88,7 +88,9 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     public void run() throws InterruptedException {
         generateNextTile();
-        activeTile = board.addTileToField(nextTile, new Position(SIZE.getWidth() / 2, SIZE.getHeight() - nextTile.getHeight()));
+
+
+        activeTile = board.addTileToField(nextTile);
 
         generateNextTile();
         renderer.render(board);
@@ -103,7 +105,8 @@ public class ArcadeGameMain implements NativeKeyListener {
                 LOG.trace("End of board reached");
                 board.removeFullRows();
 
-                activeTile = board.addTileToField(nextTile, new Position(SIZE.getWidth() / 2, SIZE.getHeight() - nextTile.getHeight()));
+
+                activeTile = board.addTileToField(nextTile);
                 if (activeTile == null) {
                     LOG.trace("GAME OVER");
                     System.exit(0);
