@@ -1,5 +1,6 @@
 package mro.arcade.game.view.renderer;
 
+import mro.arcade.game.DeviceDiscovery;
 import mro.arcade.game.model.Color;
 import mro.arcade.game.model.Position;
 import mro.arcade.game.model.Size;
@@ -17,7 +18,9 @@ import java.nio.ByteBuffer;
 public class ArduinoUDPRenderer implements BoardRenderer {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArduinoUDPRenderer.class);
-    private InetAddress ipAddress;
+    private InetAddress deviceAddress;
+
+    private int devicePort;
 
     private DatagramSocket socket;
 
@@ -29,10 +32,17 @@ public class ArduinoUDPRenderer implements BoardRenderer {
 
     public ArduinoUDPRenderer(Size size, String ipAddress) {
         try {
+
+            DeviceDiscovery discovery = new DeviceDiscovery(InetAddress.getByName(ipAddress));
+            discovery.discover();
+
             this.size = size;
-            this.ipAddress = InetAddress.getByName(ipAddress);
+            this.deviceAddress = discovery.getDeviceAddress();
+            this.devicePort = discovery.getDevicePort();
             this.socket = new DatagramSocket();
             colorData = new Color[size.getWidth()][size.getHeight()];
+
+
             clear();
         } catch (Exception e) {
             LOG.warn("Cannot instantiate ArduinoUDPRenderer: ", e);
@@ -86,7 +96,7 @@ public class ArduinoUDPRenderer implements BoardRenderer {
     }
 
     public void sendMessage(byte[] data) {
-        DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 4000);
+        DatagramPacket packet = new DatagramPacket(data, data.length, deviceAddress, devicePort);
         try {
             socket.send(packet);
         } catch (Exception e) {

@@ -1,13 +1,18 @@
-
+#include <Arduino.h>
+#include <neopixel.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
+#include <wifi_pwd.h>
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
-#include <webserver.h>
+
+
 
 /**
  * The UDP server to receive messages from the neoboard game server
  */
 WiFiUDP Udp;
-const char *NB_MDNS_SERVICE = "sbmodule";
+const char *NB_MDNS_SERVICE = "arcade";
 const uint16_t NB_UDP_PORT = 4000;
 uint8_t incomingPacket[512];
 
@@ -103,4 +108,30 @@ void setupUDP()
     // ----------------------------------------------------------------------------
     Udp.begin(NB_UDP_PORT);
     Serial.printf("\nSetup UDP server on port ::= [%d]\n", NB_UDP_PORT);
+}
+
+
+void connectToWifi()
+{
+
+  Serial.print("Connecting to WiFi");
+
+  WiFi.begin(ssid, password);
+
+  int x = 0;
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+    renderWifiSymbol(x++);
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  strip.clear();
+  strip.show();
 }

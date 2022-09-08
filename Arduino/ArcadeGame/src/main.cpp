@@ -20,7 +20,7 @@ void loop()
 {
   MDNS.update();
   handleUDP();
-  server.handleClient(); // Handling of incoming requests
+  //server.handleClient(); // Handling of incoming requests
 
   if (sleepMS != 0)
     delay(sleepMS);

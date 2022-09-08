@@ -6,7 +6,10 @@
     </appender>
 
     <logger name="mro.arcade.game" level="TRACE" />
-
+    <logger name="javax.jmdns" level="WARN" />
+    
+    
+    
     <root level="debug">
         <appender-ref ref="STDOUT" />
     </root>

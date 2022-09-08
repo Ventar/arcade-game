@@ -6,7 +6,7 @@
 
 /**
  * HTTP web server on port 80
- */ 
+ */
 ESP8266WebServer server(80);
 
 int arg(int pos)
@@ -14,19 +14,18 @@ int arg(int pos)
   return server.arg(pos).toInt();
 }
 
-
-void handleLEDHTTP() {
-
+void handleLEDHTTP()
+{
 
   String message = "Number of args received : ";
-  message += server.args();                          // Get number of parameters
-  message += "\n";          
+  message += server.args(); // Get number of parameters
+  message += "\n";
 
   for (int i = 0; i < server.args(); i++)
   {
-    message += "(" + (String)i + ") -> "; 
-    message += server.argName(i) + ": ";  
-    message += server.arg(i) + "\n";      
+    message += "(" + (String)i + ") -> ";
+    message += server.argName(i) + ": ";
+    message += server.arg(i) + "\n";
   }
 
   switch (arg(0))
@@ -47,27 +46,4 @@ void handleLEDHTTP() {
   strip.show();
 
   server.send(200, "text / plain", message); // Response to the HTTP request
-
-}
-
-void connectToWifi()
-{
-  
-  Serial.print("Connecting to WiFi");
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(1000);
-    Serial.print(".");
-  }
-  
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-
-  server.on("/led", handleLEDHTTP); // Associate the handler function to the path
-  server.begin();
-
-  
 }
