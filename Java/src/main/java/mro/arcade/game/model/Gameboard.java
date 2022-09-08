@@ -30,7 +30,6 @@ public class Gameboard implements RenderData {
     private Position offsetPoint;
 
 
-
     /**
      * Creates a new instance of the Gameboard with a specific size
      *
@@ -50,40 +49,20 @@ public class Gameboard implements RenderData {
 
     public Tile addTileToField(Tile tileTemplate) {
 
-        Position position = new Position(size.getWidth() / 2, size.getHeight()- tileTemplate.getHeight());
+        Position position = new Position(size.getWidth() / 2, size.getHeight() - tileTemplate.getHeight());
 
+        LOG.trace("Try to add tile ::= [{}] to position ::= [{}]", tileTemplate, position);
 
-        LOG.trace("Try to add tile ::= [{}] to position ::= [{}]", tileTemplate);
+        Tile tile = tileTemplate.translate(position);
 
-        // The apprentice solution
-        // ----------------------------------------------------------------------------------------------------------------------
-
-        // take the positions of the tile template which are (0|0), (0|1), (0|2), (1|0) fora regular L-Template for example
-        List<Position> tileTemplatePositions = tileTemplate.getPositions();
-
-        List<Position> tilePositions = new ArrayList<>();
-
-
-        for (Position tilePosition : tileTemplatePositions) {
-            Position pos = new Position(tilePosition.getColumn() +position.getColumn(), tilePosition.getRow() + position.getRow());
-
-            if (isPositionOnBoard(pos)) {
-
-                // all tiles on the field have a color, if no tile is available on a field the color black is returned, i.e. if a color
-                // is returned for a given position the field was already set.
-                if (checkIfSet(pos)) {
-                    return null;
-                }
-
-                tilePositions.add(pos);
+        for (Position pos : tile.getPositions()) {
+            if (detectCollision(pos) || isPositionOnBoard(pos)) {
+                return null;
             }
         }
-        Tile tile = new Tile(tileTemplate.getName(), tilePositions, tileTemplate.getColor());
-        LOG.trace("Tile to add : " + tile);
+
         tiles.add(tile);
-
         LOG.debug("Added tile ::= [{}] to board", tile);
-
         return tile;
     }
 
@@ -143,7 +122,7 @@ public class Gameboard implements RenderData {
      */
 
     public synchronized Tile moveTile(Tile tile, Direction direction) {
-        Tile newTile = tile.move(tile, direction);
+        Tile newTile = tile.move(direction);
         this.tiles.remove(tile);
         if (!isOnBoard(newTile) || (collide(newTile))) {
             this.tiles.add(tile);
@@ -163,7 +142,7 @@ public class Gameboard implements RenderData {
      */
     public synchronized boolean canMove(Tile tile, Direction direction) {
 
-        Tile newTile = tile.move(tile, direction);
+        Tile newTile = tile.move(direction);
 
         this.tiles.remove(tile); // We need to remove the tile here because a collision would always happen otherwise
         boolean valid = isOnBoard(newTile) && !collide(newTile);
@@ -198,7 +177,7 @@ public class Gameboard implements RenderData {
      * @param position
      * @return
      */
-   private boolean checkIfSet(Position position) {
+    private boolean detectCollision(Position position) {
         for (Tile tile : tiles) {
             for (Position pos : tile.getPositions()) {
                 if (pos.equals(position)) {
@@ -255,7 +234,7 @@ public class Gameboard implements RenderData {
         for (int column = 0; column < size.getWidth(); column++) {
 
             Position pos = new Position(column, row);
-            if (checkIfSet(pos)) {
+            if (detectCollision(pos)) {
                 counter++;
             }
         }
@@ -269,7 +248,7 @@ public class Gameboard implements RenderData {
 
     private boolean collide(Tile tile) {
         for (Position pos : tile.getPositions()) {
-            if (checkIfSet(pos)) {
+            if (detectCollision(pos)) {
                 LOG.trace("Collision at position ::= [{}]", pos);
                 return true;
             }

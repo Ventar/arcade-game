@@ -22,6 +22,10 @@ public class ASCIIRenderer implements BoardRenderer {
     private Size size;
 
 
+    public ASCIIRenderer(Size size) {
+        this.size = size;
+    }
+
     @Override
     public void clear() {
         // nothing to do here

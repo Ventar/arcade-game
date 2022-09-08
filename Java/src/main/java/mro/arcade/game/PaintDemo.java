@@ -1,16 +1,18 @@
 package mro.arcade.game;
 
-import mro.arcade.game.model.Color;
-import mro.arcade.game.model.Position;
-import mro.arcade.game.model.Size;
+import mro.arcade.game.model.*;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
 import mro.arcade.game.view.renderer.SwingRenderer;
 
 public class PaintDemo {
 
+    private static Tile number;
+
+
     public static void main(String[] args) {
         BoardRenderer renderer = new SwingRenderer(new Size(24, 24));
+
 
         renderer.render(new RenderData() {
             @Override

@@ -42,7 +42,9 @@ public class Tile {
     }
 
 
-    public String getName(){return name;}
+    public String getName() {
+        return name;
+    }
 
 
     /**
@@ -64,14 +66,14 @@ public class Tile {
             newPositions.add(finalPos);
         }
 
-        return new Tile(getName(),newPositions, this.color);
+        return new Tile(getName(), newPositions, this.color);
     }
 
-    public Tile move(Tile tile, Direction direction) {
+    public Tile move(Direction direction) {
         Position newPosition;
         List<Position> newTilePositions = new ArrayList<>();
 
-        for (Position tilePosition : tile.getPositions()) {
+        for (Position tilePosition : this.getPositions()) {
             if (direction == Direction.DOWN) {
                 newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() - 1);
                 newTilePositions.add(newPosition);
@@ -87,7 +89,19 @@ public class Tile {
             }
         }
 
-        return new Tile(getName(),newTilePositions, tile.getColor());
+        return new Tile(getName(), newTilePositions, this.getColor());
+    }
+
+
+    public Tile translate(Position position) {
+
+        List<Position> newTilePositions = new ArrayList<>();
+
+        for (Position tilePosition : this.getPositions()) {
+            newTilePositions.add(tilePosition.add(position));
+        }
+
+        return new Tile(getName(), newTilePositions, this.getColor());
     }
 
     public int getWidth() {

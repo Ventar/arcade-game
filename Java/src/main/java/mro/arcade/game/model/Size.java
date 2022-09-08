@@ -24,11 +24,9 @@ public class Size {
     }
 
 
-
-
-
     /**
      * Get the height of the...
+     *
      * @return height
      */
     public int getHeight() {
@@ -37,10 +35,15 @@ public class Size {
 
     /**
      * Returns the width of the...
+     *
      * @return width
      */
     public int getWidth() {
         return width;
     }
 
+    @Override
+    public String toString() {
+        return "[" + width + "|" + height + "]";
+    }
 }
