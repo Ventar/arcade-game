@@ -14,6 +14,7 @@ void setup()
   setupUDP();
 
   Serial.println("\n\nStarted Arcade Game...");
+  renderArcade();
 }
 
 void loop()

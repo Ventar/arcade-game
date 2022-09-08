@@ -8,6 +8,7 @@ import mro.arcade.game.model.*;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
 import mro.arcade.game.view.RenderDataContainer;
+import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
 import mro.arcade.game.view.renderer.SwingRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,9 @@ public class ArcadeGameMain implements NativeKeyListener {
     private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
     private static final Size SIZE = new Size(24, 24);
 
-    //private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.51");
+    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.51");
     //private BoardRenderer renderer = new ASCIIRenderer(SIZE);
-    private BoardRenderer renderer = new SwingRenderer(SIZE);
+    //private BoardRenderer renderer = new SwingRenderer(SIZE);
 
     private Gameboard board = new Gameboard(new Size(12, 12), new Position(7, 1));
 
@@ -85,8 +86,10 @@ public class ArcadeGameMain implements NativeKeyListener {
 
 
     public void run() throws InterruptedException {
-        generateNextTile();
 
+        renderer.clear();
+
+        generateNextTile();
 
         activeTile = board.addTileToField(nextTile);
 

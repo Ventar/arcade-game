@@ -16,7 +16,6 @@ const char *NB_MDNS_SERVICE = "arcade";
 const uint16_t NB_UDP_PORT = 4000;
 uint8_t incomingPacket[512];
 
-int sleepMS = 500;
 
 /**
  * @brief The address of the game server
@@ -29,6 +28,11 @@ IPAddress serverAddress;
  *
  */
 int serverPort;
+
+/**
+ * Sleep while no game is in progress
+ */ 
+int sleepMS = 500;
 
 void handleUDP()
 {
@@ -43,13 +47,6 @@ void handleUDP()
         {
             incomingPacket[len] = '\0';
         }
-
-        /*
-        for (int i = 0; i < packetSize; i++) {
-            Serial.print(incomingPacket[i]);
-            Serial.println("");
-        }
-        */
 
         switch (incomingPacket[0])
         {
@@ -80,6 +77,15 @@ void handleUDP()
 
             strip.show();
             sleepMS = 0;
+            break;
+        }
+          case 2:
+        {
+            Serial.println("command: Render Logo");
+            renderArcade();
+
+            strip.show();
+            sleepMS = 500;
             break;
         }
         }
