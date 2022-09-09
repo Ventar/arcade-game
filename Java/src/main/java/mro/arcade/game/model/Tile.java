@@ -28,7 +28,7 @@ public class Tile {
 
     public Tile(String name, List<Position> fields) {
         this.fields = fields;
-        this.color = null;
+        this.color = Color.COLOR_GREEN;
         this.name = name;
     }
 

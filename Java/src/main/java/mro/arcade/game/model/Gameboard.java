@@ -12,22 +12,9 @@ import java.util.List;
  * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
  * Render an Asci board or a Frame board
  */
-public class Gameboard implements RenderData {
+public class Gameboard extends Basics implements RenderData  {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Gameboard.class);
-
-    /**
-     * The list contains all Tiles which are laid on the Gameboard
-     */
-    private List<Tile> tiles = new ArrayList<>();
-
-    /**
-     * Indicates the size of the Gameboard
-     */
-    private Size size;
-
-
-    private Position offsetPoint;
+    public static final Logger LOG = LoggerFactory.getLogger(Gameboard.class);
 
 
     /**
@@ -36,8 +23,7 @@ public class Gameboard implements RenderData {
      * @param size of the Gameboard
      */
     public Gameboard(Size size, Position offsetPoint) {
-        this.size = size;
-        this.offsetPoint = offsetPoint;
+        super(size,offsetPoint);
 
     }
 
@@ -51,44 +37,7 @@ public class Gameboard implements RenderData {
 
         Position position = new Position(size.getWidth() / 2, size.getHeight() - tileTemplate.getHeight());
 
-        LOG.trace("Try to add tile ::= [{}] to position ::= [{}]", tileTemplate, position);
-
-        Tile tile = tileTemplate.translate(position);
-
-        for (Position pos : tile.getPositions()) {
-            if (detectCollision(pos) || isPositionOnBoard(pos)) {
-                return null;
-            }
-        }
-
-        tiles.add(tile);
-        LOG.debug("Added tile ::= [{}] to board", tile);
-        return tile;
-    }
-
-    @Override
-    public Color getFieldColor(Position position) {
-
-        Position pos = new Position(position.getColumn() - offsetPoint.getColumn(), position.getRow() - offsetPoint.getRow());
-
-        for (Tile tileInList : tiles) {
-            for (Position positionInList : tileInList.getPositions()) {
-                if (positionInList.equals(pos)) {
-                    return tileInList.getColor();
-                }
-            }
-        }
-
-        return Color.COLOR_BLACK;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Gameboard{" +
-                "tiles=" + tiles +
-                ", size=" + size +
-                '}';
+        return addTileToField(tileTemplate,position);
     }
 
     /**
@@ -104,7 +53,7 @@ public class Gameboard implements RenderData {
 
         this.tiles.remove(tile); // We need to remove the tile here because a collision would always happen otherwise
 
-        if (!isOnBoard(newTile) || (collide(newTile))) {
+        if (!isTileOnBoard(newTile) || (collide(newTile))) {
             tiles.add(tile);
             return tile;
         } else {
@@ -124,7 +73,7 @@ public class Gameboard implements RenderData {
     public synchronized Tile moveTile(Tile tile, Direction direction) {
         Tile newTile = tile.move(direction);
         this.tiles.remove(tile);
-        if (!isOnBoard(newTile) || (collide(newTile))) {
+        if (!isTileOnBoard(newTile) || (collide(newTile))) {
             this.tiles.add(tile);
             return tile;
         } else {
@@ -145,7 +94,7 @@ public class Gameboard implements RenderData {
         Tile newTile = tile.move(direction);
 
         this.tiles.remove(tile); // We need to remove the tile here because a collision would always happen otherwise
-        boolean valid = isOnBoard(newTile) && !collide(newTile);
+        boolean valid = isTileOnBoard(newTile) && !collide(newTile);
         this.tiles.add(tile);
         return valid;
 
@@ -169,64 +118,6 @@ public class Gameboard implements RenderData {
             }
         }
 
-    }
-
-    /**
-     * Checks if the tile is able to be placed
-     *
-     * @param position
-     * @return
-     */
-    private boolean detectCollision(Position position) {
-        for (Tile tile : tiles) {
-            for (Position pos : tile.getPositions()) {
-                if (pos.equals(position)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param tile
-     * @return
-     */
-    private boolean isOnBoard(Tile tile) {
-        String s = "The Tile goes over the board, choose other direction or rotation";
-        for (Position position : tile.getPositions()) {
-            if (position.getColumn() > size.getWidth() - 1) {
-                return false;
-            }
-            if (position.getRow() > size.getHeight() - 1) {
-                return false;
-            }
-            if (position.getRow() < 0) {
-                return false;
-            }
-            if (position.getColumn() < 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isPositionOnBoard(Position position) {
-        String s = "The Tile goes over the board, choose other direction or rotation";
-        if (position.getColumn() > size.getWidth() - 1) {
-            return false;
-        }
-        if (position.getRow() > size.getHeight() - 1) {
-            return false;
-        }
-        if (position.getRow() < 0) {
-            return false;
-        }
-        if (position.getColumn() < 0) {
-            return false;
-        }
-
-        return true;
     }
 
     private boolean isRowFull(int row) {
@@ -254,6 +145,14 @@ public class Gameboard implements RenderData {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Gameboard{" +
+                "tiles=" + tiles +
+                ", size=" + size +
+                '}';
     }
 
 

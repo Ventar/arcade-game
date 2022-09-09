@@ -16,18 +16,12 @@ public class RenderDataContainer implements  RenderData {
         this.data.add(data);
     }
 
-
-
-
     @Override
     public Color getFieldColor(Position position) {
-
-
-
-        for (RenderData d: data){
+       for (RenderData d: data){
              Color c = d.getFieldColor(position);
 
-            if (!c.equals(Color.COLOR_BLACK)){
+            if (!Color.COLOR_BLACK.equals(c)){
                 return c;
             }
         }

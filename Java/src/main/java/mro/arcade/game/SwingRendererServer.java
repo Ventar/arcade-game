@@ -70,12 +70,12 @@ public class SwingRendererServer {
                     break;
                 case 1:
                     int numberOfLED = Byte.toUnsignedInt(data[1]);
-                    for (int i = 0; i < numberOfLED; i++){
+                    for (int i = 0; i < numberOfLED; i++) {
                         int column = Byte.toUnsignedInt(data[2 + i * 5]);
                         int row = Byte.toUnsignedInt(data[3 + i * 5]);
                         int colorRValue = Byte.toUnsignedInt(data[4 + i * 5]);
-                        int colorGValue = Byte.toUnsignedInt(data[5 + i * 5] );
-                        int colorBValue = Byte.toUnsignedInt(data[6 + i * 5 ]);
+                        int colorGValue = Byte.toUnsignedInt(data[5 + i * 5]);
+                        int colorBValue = Byte.toUnsignedInt(data[6 + i * 5]);
                         model[column][row] = new Color(colorRValue, colorGValue, colorBValue);
                     }
                     break;
@@ -90,8 +90,8 @@ public class SwingRendererServer {
     }
 
     public void clear() {
-        for (int i = 0; i <24; i++){
-            for (int j = 0; j <24; j++){
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 24; j++) {
                 model[i][j] = Color.BLACK;
             }
         }
@@ -106,33 +106,32 @@ public class SwingRendererServer {
 
         @Override
         protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
+            try {
+                super.paintComponent(g);
 
-            Graphics2D g2d = (Graphics2D) g.create();
-            int x, y = 0;
-            for (int column = 0; column < 24; column++) {
-                for (int row = 0; row < 24; row++) {
-                    x = column * FIELD_SIZE_PX;
-                    y = row * FIELD_SIZE_PX;
+                Graphics2D g2d = (Graphics2D) g.create();
+                int x, y = 0;
+                for (int column = 0; column < 24; column++) {
+                    for (int row = 0; row < 24; row++) {
+                        x = column * FIELD_SIZE_PX;
+                        y = row * FIELD_SIZE_PX;
 
-                    Color awtColor = model[column][24 - row - 1];
+                        Color awtColor = model[column][24 - row - 1];
 
-                    if (awtColor.equals(Color.BLACK)) {
-                        awtColor = new Color(120, 140, 160);
+                        if (awtColor.equals(Color.BLACK)) {
+                            awtColor = new Color(120, 140, 160);
+                        }
+                        g2d.setColor(awtColor);
+                        g2d.fillRect(x + 2, y + 2, FIELD_SIZE_PX - 2, FIELD_SIZE_PX - 2);
                     }
-                    g2d.setColor(awtColor);
-                    g2d.fillRect(x + 2, y + 2, FIELD_SIZE_PX - 2, FIELD_SIZE_PX - 2);
                 }
+
+                g2d.dispose();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            g2d.dispose();
-
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        InetAddress inetAddress = InetAddress.getByName("172.17.196.70");
-        SwingRendererServer newServer = new SwingRendererServer(inetAddress);
-        newServer.run();
-    }
 }
