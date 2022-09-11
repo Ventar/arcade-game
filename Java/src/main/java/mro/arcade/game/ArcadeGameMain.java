@@ -149,17 +149,6 @@ public class ArcadeGameMain implements NativeKeyListener {
         GlobalScreen.addNativeKeyListener(game);
         game.run();
 
-        // int row = 5;
-        // int column = 13;
-        // int boardsIndRow = 2;
-        //
-        // int pixelRow = (row / 12) * 144 * boardsIndRow; // the number of pixel we need to add for the rows of the boards below
-        // int pixelColumn = (column / 12) * 144; // the number of pixel we need to add for the columns of the boards to the left
-        //
-        // int pixel = (row % 12) * 12 + (column % 12) + pixelColumn + pixelRow;
-        //
-        // System.out.println(pixel);
-
 
     }
 }

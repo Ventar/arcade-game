@@ -1,38 +1,50 @@
-#include <Arduino.h>
 #include <udp_connection.h>
+
+/**
+ * If the device was started successfully / for the first time.
+ */
+boolean showLogo = true;
 
 void setup()
 {
   setupNeopixel();
 
   Serial.begin(115200);
-  delay(500);
-
   Serial.println("\n\nApprentice Arcade Game 1.0");
 
   connectToWifi();
   setupUDP();
+  setupOTA();
 
   Serial.println("\n\nStarted Arcade Game...");
-  renderArcade();
 }
 
 void loop()
 {
+ // wifiManager.process();
+  ArduinoOTA.handle();
   MDNS.update();
-  handleUDP();
-  //server.handleClient(); // Handling of incoming requests
 
-  if (sleepMS != 0)
-    delay(sleepMS);
+  if (WiFi.status() == WL_CONNECTED)
+  {
 
-  /*
-    for (int i = 0; i < 144 * 2; i++)
+    if (showLogo)
     {
-      strip.clear();
-      strip.setPixelColor(i, 128, 0, 0);
-      strip.show();
-      delay(100);
+      renderArcade();
+      showLogo = false;
     }
-    */
+
+    handleUDP();
+
+    if (sleepMS != 0)
+    {
+      delay(sleepMS);
+    }
+  }
+  else
+  {
+    // this code is only executed if the wifi Manager could not connet.
+  //  delay(400);
+  //  animateWifiSymbol(192, 16, 16);
+  }
 }

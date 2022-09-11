@@ -2,7 +2,6 @@
 #include <neopixel.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <wifi_pwd.h>
 
 /**
  * HTTP web server on port 80

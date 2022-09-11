@@ -1,41 +1,37 @@
-#include <Arduino.h>
-#include <neopixel.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <wifi_pwd.h>
-#include <ESP8266mDNS.h>
+#ifndef ARCADE_UDP_CONNECTION_H
+#define ARCADE_UDP_CONNECTION_H
+
+#include <wifi/wifi_setup.h>
 #include <WiFiUdp.h>
-
-
 
 /**
  * The UDP server to receive messages from the neoboard game server
  */
 WiFiUDP Udp;
+
+/**
+ * The name of the MDNS service
+ */
 const char *NB_MDNS_SERVICE = "arcade";
-const uint16_t NB_UDP_PORT = 4000;
+/**
+ * The UDP port to start the UDP server on
+ */
+const uint16_t NB_UDP_PORT = 5000;
+
+/**
+ * The size of incoming UDP packets
+ */
 uint8_t incomingPacket[512];
-
-
-/**
- * @brief The address of the game server
- *
- */
-IPAddress serverAddress;
-
-/**
- * @brief The port of the game server.
- *
- */
-int serverPort;
 
 /**
  * Sleep while no game is in progress
  */ 
 int sleepMS = 500;
 
+
 void handleUDP()
 {
+    
     int packetSize = Udp.parsePacket();
 
     if (packetSize)
@@ -53,8 +49,7 @@ void handleUDP()
         case 0:
         {
             Serial.println("command: CLEAR LED STRIP");
-            strip.clear();
-            strip.show();
+            clearAndShowNeoPixel();
             sleepMS = 500;
             break;
         }
@@ -75,7 +70,7 @@ void handleUDP()
                 setColor(column, row, red, green, blue);
             }
 
-            strip.show();
+            showNeoPixel();
             sleepMS = 0;
             break;
         }
@@ -84,7 +79,14 @@ void handleUDP()
             Serial.println("command: Render Logo");
             renderArcade();
 
-            strip.show();
+            showNeoPixel();
+            sleepMS = 500;
+            break;
+        }
+         case 3:
+        {
+            Serial.println("command: Reset WIFI");
+            wifiManager.resetSettings();
             sleepMS = 500;
             break;
         }
@@ -98,46 +100,19 @@ void handleUDP()
 void setupUDP()
 {
 
-    String name = WiFi.macAddress();
-    name.replace(":", "");
-
-    if (!MDNS.begin(name))
+    
+    if (!MDNS.begin(NB_MDNS_SERVICE))
     {
         Serial.println("Error setting up MDNS responder!");
     }
 
-    Serial.print("\nSetup MDNS module name ::= [" + name + "], service ::= [" + NB_MDNS_SERVICE + "]");
+    Serial.print("\nSetup MDNS module name ::= [" + String(NB_MDNS_SERVICE) + "], service ::= [" + NB_MDNS_SERVICE + "]");
 
     MDNS.addService(NB_MDNS_SERVICE, "udp", NB_UDP_PORT);
 
-    // Setup the UDP server
-    // ----------------------------------------------------------------------------
+    
     Udp.begin(NB_UDP_PORT);
     Serial.printf("\nSetup UDP server on port ::= [%d]\n", NB_UDP_PORT);
 }
 
-
-void connectToWifi()
-{
-
-  Serial.print("Connecting to WiFi");
-
-  WiFi.begin(ssid, password);
-
-  int x = 0;
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.print(".");
-    renderWifiSymbol(x++);
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-
-  strip.clear();
-  strip.show();
-}
+#endif
