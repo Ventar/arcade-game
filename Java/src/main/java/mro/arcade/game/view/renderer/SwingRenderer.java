@@ -93,7 +93,7 @@ public class SwingRenderer implements BoardRenderer {
 
                     Color awtColor = null;
 
-                    if (color.equals(mro.arcade.game.model.Color.COLOR_BLACK)) {
+                    if (mro.arcade.game.model.Color.COLOR_BLACK.equals(color)) {
                         awtColor = new Color(120, 140, 160);
                     } else {
                         awtColor = convertToAwtColor(color);

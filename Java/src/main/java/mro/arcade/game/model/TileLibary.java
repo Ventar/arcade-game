@@ -198,62 +198,7 @@ public class TileLibary {
     ));
 
 
-//    public static final Tile NUMBER_TEMPLATE_FOUR = new Tile("NUMBER_TEMPLATE_FOUR", Arrays.asList(
-//            new Position(23, 23),
-//            new Position(21, 23),
-//            new Position(23, 22),
-//            new Position(21, 22),
-//            new Position(22, 21),
-//            new Position(23, 20),
-//            new Position(23, 19),
-//            new Position(23, 21),
-//            new Position(21, 21)
-//
-//    ));
-//
-//    public static final Tile NUMBER_TEMPLATE_ONE = new Tile("NUMBER_TEMPLATE_ONE", Arrays.asList(
-//            new Position(23, 23),
-//            new Position(22, 23),
-//            new Position(23, 22),
-//            new Position(21, 22),
-//            new Position(23, 20),
-//            new Position(23, 19),
-//            new Position(23, 21)
-//
-//
-//    ));
-//
-//
-//    public static final Tile NUMBER_TEMPLATE_NINE = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
-//            p(23, 23), p(22, 23), p(21, 23),
-//            new Position(23, 22),
-//            new Position(21, 22),
-//            new Position(22, 21),
-//            new Position(23, 20),
-//            new Position(22, 19),
-//            new Position(23, 19),
-//            new Position(21, 19),
-//            new Position(23, 21),
-//            new Position(21, 21)
-//
-//    ));
-//
-//
-//    public static final Tile NUMBER_TEMPLATE_EIGHT = new Tile("NUMBER_TEMPLATE_EIGHT", Arrays.asList(
-//
-//            new Position(23, 23),
-//            new Position(22, 23)));
-//            new Position(21,23)
-//            new Position(23,22)
-//            new Position(21,22)
-//           new Position(22,21)
-//            new Position(23,20)
-//            new Position(22,19)
-//            new Position(23,19)
-//            new Position(21,19)
-//            || position.equals(new Position(21,20))
-//            || position.equals(new Position(23,21))
-//            || position.equals(new Position(21,21))
+
 
 
     public static final Tile[] TILE_TEMPLATES = new Tile[]{

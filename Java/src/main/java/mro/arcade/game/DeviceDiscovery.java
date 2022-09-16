@@ -10,8 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * Service to discover the Arduino device that is used as display in the {@link mro.arcade.game.view.renderer.ArduinoUDPRenderer} and the Arduino {@link
- * mro.arcade.game.view.renderer.ArduinoHTTPRenderer}.
+ * Service to discover the Arduino device that is used as display in the {@link mro.arcade.game.view.renderer.ArduinoUDPRenderer}.
  * <p>
  * The implementation is based on the MDNS protocol that uses multicasts to inform other devices in the network segment about the offered services and allows them to connect via IP
  * and port.
