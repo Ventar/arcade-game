@@ -27,14 +27,14 @@ void connectToWifi()
 
   //wifiManager.setCaptivePortalEnable(false);
 
-  wifiManager.setConnectTimeout(60);
-  wifiManager.setSaveConnectTimeout(60);
+  wifiManager.setConnectTimeout(20);
+  wifiManager.setSaveConnectTimeout(20);
 
   wifiManager.setDarkMode(true);
   wifiManager.setShowInfoUpdate(false);
   const char * menu[] = {"wifi","exit"};
   wifiManager.setMenu(menu,2);
-  wifiManager.setMinimumSignalQuality(20);
+  wifiManager.setMinimumSignalQuality(30);
   wifiManager.setSaveConfigCallback([](){ESP.restart();});
   
   

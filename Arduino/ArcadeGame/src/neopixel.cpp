@@ -43,7 +43,7 @@ void setColor(int column, int row, uint32_t color)
 void setupNeopixel()
 {
     strip.begin();
-    strip.setBrightness(16);
+    strip.setBrightness(128);
     strip.clear();
     strip.show();
 }
@@ -116,6 +116,10 @@ void animateWifiSymbol(int red, int green, int blue)
     };
 
     strip.show();
+}
+
+void renderText(int x, int y, String text) {
+    
 }
 
 void renderA(int x, int y, uint32_t color)

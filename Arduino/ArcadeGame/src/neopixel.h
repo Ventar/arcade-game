@@ -18,6 +18,7 @@ void showNeoPixel();
 void animateWifiSymbol(int red, int green, int blue);
 void renderArcade();
 
+void renderText(int x, int y, String text);
 
 void renderA(int x, int y, uint32_t color);
 void renderB(int x, int y, uint32_t color);
