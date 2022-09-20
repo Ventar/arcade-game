@@ -39,7 +39,7 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     private Basics nextTileField = new Basics(new Size(8, 8), new Position(16, 6));
 
-    private GameboardFrame gameboardFrame = new GameboardFrame(new Size(13,14), new Position(1, 1), new Color(255, 255, 255));
+    private GameboardFrame gameboardFrame = new GameboardFrame(new Size(13,14), new Position(0, 0), new Color(255, 255, 255));
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {

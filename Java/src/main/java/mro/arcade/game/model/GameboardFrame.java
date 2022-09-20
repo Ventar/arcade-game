@@ -20,18 +20,18 @@ public class GameboardFrame implements RenderData {
 
     @Override
     public Color getFieldColor(Position position) {
-        for (int i = 0; i < size.getWidth(); i++) {
-            if (position.equals(new Position(i, 0))) {
+        for (int i = offsetPoint.getColumn(); i < size.getWidth() + offsetPoint.getColumn(); i++) {
+            if (position.equals(new Position(i, offsetPoint.getRow()))) {
                 return new Color(0, 0, 200);
             }
         }
-        for (int i = 0; i < size.getHeight(); i++){
-            if (position.equals(new Position(0, i))) {
+        for (int i = offsetPoint.getRow(); i < size.getHeight() + offsetPoint.getRow(); i++){
+            if (position.equals(new Position(offsetPoint.getColumn(), i))) {
                 return new Color(0, 0, 200);
             }
         }
-        for (int i = size.getHeight() - 1; i > 0; i--){
-            if (position.equals(new Position(size.getWidth() - 1, i))) {
+        for (int i = size.getHeight() - 1 + offsetPoint.getRow(); i > offsetPoint.getRow(); i--){
+            if (position.equals(new Position(size.getWidth() - 1 + offsetPoint.getColumn(), i))) {
                 return new Color(0, 0, 200);
             }
         }
