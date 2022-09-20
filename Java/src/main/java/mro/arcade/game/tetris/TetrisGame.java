@@ -18,9 +18,12 @@ public class TetrisGame implements NativeKeyListener {
     private static final Logger LOG = LoggerFactory.getLogger(TetrisGame.class);
     private Gameboard board = new Gameboard(new Size(12, 12), new Position(1, 1));
 
-    private boolean showWholeCounter = false;
+    private boolean showSingleCounter = false;
+    private boolean showWholeCounter = true;
 
-    private Counter counter = new Counter(new Size(5, 16), new Position(9, 19), showWholeCounter);
+    private Counter counter = new Counter(new Size(5, 16), new Position(9, 19), showSingleCounter);
+
+    private Counter endCounter = new Counter(new Size(5,16), new Position(4, 2), showWholeCounter);
 
     private Tile activeTile;
 
@@ -108,7 +111,6 @@ public class TetrisGame implements NativeKeyListener {
 
         render();
 
-
         while (loop) {
             //nextTileField.removeTile(t);
             Thread.sleep(1000);
@@ -117,11 +119,14 @@ public class TetrisGame implements NativeKeyListener {
                 activeTile = board.moveTile(activeTile, Direction.DOWN);
             } else {
                 LOG.trace("End of board reached");
-                counter.add(board.removeFullRows() * 50);
+                int score = board.removeFullRows() * 50;
+                counter.add(score);
+                endCounter.add(score);
 
                 activeTile = board.addTileToField(nextTile);
 
                 counter.add(1);
+                endCounter.add(1);
 
                 if (activeTile == null) {
                     LOG.trace("GAME OVER");
@@ -135,8 +140,7 @@ public class TetrisGame implements NativeKeyListener {
             }
             render();
         }
-        generateGameOverScreen();
-        renderer.render(gameOverDisplay);
+        renderEndScreen();
     }
 
 
@@ -150,25 +154,23 @@ public class TetrisGame implements NativeKeyListener {
         renderer.render(container);
     }
 
-    private void generateGameOverScreen() {
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G, new Position(3, 14));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_A, new Position(8, 14));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_M, new Position(12, 14));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(18, 14));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_O, new Position(4, 6));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_V, new Position(8, 6));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(12, 6));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_R, new Position(16, 6));
+    public void renderEndScreen(){
+        RenderDataContainer container = new RenderDataContainer();
+        generateGameOverScreen();
+        container.addRenderData(gameOverDisplay);
+        container.addRenderData(endCounter);
+        renderer.render(container);
     }
 
-//    public static void main(String[] args) throws Exception {
-//
-//        GlobalScreen.registerNativeHook();
-//
-//        ArcadeGameMain game = new ArcadeGameMain();
-//        GlobalScreen.addNativeKeyListener(game);
-//        game.run();
-//
-//
-//    }
+    private void generateGameOverScreen() {
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G, new Position(3, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_A, new Position(8, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_M, new Position(12, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(18, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_O, new Position(4, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_V, new Position(8, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(12, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_R, new Position(16, 9));
+    }
+
 }

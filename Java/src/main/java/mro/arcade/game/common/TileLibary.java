@@ -197,7 +197,7 @@ public class TileLibary {
     ));
 
 
-    public static final Tile LETTER_TEMPLATE_G = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_G = new Tile("LETTER_TEMPLATE_G", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
@@ -213,7 +213,7 @@ public class TileLibary {
             p(2,2)
     ));
 
-    public static final Tile LETTER_TEMPLATE_A = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_A = new Tile("LETTER_TEMPLATE_A", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
@@ -228,7 +228,7 @@ public class TileLibary {
             p(1,2)
     ));
 
-    public static final Tile LETTER_TEMPLATE_M = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_M = new Tile("LETTER_TEMPLATE_M", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
@@ -244,7 +244,7 @@ public class TileLibary {
             p(4, 0)
     ));
 
-    public static final Tile LETTER_TEMPLATE_E = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_E = new Tile("LETTER_TEMPLATE_E", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
@@ -258,7 +258,7 @@ public class TileLibary {
             p(2, 4)
     ));
 
-    public static final Tile LETTER_TEMPLATE_O = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_O = new Tile("LETTER_TEMPLATE_O", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
@@ -273,7 +273,7 @@ public class TileLibary {
             p(2, 1)
     ));
 
-    public static final Tile LETTER_TEMPLATE_V = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_V = new Tile("LETTER_TEMPLATE_V", Arrays.asList(
             p(0, 4),
             p(0, 3),
             p(0, 2),
@@ -285,7 +285,7 @@ public class TileLibary {
             p(2, 4)
     ));
 
-    public static final Tile LETTER_TEMPLATE_R = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+    public static final Tile LETTER_TEMPLATE_R = new Tile("LETTER_TEMPLATE_R", Arrays.asList(
             p(0, 0),
             p(0, 1),
             p(0, 2),
