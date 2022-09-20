@@ -100,7 +100,8 @@ public class Gameboard extends Basics implements RenderData  {
 
     }
 
-    public synchronized void removeFullRows() {
+    public synchronized int removeFullRows() {
+        int fullRowRemoved = 0;
 
         int rowsRemoved = 0;
         for (int row = 0; row < size.getHeight(); row++) {
@@ -109,6 +110,7 @@ public class Gameboard extends Basics implements RenderData  {
                     tile.removeRow(row);
                     rowsRemoved++;
                 }
+                fullRowRemoved++;
             }
         }
 
@@ -117,7 +119,7 @@ public class Gameboard extends Basics implements RenderData  {
                 moveTile(t, Direction.DOWN);
             }
         }
-
+        return fullRowRemoved;
     }
 
     private boolean isRowFull(int row) {

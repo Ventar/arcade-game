@@ -1,6 +1,8 @@
 package mro.arcade.game.model;
 
 import mro.arcade.game.view.RenderData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import static mro.arcade.game.model.Gameboard.LOG;
 
 public class Basics implements RenderData {
 
+    public static final Logger LOG = LoggerFactory.getLogger(Basics.class);
 
     protected final Position offsetPoint;
 
@@ -84,7 +87,7 @@ public class Basics implements RenderData {
         return Color.COLOR_BLACK;
     }
 
-    public void removeTile(Tile tile){
+    public void removeTile(Tile tile) {
 
         tiles.remove(tile);
 

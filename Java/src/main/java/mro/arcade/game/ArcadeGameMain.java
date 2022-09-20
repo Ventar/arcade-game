@@ -18,20 +18,28 @@ import java.util.Random;
 public class ArcadeGameMain implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
-    private static final Size SIZE = new Size(14, 14);
+    private static final Size SIZE = new Size(24, 24);
 
 
-//    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
+    //    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
     //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
     private BoardRenderer renderer = new SwingRenderer(SIZE);
 
-    private Gameboard board = new Gameboard(new Size(12,12), new Position(0,0));
+    private Gameboard board = new Gameboard(new Size(12, 12), new Position(1, 1));
+
+    private boolean showWholeCounter = false;
+
+    private Counter counter = new Counter(new Size(5, 16), new Position(9, 19), showWholeCounter);
 
     private Tile activeTile;
 
-    private Tile nextTile;
+    //private Tile nextTile;
+
+    private Basics nextTileField = new Basics(new Size(8, 8), new Position(16, 6));
+
+    private GameboardFrame gameboardFrame = new GameboardFrame(new Size(13,14), new Position(1, 1), new Color(255, 255, 255));
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
@@ -73,11 +81,11 @@ public class ArcadeGameMain implements NativeKeyListener {
 
     }
 
-    public void generateNextTile() {
+    public Tile generateNextTile() {
         Random random = new Random();
 
         // Take a random tile from the TileLibary
-        nextTile = TileLibary.TILE_TEMPLATES[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
+        Tile nextTile = TileLibary.TILE_TEMPLATES[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
 
         // Create a copy of the random tile and assign a random color. This is necessary because TileTemplates
         // do not have a color.
@@ -85,6 +93,8 @@ public class ArcadeGameMain implements NativeKeyListener {
 
         // Perform a random rotation.
         nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
+
+        return nextTile;
     }
 
 
@@ -92,31 +102,39 @@ public class ArcadeGameMain implements NativeKeyListener {
 
         renderer.clear();
 
-        generateNextTile();
+        counter.add(0);
 
+        Tile nextTile = generateNextTile();
         activeTile = board.addTileToField(nextTile);
 
-        generateNextTile();
+        nextTile = generateNextTile();
+        Tile t = nextTileField.addTileToField(nextTile, new Position(1, 1));
+
         render();
 
-        while (true) {
 
+        while (true) {
+            //nextTileField.removeTile(t);
             Thread.sleep(1000);
 
             if (board.canMove(activeTile, Direction.DOWN)) {
                 activeTile = board.moveTile(activeTile, Direction.DOWN);
             } else {
                 LOG.trace("End of board reached");
-                board.removeFullRows();
-
+                counter.add(board.removeFullRows() * 50);
 
                 activeTile = board.addTileToField(nextTile);
+
+                counter.add(5);
+
                 if (activeTile == null) {
                     LOG.trace("GAME OVER");
                     System.exit(0);
                 }
-                generateNextTile();
 
+                nextTileField.removeTile(t);
+                nextTile=  generateNextTile();
+                t = nextTileField.addTileToField(nextTile, new Position(1, 1));
             }
             render();
         }
@@ -126,6 +144,9 @@ public class ArcadeGameMain implements NativeKeyListener {
     public void render() {
         RenderDataContainer container = new RenderDataContainer();
         container.addRenderData(board);
+        container.addRenderData(counter);
+        container.addRenderData(nextTileField);
+        container.addRenderData(gameboardFrame);
 //        container.addRenderData(new RenderData() {
 //            @Override
 //            public Color getFieldColor(Position position) {
