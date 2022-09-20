@@ -1,6 +1,11 @@
 package mro.arcade.game;
 
-import mro.arcade.game.model.*;
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Size;
+import mro.arcade.game.common.TileLibary;
+import mro.arcade.game.tetris.Gameboard;
+import mro.arcade.game.common.Position;
+import mro.arcade.game.common.Tile;
 import mro.arcade.game.view.renderer.ASCIIRenderer;
 
 public class DebuggerDemo {

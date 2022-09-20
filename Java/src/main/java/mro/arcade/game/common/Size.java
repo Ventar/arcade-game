@@ -1,4 +1,4 @@
-package mro.arcade.game.model;
+package mro.arcade.game.common;
 
 /**
  * Implementation of the size class.

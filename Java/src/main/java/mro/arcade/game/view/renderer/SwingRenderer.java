@@ -1,7 +1,7 @@
 package mro.arcade.game.view.renderer;
 
-import mro.arcade.game.model.Position;
-import mro.arcade.game.model.Size;
+import mro.arcade.game.common.Position;
+import mro.arcade.game.common.Size;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
 
@@ -86,14 +86,14 @@ public class SwingRenderer implements BoardRenderer {
                     x = column * FIELD_SIZE_PX;
                     y = row * FIELD_SIZE_PX;
 
-                    mro.arcade.game.model.Color color = mro.arcade.game.model.Color.COLOR_BLACK;
+                    mro.arcade.game.common.Color color = mro.arcade.game.common.Color.COLOR_BLACK;
                     if (model != null) {
                         color = model.getFieldColor(new Position(column, size.getHeight() - 1 - row));
                     }
 
                     Color awtColor = null;
 
-                    if (mro.arcade.game.model.Color.COLOR_BLACK.equals(color)) {
+                    if (mro.arcade.game.common.Color.COLOR_BLACK.equals(color)) {
                         awtColor = new Color(120, 140, 160);
                     } else {
                         awtColor = convertToAwtColor(color);
@@ -109,7 +109,7 @@ public class SwingRenderer implements BoardRenderer {
 
         }
 
-        public Color convertToAwtColor(mro.arcade.game.model.Color ourColor) {
+        public Color convertToAwtColor(mro.arcade.game.common.Color ourColor) {
             return new Color(ourColor.getRed(), ourColor.getGreen(), ourColor.getBlue());
         }
     }

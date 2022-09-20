@@ -1,8 +1,7 @@
 package mro.arcade.game.view;
 
-import mro.arcade.game.model.Color;
-import mro.arcade.game.model.Position;
-import mro.arcade.game.model.Size;
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Position;
 
 /**
  * RenderData interface

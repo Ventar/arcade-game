@@ -1,7 +1,7 @@
 package mro.arcade.game.view;
 
-import mro.arcade.game.model.Color;
-import mro.arcade.game.model.Position;
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Position;
 
 import java.util.ArrayList;
 import java.util.List;

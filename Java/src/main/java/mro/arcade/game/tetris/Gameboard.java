@@ -1,11 +1,11 @@
-package mro.arcade.game.model;
+package mro.arcade.game.tetris;
 
+import mro.arcade.game.common.*;
 import mro.arcade.game.view.RenderData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**

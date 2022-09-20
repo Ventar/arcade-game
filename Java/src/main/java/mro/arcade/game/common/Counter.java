@@ -1,4 +1,4 @@
-package mro.arcade.game.model;
+package mro.arcade.game.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

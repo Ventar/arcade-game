@@ -1,10 +1,10 @@
 package mro.arcade.game.view.renderer;
 
-import mro.arcade.game.model.Color;
-import mro.arcade.game.model.Position;
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Position;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
-import mro.arcade.game.model.Size;
+import mro.arcade.game.common.Size;
 
 @SuppressWarnings("java:S106")
 public class ASCIIRenderer implements BoardRenderer {

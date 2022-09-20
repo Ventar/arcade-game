@@ -1,6 +1,5 @@
-package mro.arcade.game.model;
+package mro.arcade.game.common;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TileLibary {
@@ -81,8 +80,8 @@ public class TileLibary {
             p(2, 2),
             p(2, 3),
             p(2, 4),
-            p(1, 4),
-            p(0, 3)
+            p(1, 3),
+            p(0, 2)
 
     ));
     public static final Tile NUMBER_TEMPLATE_TWO = new Tile("NUMBER_TEMPLATE_TWO", Arrays.asList(
@@ -198,8 +197,108 @@ public class TileLibary {
     ));
 
 
+    public static final Tile LETTER_TEMPLATE_G = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 4),
+            p(2, 4),
+            p(1, 0),
+            p(2, 0),
+            p(3, 0),
+            p(3, 1),
+            p(3, 2),
+            p(2,2)
+    ));
 
+    public static final Tile LETTER_TEMPLATE_A = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 4),
+            p(2, 4),
+            p(2, 3),
+            p(2, 2),
+            p(2, 1),
+            p(2, 0),
+            p(1,2)
+    ));
 
+    public static final Tile LETTER_TEMPLATE_M = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 3),
+            p(2, 2),
+            p(3, 3),
+            p(4, 4),
+            p(4, 3),
+            p(4, 2),
+            p(4, 1),
+            p(4, 0)
+    ));
+
+    public static final Tile LETTER_TEMPLATE_E = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 0),
+            p(2, 0),
+            p(1, 2),
+            p(2, 2),
+            p(1, 4),
+            p(2, 4)
+    ));
+
+    public static final Tile LETTER_TEMPLATE_O = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 0),
+            p(1, 4),
+            p(2, 0),
+            p(2, 4),
+            p(2, 3),
+            p(2, 2),
+            p(2, 1)
+    ));
+
+    public static final Tile LETTER_TEMPLATE_V = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 4),
+            p(0, 3),
+            p(0, 2),
+            p(0, 1),
+            p(1, 0),
+            p(2, 1),
+            p(2, 2),
+            p(2, 3),
+            p(2, 4)
+    ));
+
+    public static final Tile LETTER_TEMPLATE_R = new Tile("NUMBER_TEMPLATE_NINE", Arrays.asList(
+            p(0, 0),
+            p(0, 1),
+            p(0, 2),
+            p(0, 3),
+            p(0, 4),
+            p(1, 4),
+            p(2, 4),
+            p(2, 3),
+            p(2, 2),
+            p(1, 2),
+            p(1, 1),
+            p(2, 0)
+    ));
 
     public static final Tile[] TILE_TEMPLATES = new Tile[]{
             L_TEMPLATE,

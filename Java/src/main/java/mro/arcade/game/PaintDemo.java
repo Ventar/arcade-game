@@ -1,6 +1,9 @@
 package mro.arcade.game;
 
-import mro.arcade.game.model.*;
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Size;
+import mro.arcade.game.common.Position;
+import mro.arcade.game.common.Tile;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderData;
 import mro.arcade.game.view.renderer.SwingRenderer;
