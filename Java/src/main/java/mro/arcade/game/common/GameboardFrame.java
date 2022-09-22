@@ -10,6 +10,12 @@ public class GameboardFrame implements RenderData {
 
     private Position offsetPoint;
 
+    /**
+     * Creates the gameboard frame.
+     * @param size
+     * @param offsetPoint
+     * @param color
+     */
     public GameboardFrame(Size size, Position offsetPoint, Color color) {
         this.size = size;
         this.offsetPoint = offsetPoint;

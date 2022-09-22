@@ -100,6 +100,10 @@ public class Gameboard extends Basics implements RenderData  {
 
     }
 
+    /**
+     * removed the whole row when its full
+     * @return
+     */
     public synchronized int removeFullRows() {
         int fullRowRemoved = 0;
 
@@ -122,6 +126,11 @@ public class Gameboard extends Basics implements RenderData  {
         return fullRowRemoved;
     }
 
+    /**
+     * checks if the row is already full
+     * @param row
+     * @return
+     */
     private boolean isRowFull(int row) {
         int counter = 0;
         for (int column = 0; column < size.getWidth(); column++) {

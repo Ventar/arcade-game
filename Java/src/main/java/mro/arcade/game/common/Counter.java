@@ -18,7 +18,11 @@ public class Counter extends Basics {
         this.showWholeCounter = showWholeCounter;
     }
 
-
+    /**
+     *
+     * Adds the corresponding number to the counter
+     * @param integer
+     */
     public void add(int integer) {
 
 
@@ -47,7 +51,10 @@ public class Counter extends Basics {
         addDigitTileToField();
     }
 
-
+    /**
+     * calculate all digits that we have.
+     *
+     */
     private void calculateDigits() {
 
         int rest = value;
@@ -127,6 +134,12 @@ public class Counter extends Basics {
 //        digitTiles[3] = addTileToField(digitToTile(digits[3]), new Position(3 * 4, 0));
     }
 
+    /**
+     *
+     * turn the digits into tiles.
+     * @param integer
+     * @return
+     */
     private Tile digitToTile(int integer) {
 
         return switch (integer) {

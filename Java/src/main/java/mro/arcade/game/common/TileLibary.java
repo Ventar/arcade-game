@@ -20,9 +20,9 @@ public class TileLibary {
     ));
     public static final Tile S_TEMPLATE = new Tile("S_TEMPLATE", Arrays.asList(
             new Position(0, 0),
+            new Position(-1, 0),
             new Position(0, 1),
-            new Position(-1, 1),
-            new Position(-1, 2)
+            new Position(1, 1)
     ));
     public static final Tile I_TEMPLATE = new Tile("I_TEMPLATE", Arrays.asList(
             new Position(0, 0),

@@ -21,6 +21,13 @@ public class Basics implements RenderData {
         this.offsetPoint = offsetPoint;
     }
 
+    /**
+     *
+     * Checks if a tile collides with another tile or the end of the playing field
+     *
+     * @param position
+     * @return that there are no collisions.
+     */
     protected boolean detectCollision(Position position) {
         for (Tile tile : tiles) {
             for (Position pos : tile.getPositions()) {
@@ -32,6 +39,11 @@ public class Basics implements RenderData {
         return false;
     }
 
+    /**
+     * Checks if the current position of a tile is already taken
+     * @param position
+     * @return if the the position is on board.
+     */
     private boolean isPositionOnBoard(Position position) {
         if (position.getColumn() > size.getWidth() - 1 ||
                 position.getRow() > size.getHeight() - 1 ||
@@ -51,6 +63,12 @@ public class Basics implements RenderData {
         return true;
     }
 
+    /**
+     * Places the current tile into the playfield.
+     * @param tileTemplate
+     * @param position
+     * @return a tile.
+     */
     public Tile addTileToField(Tile tileTemplate, Position position) {
 
 

@@ -39,7 +39,12 @@ public class TetrisGame implements NativeKeyListener {
         this.renderer = boardRenderer;
     }
 
-
+    /**
+     *
+     * Checks which key is pressed on the keyboard and then responds with the appropriate command.
+     *
+     * @param nativeEvent
+     */
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
         // To see key codes use: System.out.println(nativeEvent.getKeyCode());
@@ -80,6 +85,12 @@ public class TetrisGame implements NativeKeyListener {
 
     }
 
+    /**
+     *
+     * Generate the next tile for the Tetris game.
+     *
+     * @return
+     */
     public Tile generateNextTile() {
         Random random = new Random();
 
@@ -92,6 +103,13 @@ public class TetrisGame implements NativeKeyListener {
 
         // Perform a random rotation.
         nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
+
+        if (nextTile.equals(TileLibary.O_TEMPLATE)){
+
+
+        }
+
+
 
         return nextTile;
     }
@@ -162,6 +180,10 @@ public class TetrisGame implements NativeKeyListener {
         renderer.render(container);
     }
 
+    /**
+     * Generates the screen when the game is over.
+     *
+     */
     private void generateGameOverScreen() {
         gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G, new Position(3, 17));
         gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_A, new Position(8, 17));

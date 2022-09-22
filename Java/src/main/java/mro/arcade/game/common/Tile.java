@@ -41,7 +41,10 @@ public class Tile {
         return color;
     }
 
-
+    /**
+     * Get the name of the tile
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -56,6 +59,11 @@ public class Tile {
         return fields;
     }
 
+    /**
+     * let the tile rotate
+     * @param rotation
+     * @return the rotated tile
+     */
     public Tile rotate(Rotation rotation) {
         List<Position> newPositions = new ArrayList<>();
         Position anchor = fields.get(0);
@@ -69,6 +77,11 @@ public class Tile {
         return new Tile(getName(), newPositions, this.color);
     }
 
+    /**
+     * let the tile move
+     * @param direction
+     * @return the moved tile
+     */
     public Tile move(Direction direction) {
         Position newPosition;
         List<Position> newTilePositions = new ArrayList<>();
