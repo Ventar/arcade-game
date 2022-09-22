@@ -1,9 +1,7 @@
 package mro.arcade.game.tetris;
 
-import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-import mro.arcade.game.ArcadeGameMain;
 import mro.arcade.game.common.*;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderDataContainer;
@@ -11,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class TetrisGame implements NativeKeyListener {
 
@@ -29,9 +26,9 @@ public class TetrisGame implements NativeKeyListener {
 
     private BoardRenderer renderer;
 
-    Basics gameOverDisplay = new Basics(new Size(24, 24), new Position(0, 0));
+    TileContainer gameOverDisplay = new TileContainer(new Size(24, 24), new Position(0, 0));
 
-    private Basics nextTileField = new Basics(new Size(8, 8), new Position(16, 6));
+    private TileContainer nextTileField = new TileContainer(new Size(8, 8), new Position(16, 6));
 
     private GameboardFrame gameboardFrame = new GameboardFrame(new Size(13, 14), new Position(0, 0), new Color(255, 255, 255));
 

@@ -7,16 +7,16 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Basics implements RenderData {
+public class TileContainer implements RenderData {
 
-    public static final Logger LOG = LoggerFactory.getLogger(Basics.class);
+    public static final Logger LOG = LoggerFactory.getLogger(TileContainer.class);
 
     protected final Position offsetPoint;
 
     protected final Size size;
     protected final List<Tile> tiles = new ArrayList<>();
 
-    public Basics(Size size, Position offsetPoint) {
+    public TileContainer(Size size, Position offsetPoint) {
         this.size = size;
         this.offsetPoint = offsetPoint;
     }

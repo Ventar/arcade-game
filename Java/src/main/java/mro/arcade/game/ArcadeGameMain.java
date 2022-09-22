@@ -2,22 +2,15 @@ package mro.arcade.game;
 
 
 import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.common.*;
-import mro.arcade.game.common.Basics;
-import mro.arcade.game.tetris.Gameboard;
-import mro.arcade.game.common.Position;
-import mro.arcade.game.common.Tile;
 import mro.arcade.game.tetris.TetrisGame;
 import mro.arcade.game.view.BoardRenderer;
-import mro.arcade.game.view.RenderDataContainer;
 //import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
 import mro.arcade.game.view.renderer.SwingRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class ArcadeGameMain implements NativeKeyListener {

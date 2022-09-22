@@ -3,12 +3,11 @@ package mro.arcade.game.common;
 import java.util.Objects;
 
 /**
- * Implementation of the position class
+ * A position is a single field on the game board that is identified by a colum (x) and a row (y) value.
  *
  * @author Noel Masur, Leon Federau
- * @since 12.08.2022
- * <p>
- * Get the certain position from the field
+ * @since  2022-08-12
+ *  *
  */
 public class Position {
 

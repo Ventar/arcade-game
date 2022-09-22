@@ -3,7 +3,7 @@ package mro.arcade.game.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Counter extends Basics {
+public class Counter extends TileContainer {
     public static final Logger LOG = LoggerFactory.getLogger(Counter.class);
     private static int MAX_VALUE = 9999;
     private int value = 0;

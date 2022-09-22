@@ -68,6 +68,11 @@ public class SwingRenderer implements BoardRenderer {
     }
 
 
+    @Override
+    public Size getSize() {
+        return size;
+    }
+
     private class PaintPane extends JPanel {
 
         public PaintPane() {
@@ -113,4 +118,6 @@ public class SwingRenderer implements BoardRenderer {
             return new Color(ourColor.getRed(), ourColor.getGreen(), ourColor.getBlue());
         }
     }
+
+
 }

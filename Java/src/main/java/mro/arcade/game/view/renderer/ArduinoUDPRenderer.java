@@ -105,4 +105,8 @@ public class ArduinoUDPRenderer implements BoardRenderer {
 
     }
 
+    @Override
+    public Size getSize() {
+        return size;
+    }
 }

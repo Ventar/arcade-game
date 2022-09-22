@@ -6,12 +6,32 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Tiles to play the game Tetris
+ * A tile is a collection of multiple {@link Position}s which groups them together to manage them in the context of a {@link TileContainer} container.
+ * <p>
+ * Tiles can be added to the  container and be {@link #move(Direction)}d, {@link #translate(Position)}) or {@link #rotate(Rotation)}d.
+ * When such an operation is called the positions of the tile are changed according to the operation.
+ *
+ * For example: If you translate a tile with the position (0|0) and (0|1) by (2|2) the positions within the tile will change their values to (2|2) and
+ * (2|3). Negative values would be allowed here.
+ *
+ * @author Noel Masur
+ * @since 2022-09-22
+ *
  */
 public class Tile {
 
+    /**
+     * The color of the tile.
+     */
     private Color color;
+
+    /**
+     * List of positions.
+     */
     protected List<Position> fields;
+    /**
+     * The name of the tile, primary used to identify a tile in the logs and increase readability.
+     */
     private String name;
 
 
@@ -43,6 +63,7 @@ public class Tile {
 
     /**
      * Get the name of the tile
+     *
      * @return
      */
     public String getName() {
@@ -61,6 +82,7 @@ public class Tile {
 
     /**
      * let the tile rotate
+     *
      * @param rotation
      * @return the rotated tile
      */
@@ -79,6 +101,7 @@ public class Tile {
 
     /**
      * let the tile move
+     *
      * @param direction
      * @return the moved tile
      */

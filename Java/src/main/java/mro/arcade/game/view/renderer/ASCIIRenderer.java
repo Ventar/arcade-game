@@ -109,6 +109,11 @@ public class ASCIIRenderer implements BoardRenderer {
     }
 
 
+    @Override
+    public Size getSize() {
+        return size;
+    }
+
 }
 
 

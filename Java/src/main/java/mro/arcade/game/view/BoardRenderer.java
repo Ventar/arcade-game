@@ -1,5 +1,7 @@
 package mro.arcade.game.view;
 
+import mro.arcade.game.common.Size;
+
 /**
  * BoardRenderer Interface
  *
@@ -13,4 +15,6 @@ public interface BoardRenderer {
     void render(RenderData data);
 
     void clear();
+
+    Size getSize();
 }

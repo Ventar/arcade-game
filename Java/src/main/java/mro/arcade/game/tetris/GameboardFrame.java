@@ -1,5 +1,8 @@
-package mro.arcade.game.common;
+package mro.arcade.game.tetris;
 
+import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Position;
+import mro.arcade.game.common.Size;
 import mro.arcade.game.view.RenderData;
 
 public class GameboardFrame implements RenderData {

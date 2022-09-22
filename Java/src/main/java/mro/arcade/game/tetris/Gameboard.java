@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
  * Render an Asci board or a Frame board
  */
-public class Gameboard extends Basics implements RenderData  {
+public class Gameboard extends TileContainer implements RenderData  {
 
     public static final Logger LOG = LoggerFactory.getLogger(Gameboard.class);
 

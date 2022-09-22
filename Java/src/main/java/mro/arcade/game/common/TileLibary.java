@@ -2,6 +2,13 @@ package mro.arcade.game.common;
 
 import java.util.Arrays;
 
+/**
+ * Utility class that offers multiple predefined tiles to be used in other classes.
+ * These tiles can be considered as templates  which are added to a Basics container
+ *
+ * @author Noel Masur, Leon Federau
+ * @since 2022-09-22
+ */
 public class TileLibary {
 
 
