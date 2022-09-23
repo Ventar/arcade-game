@@ -43,12 +43,12 @@ public class Position {
     }
 
     /**
-     * Add a value to a position to create a new one
+     * Add a value to a position to create a new one. Neither the current position nor the passed one are changed.
      * @param pos to add
      * @return Position
      */
     public Position add(Position pos) {
-        return new Position(this.column + pos.getColumn(), this.row + pos.getRow());
+       return new Position(this.column + pos.getColumn(), this.row + pos.getRow());
     }
 
     /**
@@ -71,7 +71,6 @@ public class Position {
             case DEGREE_90 -> new Position(this.row, -1 * this.column);
             case DEGREE_180 -> new Position(-1 * this.column, -1 * this.row);
             case DEGREE_270 -> new Position(-1 * this.row, this.column);
-            default -> throw new IllegalArgumentException();
         };
     }
 

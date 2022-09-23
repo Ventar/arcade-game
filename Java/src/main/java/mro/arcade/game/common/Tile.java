@@ -10,13 +10,12 @@ import java.util.Objects;
  * <p>
  * Tiles can be added to the  container and be {@link #move(Direction)}d, {@link #translate(Position)}) or {@link #rotate(Rotation)}d.
  * When such an operation is called the positions of the tile are changed according to the operation.
- *
+ * <p>
  * For example: If you translate a tile with the position (0|0) and (0|1) by (2|2) the positions within the tile will change their values to (2|2) and
  * (2|3). Negative values would be allowed here.
  *
  * @author Noel Masur, Leon Federau
  * @since 2022-09-22
- *
  */
 public class Tile {
 
@@ -37,19 +36,21 @@ public class Tile {
 
     /**
      * Create a new instance of a tile
-     * @param name of the tile
+     *
+     * @param name   of the tile
      * @param fields -> all positions of the tile
-     * @param color of the tile
+     * @param color  of the tile
      */
     public Tile(String name, List<Position> fields, Color color) {
-        this.fields = fields;
+        this.fields = new ArrayList<>(fields);
         this.color = color;
         this.name = name;
     }
 
     /**
      * Create a new instance of a tile
-     * @param name of the tile
+     *
+     * @param name   of the tile
      * @param fields -> all positions of the tile
      */
     public Tile(String name, List<Position> fields) {
@@ -112,26 +113,12 @@ public class Tile {
      * @return the moved tile
      */
     public Tile move(Direction direction) {
-        Position newPosition;
-        List<Position> newTilePositions = new ArrayList<>();
-
-        for (Position tilePosition : this.getPositions()) {
-            if (direction == Direction.DOWN) {
-                newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() - 1);
-                newTilePositions.add(newPosition);
-            } else if (direction == Direction.LEFT) {
-                newPosition = new Position(tilePosition.getColumn() - 1, tilePosition.getRow());
-                newTilePositions.add(newPosition);
-            } else if (direction == Direction.RIGHT) {
-                newPosition = new Position(tilePosition.getColumn() + 1, tilePosition.getRow());
-                newTilePositions.add(newPosition);
-            } else if (direction == Direction.UP) {
-                newPosition = new Position(tilePosition.getColumn(), tilePosition.getRow() + 1);
-                newTilePositions.add(newPosition);
-            }
-        }
-
-        return new Tile(getName(), newTilePositions, this.getColor());
+        return switch (direction) {
+            case DOWN -> translate(new Position(0, -1));
+            case LEFT -> translate(new Position(-1, 0));
+            case RIGHT -> translate(new Position(1, 0));
+            case UP -> translate(new Position(0, 1));
+        };
     }
 
 
@@ -148,6 +135,7 @@ public class Tile {
 
     /**
      * Get the width/ columns of the field
+     *
      * @return Integer
      */
     public int getWidth() {
@@ -169,6 +157,7 @@ public class Tile {
 
     /**
      * Get the height/ rows of the field
+     *
      * @return
      */
     public int getHeight() {
@@ -190,6 +179,7 @@ public class Tile {
 
     /**
      * Checks if the row is full
+     *
      * @param row to remove
      * @return boolean
      */
