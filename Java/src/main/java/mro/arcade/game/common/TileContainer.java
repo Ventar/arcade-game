@@ -54,6 +54,11 @@ public class TileContainer implements RenderData {
         return true;
     }
 
+    /**
+     * Checks if the rotated or moved tile would still be in the field
+     * @param tile to check
+     * @return boolean
+     */
     protected boolean isTileOnBoard(Tile tile) {
         for (Position position : tile.getPositions()) {
             if (!isPositionOnBoard(position)) {
@@ -87,6 +92,12 @@ public class TileContainer implements RenderData {
         return tile;
     }
 
+    /**
+     * Get the color of a position on the field
+     * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
+     *
+     * @return a color
+     */
     @Override
     public Color getFieldColor(Position position) {
 
@@ -103,6 +114,10 @@ public class TileContainer implements RenderData {
         return Color.COLOR_BLACK;
     }
 
+    /**
+     * Remove a tile from the field
+     * @param tile to remove
+     */
     public void removeTile(Tile tile) {
 
         tiles.remove(tile);

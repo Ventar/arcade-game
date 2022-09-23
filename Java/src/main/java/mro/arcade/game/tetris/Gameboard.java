@@ -28,11 +28,10 @@ public class Gameboard extends TileContainer implements RenderData  {
     }
 
     /**
-     * Moving a Tile on the Gameboard, deleting its old position the new position
-     *
-     * @return the moved Tile
+     * Add a tile to the field
+     * @param tileTemplate to add
+     * @return Tile
      */
-
     public Tile addTileToField(Tile tileTemplate) {
 
         Position position = new Position(size.getWidth() / 2, size.getHeight() - tileTemplate.getHeight());
@@ -63,13 +62,12 @@ public class Gameboard extends TileContainer implements RenderData  {
     }
 
     /**
-     * Moves the current Tile
+     * Moves the current Tile in the given direction
      *
-     * @param tile
-     * @param direction
-     * @return
+     * @param tile to move
+     * @param direction to move the tile
+     * @return Tile
      */
-
     public synchronized Tile moveTile(Tile tile, Direction direction) {
         Tile newTile = tile.move(direction);
         this.tiles.remove(tile);
@@ -85,9 +83,9 @@ public class Gameboard extends TileContainer implements RenderData  {
     /**
      * Check if the current tile is able to move
      *
-     * @param tile
-     * @param direction
-     * @return
+     * @param tile to check
+     * @param direction to move the tile
+     * @return boolean
      */
     public synchronized boolean canMove(Tile tile, Direction direction) {
 
@@ -101,8 +99,8 @@ public class Gameboard extends TileContainer implements RenderData  {
     }
 
     /**
-     * removed the whole row when its full
-     * @return
+     * removed the whole row when it is full
+     * @return int
      */
     public synchronized int removeFullRows() {
         int fullRowRemoved = 0;
@@ -128,8 +126,8 @@ public class Gameboard extends TileContainer implements RenderData  {
 
     /**
      * checks if the row is already full
-     * @param row
-     * @return
+     * @param row to check
+     * @return boolean
      */
     private boolean isRowFull(int row) {
         int counter = 0;
@@ -144,10 +142,10 @@ public class Gameboard extends TileContainer implements RenderData  {
     }
 
     /**
-     * Clears/remove the whole row, when its full
+     * Checks of a tile collides with something
+     * @param tile to check
+     * @return boolean
      */
-
-
     private boolean collide(Tile tile) {
         for (Position pos : tile.getPositions()) {
             if (detectCollision(pos)) {

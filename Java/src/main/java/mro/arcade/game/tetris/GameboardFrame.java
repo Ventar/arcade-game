@@ -14,10 +14,10 @@ public class GameboardFrame implements RenderData {
     private Position offsetPoint;
 
     /**
-     * Creates the gameboard frame.
-     * @param size
-     * @param offsetPoint
-     * @param color
+     * Creates an instance of a game board frame.
+     * @param size of the game board frame
+     * @param offsetPoint of the game board frame
+     * @param color of the frame
      */
     public GameboardFrame(Size size, Position offsetPoint, Color color) {
         this.size = size;
@@ -25,6 +25,12 @@ public class GameboardFrame implements RenderData {
         this.color = color;
     }
 
+    /**
+     * Get the color of a position
+     * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
+     *
+     * @return color
+     */
     @Override
     public Color getFieldColor(Position position) {
         for (int i = offsetPoint.getColumn(); i < size.getWidth() + offsetPoint.getColumn(); i++) {

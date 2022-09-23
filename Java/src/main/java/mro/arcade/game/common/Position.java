@@ -14,6 +14,11 @@ public class Position {
     private final int row;
     private final int column;
 
+    /**
+     * Create a new instance of a position
+     * @param column of the position
+     * @param row of the position
+     */
     public Position(int column, int row) {
         this.column = column;
         this.row = row;
@@ -31,20 +36,35 @@ public class Position {
     /**
      * Returns the column of the game field
      *
-     * @return
+     * @return column
      */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * Add a value to a position to create a new one
+     * @param pos to add
+     * @return Position
+     */
     public Position add(Position pos) {
         return new Position(this.column + pos.getColumn(), this.row + pos.getRow());
     }
 
+    /**
+     * Subtract a value of a position to create a new one
+     * @param pos to subtract
+     * @return Position
+     */
     public Position sub(Position pos) {
         return new Position(this.column - pos.getColumn(), this.row - pos.getRow());
     }
 
+    /**
+     * Rotates the position of something by certain degrees
+     * @param rotation the degree to calculate the new rotated position
+     * @return the rotated position
+     */
     public Position rotate(Rotation rotation) {
         return switch (rotation) {
             case DEGREE_0 -> new Position(this.column, this.row);

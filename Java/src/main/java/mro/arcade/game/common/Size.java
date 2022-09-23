@@ -18,6 +18,11 @@ public class Size {
     private int height;
     private int width;
 
+    /**
+     * Create a new instance of a size of ...
+     * @param height of the ...
+     * @param width of the ...
+     */
     public Size(int height, int width) {
         this.height = height;
         this.width = width;

@@ -3,6 +3,7 @@ package mro.arcade.game.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class Counter extends TileContainer {
     public static final Logger LOG = LoggerFactory.getLogger(Counter.class);
     private static int MAX_VALUE = 9999;
@@ -19,9 +20,9 @@ public class Counter extends TileContainer {
     }
 
     /**
-     *
      * Adds the corresponding number to the counter
-     * @param integer
+     *
+     * @param integer to add
      */
     public void add(int integer) {
 
@@ -39,6 +40,12 @@ public class Counter extends TileContainer {
         }
     }
 
+
+    /**
+     * Subs the corresponding number to the counter
+     *
+     * @param integer to subtract
+     */
     public void sub(int integer) {
 
 
@@ -53,7 +60,6 @@ public class Counter extends TileContainer {
 
     /**
      * calculate all digits that we have.
-     *
      */
     private void calculateDigits() {
 
@@ -68,6 +74,9 @@ public class Counter extends TileContainer {
     }
 
 
+    /**
+     * Adds all digits for the counter that were given to the field
+     */
     private void addDigitTileToField() {
 
         for (int i = 0; i < digits.length; i++) {
@@ -81,62 +90,33 @@ public class Counter extends TileContainer {
 
     }
 
+    /**
+     * Adds single digits of the counter to the field, based on the value the counter has. To dismiss the zero`s on the counter
+     */
     private void addSingleDigitTileToField() {
         int checkValue = 1;
-        // for loop from 3 down to 0
-        // checkValue = 1
-        // if the value in this class is larger than check value minus 1, render it
-        // otherwise do not render it
-        // in each iteration check value * 10
 
         if (digitTiles[3] != null) {
-                removeTile(digitTiles[3]);
-                LOG.debug("Removed Tile:{} ", digitTiles[3]);
-            }
-            digitTiles[3] = addTileToField(digitToTile(digits[3]), new Position(3 * 4, 0));
+            removeTile(digitTiles[3]);
+            LOG.debug("Removed Tile:{} ", digitTiles[3]);
+        }
+        digitTiles[3] = addTileToField(digitToTile(digits[3]), new Position(3 * 4, 0));
 
-        for (int i = 3; i > 0; i--){
-            if (value > checkValue - 1){
+        for (int i = 3; i > 0; i--) {
+            if (value > checkValue - 1) {
                 if (digitTiles[i] != null) {
-                removeTile(digitTiles[i]);
-                LOG.debug("Removed Tile:{} ", digitTiles[i]);
-            }
+                    removeTile(digitTiles[i]);
+                    LOG.debug("Removed Tile:{} ", digitTiles[i]);
+                }
                 digitTiles[i] = addTileToField(digitToTile(digits[i]), new Position(i * 4, 0));
                 checkValue *= 10;
             }
         }
-
-//        if(value > 999){
-//            if (digitTiles[0] != null) {
-//                removeTile(digitTiles[0]);
-//                LOG.debug("Removed Tile:{} ", digitTiles[0]);
-//            }
-//            digitTiles[0] = addTileToField(digitToTile(digits[0]), new Position(0 * 4, 0));
-//        }
-//        if(value > 99){
-//            if (digitTiles[1] != null) {
-//                removeTile(digitTiles[1]);
-//                LOG.debug("Removed Tile:{} ", digitTiles[1]);
-//            }
-//            digitTiles[1] = addTileToField(digitToTile(digits[1]), new Position(1 * 4, 0));
-//        }
-//        if(value > 9){
-//            if (digitTiles[2] != null) {
-//                removeTile(digitTiles[2]);
-//                LOG.debug("Removed Tile:{} ", digitTiles[2]);
-//            }
-//            digitTiles[2] = addTileToField(digitToTile(digits[2]), new Position(2 * 4, 0));
-//        }
-//        if (digitTiles[3] != null) {
-//            removeTile(digitTiles[3]);
-//            LOG.debug("Removed Tile:{} ", digitTiles[3]);
-//        }
-//        digitTiles[3] = addTileToField(digitToTile(digits[3]), new Position(3 * 4, 0));
     }
 
     /**
-     *
      * turn the digits into tiles.
+     *
      * @param integer
      * @return
      */

@@ -14,7 +14,7 @@ import java.util.Objects;
  * For example: If you translate a tile with the position (0|0) and (0|1) by (2|2) the positions within the tile will change their values to (2|2) and
  * (2|3). Negative values would be allowed here.
  *
- * @author Noel Masur
+ * @author Noel Masur, Leon Federau
  * @since 2022-09-22
  *
  */
@@ -36,9 +36,10 @@ public class Tile {
 
 
     /**
-     * Create a new instance of a tile template
-     *
-     * @param fields files the tile could take place
+     * Create a new instance of a tile
+     * @param name of the tile
+     * @param fields -> all positions of the tile
+     * @param color of the tile
      */
     public Tile(String name, List<Position> fields, Color color) {
         this.fields = fields;
@@ -46,6 +47,11 @@ public class Tile {
         this.name = name;
     }
 
+    /**
+     * Create a new instance of a tile
+     * @param name of the tile
+     * @param fields -> all positions of the tile
+     */
     public Tile(String name, List<Position> fields) {
         this.fields = fields;
         this.color = Color.COLOR_GREEN;
@@ -100,9 +106,9 @@ public class Tile {
     }
 
     /**
-     * let the tile move
+     * Calculate and moves the tile in the given direction
      *
-     * @param direction
+     * @param direction to move the tile
      * @return the moved tile
      */
     public Tile move(Direction direction) {
@@ -140,6 +146,10 @@ public class Tile {
         return new Tile(getName(), newTilePositions, this.getColor());
     }
 
+    /**
+     * Get the width/ columns of the field
+     * @return Integer
+     */
     public int getWidth() {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -157,6 +167,10 @@ public class Tile {
         return max - min + 1;
     }
 
+    /**
+     * Get the height/ rows of the field
+     * @return
+     */
     public int getHeight() {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -174,7 +188,11 @@ public class Tile {
         return max - min + 1;
     }
 
-
+    /**
+     * Checks if the row is full
+     * @param row to remove
+     * @return boolean
+     */
     public boolean removeRow(int row) {
 
         boolean removed = false;

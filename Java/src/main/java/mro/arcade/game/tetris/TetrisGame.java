@@ -86,7 +86,7 @@ public class TetrisGame implements NativeKeyListener {
      *
      * Generate the next tile for the Tetris game.
      *
-     * @return
+     * @return Tile
      */
     public Tile generateNextTile() {
         Random random = new Random();
