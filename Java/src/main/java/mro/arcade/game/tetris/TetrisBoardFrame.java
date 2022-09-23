@@ -5,7 +5,7 @@ import mro.arcade.game.common.Position;
 import mro.arcade.game.common.Size;
 import mro.arcade.game.view.RenderData;
 
-public class GameboardFrame implements RenderData {
+public class TetrisBoardFrame implements RenderData {
 
     private Size size;
 
@@ -19,7 +19,7 @@ public class GameboardFrame implements RenderData {
      * @param offsetPoint of the game board frame
      * @param color of the frame
      */
-    public GameboardFrame(Size size, Position offsetPoint, Color color) {
+    public TetrisBoardFrame(Size size, Position offsetPoint, Color color) {
         this.size = size;
         this.offsetPoint = offsetPoint;
         this.color = color;

@@ -4,97 +4,127 @@ skinparam BackgroundColor #2B2B2B
 'skinparam linetype ortho
 
 skinparam ClassBackgroundColor<< Main >> #FF5500
+skinparam PackageBackgroundColor #2B2B2B
+skinparam PackageBorderColor #225588
+skinparam PackageFontSize 12
 
 
+package common <<Frame>> {
+    class Color{
+      Represents a RGB color that is used
+      to colorize Tiles on the game board.
+     --
+     + int getRed()
+     + int getGreen()
+     + int getBlue()
+    }
 
+    class Tile {
+       A tile is a collection of multiple positions which groups them
+       together to manage them in the context of a Basics container.
+       --
+      + Color getColor()
+      + List<Position> getPositions()
+      + String getName()
+    }
 
+    class Position {
+     A position is a single field on the game board that is identified
+     by a colum (x) and a row (y) value.
+     --
+     + int getColumn()
+     + int getRow()
+    }
 
-class Color{
-  Represents a RGB color that is used
-  to colorize Tiles on the game board.
- --
- + int getRed()
- + int getGreen()
- + int getBlue()
+    class TileLibrary {
+      Utility class that offers multiple
+      predefined tiles to be used in other classes.
+      These tiles can be considered as templates
+      which are added to a Basics container
+    }
+
+    class Size{
+
+    + int getHeight()
+    + int getWidth()
+    }
+
+    class TileContainer{
+    Contains multiple tiles in its local coordinate system
+    --
+    - Position offsetPoint
+    - Size size
+    - List<Tile> tiles
+
+    }
+
 }
-
-class Tile {
-   A tile is a collection of multiple positions which groups them
-   together to manage them in the context of a Basics container.
-   --
-  + Color getColor()
-  + List<Position> getPositions()
-  + String getName()
-}
-
-class Position {
- A position is a single field on the game board that is identified
- by a colum (x) and a row (y) value.
- --
- + int getColumn()
- + int getRow()
-}
-
-class TileLibrary {
-  Utility class that offers multiple
-  predefined tiles to be used in other classes.
-  These tiles can be considered as templates
-  which are added to a Basics container
-}
-
-class Size{
-
-+ int getHeight()
-+ int getWidth()
-}
-
 
 class ArcadeGameMain << (S,#FF7700) Main >>{
 - BoardRenderer renderer
 }
 
-class TileContainer{
-- Position offsetPoint
-- Size size
-- List<> tiles
+package view <<Frame>> {
+
+    interface RenderData << (I,#FF7700) Interface >> {
+    + Color getFieldColor()
+
+    }
+
+    interface BoardRenderer << (I,#FF7700) Interface >> {
+      Interface to allow implementation
+      independent rendering
+      of Render Data
+    + void render(RenderData)
+    + Size getSize()
+
+    }
+
+    class ArduinoUDPRenderer{
+      Uses the UDP protocol to connect
+      to an Arduino based device
+      that can display the Render
+      Data with LEDs
+    }
+
+    class ASCIIRenderer {
+      Displays Render Data on the
+      console to visualize changes
+      in an easy human readable way.
+    }
+
+    class SwingRenderer {
+      Displays the Render Data
+      in a Swing UI frame to allow
+      development without a hardware
+      device.
+    }
+}
+    package tetris <<Frame>>{
+
+
+    class TetrisBoard{
+ The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
+ Render an Asci board or a Frame board
+ --
+
+
+    }
+
+    class TetrisBoardFrame{
+
+    }
+
+    class TetrisGame{
++ nativeKeyPressed()
++ generateNextTile()
+
+
+    }
 }
 
-interface RenderData << (I,#FF7700) Interface >> {
-+ Color getFieldColor()
-
-}
-
-interface BoardRenderer << (I,#FF7700) Interface >> {
-  Interface to allow implementation
-  independent rendering
-  of Render Data
-+ void render(RenderData)
-+ Size getSize()
-
-}
-
-class ArduinoUDPRenderer{
-  Uses the UDP protocol to connect
-  to an Arduino based device
-  that can display the Render
-  Data with LEDs
-}
-
-class ASCIIRenderer {
-  Displays Render Data on the
-  console to visualize changes
-  in an easy human readable way.
-}
-
-class SwingRenderer {
-  Displays the Render Data
-  in a Swing UI frame to allow
-  development without a hardware
-  device.
-}
-
-
-
+TetrisBoardFrame <-- RenderData
+TetrisBoard <-- RenderData
 BoardRenderer o... ArduinoUDPRenderer: implements
 BoardRenderer o... ASCIIRenderer: implements
 BoardRenderer o... SwingRenderer: implements

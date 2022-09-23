@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
  * Render an Asci board or a Frame board
  */
-public class Gameboard extends TileContainer implements RenderData  {
+public class TetrisBoard extends TileContainer implements RenderData  {
 
-    public static final Logger LOG = LoggerFactory.getLogger(Gameboard.class);
+    public static final Logger LOG = LoggerFactory.getLogger(TetrisBoard.class);
 
 
     /**
@@ -22,7 +22,7 @@ public class Gameboard extends TileContainer implements RenderData  {
      *
      * @param size of the Gameboard
      */
-    public Gameboard(Size size, Position offsetPoint) {
+    public TetrisBoard(Size size, Position offsetPoint) {
         super(size,offsetPoint);
 
     }

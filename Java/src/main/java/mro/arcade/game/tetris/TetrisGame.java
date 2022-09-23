@@ -13,7 +13,7 @@ import java.util.Random;
 public class TetrisGame implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(TetrisGame.class);
-    private Gameboard board = new Gameboard(new Size(12, 12), new Position(1, 1));
+    private TetrisBoard board = new TetrisBoard(new Size(12, 12), new Position(1, 1));
 
     private boolean showSingleCounter = false;
     private boolean showWholeCounter = true;
@@ -30,7 +30,7 @@ public class TetrisGame implements NativeKeyListener {
 
     private TileContainer nextTileField = new TileContainer(new Size(8, 8), new Position(16, 6));
 
-    private GameboardFrame gameboardFrame = new GameboardFrame(new Size(13, 14), new Position(0, 0), new Color(255, 255, 255));
+    private TetrisBoardFrame gameboardFrame = new TetrisBoardFrame(new Size(13, 14), new Position(0, 0), new Color(255, 255, 255));
 
     public TetrisGame(BoardRenderer boardRenderer) {
         this.renderer = boardRenderer;
