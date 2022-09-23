@@ -65,6 +65,13 @@
     </build>
     
     <dependencies>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
         
         <!-- Simple HTTP client lib -->
         <dependency>
@@ -104,6 +111,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
         </dependency>
-    
+
     </dependencies>
 </project>
