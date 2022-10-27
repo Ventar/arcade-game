@@ -102,7 +102,7 @@ public class Counter extends TileContainer {
         }
         digitTiles[3] = addTileToField(digitToTile(digits[3]), new Position(3 * 4, 0));
 
-        for (int i = 3; i > 0; i--) {
+        for (int i = 3; i >= 0; i--) {
             if (value > checkValue - 1) {
                 if (digitTiles[i] != null) {
                     removeTile(digitTiles[i]);

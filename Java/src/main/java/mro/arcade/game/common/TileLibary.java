@@ -41,29 +41,29 @@ public class TileLibary {
     public static final Tile T_TEMPLATE = new Tile("T_TEMPLATE", Arrays.asList(
             new Position(0, 0),
             new Position(0, 1),
-            new Position(0, 2),
-            new Position(1, 1)
+            new Position(-1, 0),
+            new Position(1, 0)
     ));
 
-    public static final Tile T_TEMPLATE_REVERSE = new Tile("T_TEMPLATE_REVERSE", Arrays.asList(
-            new Position(0, 0),
-            new Position(0, 1),
-            new Position(0, 2),
-            new Position(-1, 1)
-    ));
-    public static final Tile L_TEMPLATE_REVERSE = new Tile("L_TEMPLATE_REVERSE", Arrays.asList(
-            new Position(0, 0),
-            new Position(1, 0),
-            new Position(1, 1),
-            new Position(1, 2)
-    ));
-
-    public static final Tile S_TEMPLATE_REVERSE = new Tile("S_TEMPLATE_REVERSE", Arrays.asList(
-            new Position(0, 0),
-            new Position(0, 1),
-            new Position(1, 1),
-            new Position(1, 2)
-    ));
+//    public static final Tile T_TEMPLATE_REVERSE = new Tile("T_TEMPLATE_REVERSE", Arrays.asList(
+//            new Position(0, 0),
+//            new Position(0, 1),
+//            new Position(0, 2),
+//            new Position(-1, 1)
+//    ));
+//    public static final Tile L_TEMPLATE_REVERSE = new Tile("L_TEMPLATE_REVERSE", Arrays.asList(
+//            new Position(0, 0),
+//            new Position(1, 0),
+//            new Position(1, 1),
+//            new Position(1, 2)
+//    ));
+//
+//    public static final Tile S_TEMPLATE_REVERSE = new Tile("S_TEMPLATE_REVERSE", Arrays.asList(
+//            new Position(0, 0),
+//            new Position(0, 1),
+//            new Position(1, 1),
+//            new Position(1, 2)
+//    ));
 
     public static final Tile NUMBER_TEMPLATE_ZERO = new Tile("NUMBER_TEMPLATE_ZERO", Arrays.asList(
             p(0, 0),
@@ -313,9 +313,9 @@ public class TileLibary {
             S_TEMPLATE,
             I_TEMPLATE,
             T_TEMPLATE,
-            L_TEMPLATE_REVERSE,
-            S_TEMPLATE_REVERSE,
-            T_TEMPLATE_REVERSE,
+//            L_TEMPLATE_REVERSE,
+//            S_TEMPLATE_REVERSE,
+//            T_TEMPLATE_REVERSE,
     };
 
 

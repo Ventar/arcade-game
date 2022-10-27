@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * The Gameboard to play the Game, Including the Interface RenderData to render the Gameboard in different variations.
  * Render an Asci board or a Frame board
  */
-public class TetrisBoard extends TileContainer implements RenderData  {
+public class TetrisBoard extends TileContainer implements RenderData {
 
     public static final Logger LOG = LoggerFactory.getLogger(TetrisBoard.class);
 
@@ -23,12 +24,13 @@ public class TetrisBoard extends TileContainer implements RenderData  {
      * @param size of the Gameboard
      */
     public TetrisBoard(Size size, Position offsetPoint) {
-        super(size,offsetPoint);
+        super(size, offsetPoint);
 
     }
 
     /**
      * Add a tile to the field
+     *
      * @param tileTemplate to add
      * @return Tile
      */
@@ -36,7 +38,7 @@ public class TetrisBoard extends TileContainer implements RenderData  {
 
         Position position = new Position(size.getWidth() / 2, size.getHeight() - tileTemplate.getHeight());
 
-        return addTileToField(tileTemplate,position);
+        return addTileToField(tileTemplate, position);
     }
 
     /**
@@ -64,7 +66,7 @@ public class TetrisBoard extends TileContainer implements RenderData  {
     /**
      * Moves the current Tile in the given direction
      *
-     * @param tile to move
+     * @param tile      to move
      * @param direction to move the tile
      * @return Tile
      */
@@ -83,7 +85,7 @@ public class TetrisBoard extends TileContainer implements RenderData  {
     /**
      * Check if the current tile is able to move
      *
-     * @param tile to check
+     * @param tile      to check
      * @param direction to move the tile
      * @return boolean
      */
@@ -100,32 +102,35 @@ public class TetrisBoard extends TileContainer implements RenderData  {
 
     /**
      * removed the whole row when it is full
+     *
      * @return int
      */
     public synchronized int removeFullRows() {
-        int fullRowRemoved = 0;
-
-        int rowsRemoved = 0;
         for (int row = 0; row < size.getHeight(); row++) {
-            if (isRowFull(row)) {
-                for (Tile tile : tiles) {
-                    tile.removeRow(row);
-                    rowsRemoved++;
-                }
-                fullRowRemoved++;
-            }
-        }
 
-        for (int i = 0; i < rowsRemoved; i++) {
-            for (Tile t : new ArrayList<>(tiles)) {
-                moveTile(t, Direction.DOWN);
+            if (isRowFull(row)) {
+                List<Tile> modifiedTiles = new ArrayList<>();
+
+                for (Tile tile : tiles) {
+                    if (tile.removeRow(row)) {
+                        modifiedTiles.add(tile);
+                    }
+                }
+
+                for (Tile tile : new ArrayList<>(tiles)){
+                    if (!modifiedTiles.contains(tile)){
+                        moveTile(tile,Direction.DOWN);
+                    }
+                }
+                return 1 + removeFullRows();
             }
         }
-        return fullRowRemoved;
+        return 0;
     }
 
     /**
      * checks if the row is already full
+     *
      * @param row to check
      * @return boolean
      */
@@ -143,6 +148,7 @@ public class TetrisBoard extends TileContainer implements RenderData  {
 
     /**
      * Checks of a tile collides with something
+     *
      * @param tile to check
      * @return boolean
      */

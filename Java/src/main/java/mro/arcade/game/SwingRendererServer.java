@@ -12,7 +12,7 @@ import java.net.InetAddress;
 
 public class SwingRendererServer {
     private static final Logger LOG = LoggerFactory.getLogger(SwingRendererServer.class);
-    private static int FIELD_SIZE_PX = 50;
+    private static int FIELD_SIZE_PX = 5;
     private JFrame frame = new JFrame();
     private Color[][] model;
     private DatagramSocket socket;

@@ -13,14 +13,14 @@ import java.util.Random;
 public class TetrisGame implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(TetrisGame.class);
-    private TetrisBoard board = new TetrisBoard(new Size(12, 12), new Position(1, 1));
+    private TetrisBoard board = new TetrisBoard(new Size(17, 12), new Position(1, 1));
 
     private boolean showSingleCounter = false;
     private boolean showWholeCounter = true;
 
     private Counter counter = new Counter(new Size(5, 16), new Position(9, 19), showSingleCounter);
 
-    private Counter endCounter = new Counter(new Size(5,16), new Position(4, 2), showWholeCounter);
+    private Counter endCounter = new Counter(new Size(5, 16), new Position(4, 2), showWholeCounter);
 
     private Tile activeTile;
 
@@ -30,14 +30,14 @@ public class TetrisGame implements NativeKeyListener {
 
     private TileContainer nextTileField = new TileContainer(new Size(8, 8), new Position(16, 6));
 
-    private TetrisBoardFrame gameboardFrame = new TetrisBoardFrame(new Size(13, 14), new Position(0, 0), new Color(255, 255, 255));
+    private TetrisBoardFrame gameboardFrame = new TetrisBoardFrame(new Size(17, 14), new Position(0, 0), new Color(255, 255, 255));
+    boolean pause = false;
 
     public TetrisGame(BoardRenderer boardRenderer) {
         this.renderer = boardRenderer;
     }
 
     /**
-     *
      * Checks which key is pressed on the keyboard and then responds with the appropriate command.
      *
      * @param nativeEvent
@@ -51,7 +51,12 @@ public class TetrisGame implements NativeKeyListener {
             System.exit(0);
         }
         if (activeTile != null) {
+//            LOG.debug("Key pressed: {} ", nativeEvent.getKeyCode());
+
             switch (nativeEvent.getKeyCode()) {
+                case 25:
+                    pause = !pause;
+                    break;
                 case 30:
                     activeTile = board.rotate(activeTile, Rotation.DEGREE_270);
                     break;
@@ -65,13 +70,20 @@ public class TetrisGame implements NativeKeyListener {
                     activeTile = board.moveTile(activeTile, Direction.LEFT);
                     break;
                 case 57424:
-                    while (board.canMove(activeTile, Direction.DOWN)) {
+                    if (TetrisConfig.TILE_DROP_INSTANT == true) {
+                        while (board.canMove(activeTile, Direction.DOWN)) {
+                            activeTile = board.moveTile(activeTile, Direction.DOWN);
+                        }
+                        break;
+                    } else {
                         activeTile = board.moveTile(activeTile, Direction.DOWN);
+
                     }
                     break;
-                case 57416:
-                    activeTile = board.moveTile(activeTile, Direction.UP);
-                    break;
+
+//                case 57416:
+//                    activeTile = board.moveTile(activeTile, Direction.UP);
+//                    break;
                 default:
                     break;  // nothing to do
             }
@@ -83,7 +95,6 @@ public class TetrisGame implements NativeKeyListener {
     }
 
     /**
-     *
      * Generate the next tile for the Tetris game.
      *
      * @return Tile
@@ -92,20 +103,19 @@ public class TetrisGame implements NativeKeyListener {
         Random random = new Random();
 
         // Take a random tile from the TileLibary
-        Tile nextTile = TileLibary.TILE_TEMPLATES[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
+        Tile nextTile = TileLibary.O_TEMPLATE;//[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
 
         // Create a copy of the random tile and assign a random color. This is necessary because TileTemplates
         // do not have a color.
         nextTile = new Tile(nextTile.getName(), nextTile.getPositions(), Color.COLORS[random.nextInt(Color.COLORS.length)]);
 
         // Perform a random rotation.
-        nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
+        //nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
 
-        if (nextTile.equals(TileLibary.O_TEMPLATE)){
+        if (nextTile.equals(TileLibary.O_TEMPLATE)) {
 
 
         }
-
 
 
         return nextTile;
@@ -125,35 +135,50 @@ public class TetrisGame implements NativeKeyListener {
         Tile t = nextTileField.addTileToField(nextTile, new Position(1, 1));
 
         render();
+        int speed = TetrisConfig.START_SPEED_MS;
+        int speedcounter = 0;
 
         while (loop) {
-            //nextTileField.removeTile(t);
-            Thread.sleep(1000);
 
-            if (board.canMove(activeTile, Direction.DOWN)) {
-                activeTile = board.moveTile(activeTile, Direction.DOWN);
-            } else {
-                LOG.trace("End of board reached");
-                int score = board.removeFullRows() * 50;
-                counter.add(score);
-                endCounter.add(score);
 
-                activeTile = board.addTileToField(nextTile);
-
-                counter.add(1);
-                endCounter.add(1);
-
-                if (activeTile == null) {
-                    LOG.trace("GAME OVER");
-                    renderer.clear();
-                    loop = false;
+            if (speedcounter > TetrisConfig.SPEED_COUNTER_LIMIT) {
+                speedcounter = 0;
+                if (speed > TetrisConfig.MINIMUM_SPEED) {
+                    speed -= TetrisConfig.SPEED_REDUCTION;
                 }
-
-                nextTileField.removeTile(t);
-                nextTile = generateNextTile();
-                t = nextTileField.addTileToField(nextTile, new Position(1, 1));
             }
-            render();
+
+            Thread.sleep(speed);
+            if (!pause) {
+
+
+                if (board.canMove(activeTile, Direction.DOWN)) {
+                    activeTile = board.moveTile(activeTile, Direction.DOWN);
+                } else {
+                    LOG.trace("End of board reached");
+                    int score = board.removeFullRows() * TetrisConfig.POINTS_PER_ROW;
+                    speedcounter += score;
+                    counter.add(score);
+                    endCounter.add(score);
+
+                    activeTile = board.addTileToField(nextTile);
+
+                    speedcounter += TetrisConfig.POINTS_PER_TILE;
+                    counter.add(TetrisConfig.POINTS_PER_TILE);
+                    endCounter.add(TetrisConfig.POINTS_PER_TILE);
+
+                    if (activeTile == null) {
+                        LOG.trace("GAME OVER");
+                        renderer.clear();
+                        loop = false;
+                    }
+
+                    nextTileField.removeTile(t);
+                    nextTile = generateNextTile();
+                    t = nextTileField.addTileToField(nextTile, new Position(1, 1));
+                }
+                render();
+            }
         }
         renderEndScreen();
     }
@@ -169,7 +194,7 @@ public class TetrisGame implements NativeKeyListener {
         renderer.render(container);
     }
 
-    public void renderEndScreen(){
+    public void renderEndScreen() {
         RenderDataContainer container = new RenderDataContainer();
         generateGameOverScreen();
         container.addRenderData(gameOverDisplay);
@@ -179,7 +204,6 @@ public class TetrisGame implements NativeKeyListener {
 
     /**
      * Generates the screen when the game is over.
-     *
      */
     private void generateGameOverScreen() {
         gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G, new Position(3, 17));

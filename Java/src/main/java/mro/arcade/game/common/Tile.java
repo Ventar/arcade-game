@@ -177,6 +177,16 @@ public class Tile {
         return max - min + 1;
     }
 
+    public boolean hasFieldInRow(int row) {
+
+        for (Position position : fields) {
+            if (position.getRow() == row) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Checks if the row is full
      *
@@ -193,8 +203,30 @@ public class Tile {
             if (position.getRow() == row) {
                 removed = true;
                 iterator.remove();
+
             }
         }
+        if (removed) {
+            List<Position> newFields = new ArrayList<>();
+            for (Iterator<Position> iterator = fields.iterator(); iterator.hasNext(); ) {
+                Position position = iterator.next();
+
+                if (position.getRow() > row) {
+                    Position newPosition = position.sub(new Position(0, 1));
+                    newFields.add(newPosition);
+                } else {
+                    newFields.add(position);
+                }
+
+            }
+            fields = newFields;
+        }
+
+        // Neue Liste NewFields
+        // Iterator über alte Fields
+        // Wenn Field Row > Übergebene Row, dann Row SUB (-1) und zu New Fields List hinzufügen
+        // sonst einfach fields hinzufügen
+
 
         return removed;
     }

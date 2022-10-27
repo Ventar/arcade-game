@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class SwingRenderer implements BoardRenderer {
 
-    private static int FIELD_SIZE_PX = 50;
+    private static int FIELD_SIZE_PX = 32;
     private JFrame frame = new JFrame();
 
     private Size size;
