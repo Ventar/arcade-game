@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class ArcadeGameMain implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
-    private static final Size SIZE = new Size(16, 16);
+    private static final Size SIZE = new Size(24, 24);
 
 
     //    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
