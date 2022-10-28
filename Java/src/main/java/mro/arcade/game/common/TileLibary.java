@@ -307,6 +307,10 @@ public class TileLibary {
             p(2, 0)
     ));
 
+    public static final Tile DOT_TEMPLATE = new Tile("DOT_TEMPLATE", Arrays.asList(
+            p(0, 0)
+    ));
+
     public static final Tile[] TILE_TEMPLATES = new Tile[]{
             L_TEMPLATE,
             O_TEMPLATE,

@@ -44,7 +44,7 @@ public class        TileContainer implements RenderData {
      * @param position
      * @return if the the position is on board.
      */
-    private boolean isPositionOnBoard(Position position) {
+    protected boolean isPositionOnBoard(Position position) {
         if (position.getColumn() > size.getWidth() - 1 ||
                 position.getRow() > size.getHeight() - 1 ||
                 position.getRow() < 0 ||

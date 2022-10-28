@@ -4,6 +4,7 @@ package mro.arcade.game;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mro.arcade.game.common.*;
+import mro.arcade.game.match4.Match4Game;
 import mro.arcade.game.tetris.TetrisGame;
 import mro.arcade.game.view.BoardRenderer;
 //import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
@@ -16,7 +17,7 @@ import java.util.Scanner;
 public class ArcadeGameMain implements NativeKeyListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArcadeGameMain.class);
-    private static final Size SIZE = new Size(24, 24);
+    private static final Size SIZE = new Size(16, 16);
 
 
     //    private BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.52");
@@ -48,7 +49,8 @@ public class ArcadeGameMain implements NativeKeyListener {
                 tetrisGame.run();
                 GlobalScreen.removeNativeKeyListener(tetrisGame);
             } else if (input == 2) {
-                System.out.println("Not invented yet");
+                Match4Game match4Game = new Match4Game(renderer);
+                match4Game.run();
             } else if (input == 3) {
                 System.exit(0);
             }
