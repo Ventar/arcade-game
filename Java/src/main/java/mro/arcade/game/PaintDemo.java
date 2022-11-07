@@ -10,14 +10,11 @@ import mro.arcade.game.view.renderer.SwingRenderer;
 
 public class PaintDemo {
 
-    private static Tile number;
-
-
     public static void main(String[] args) {
         BoardRenderer renderer = new SwingRenderer(new Size(24, 24));
 
 
-        renderer.render(new RenderData() {
+        renderer.render(new RenderData(){
             @Override
             public Color getFieldColor(Position position) {
                 // 8

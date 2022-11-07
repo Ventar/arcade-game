@@ -15,8 +15,6 @@ public class SwingRendererServer {
     private static int FIELD_SIZE_PX = 5;
     private JFrame frame = new JFrame();
     private Color[][] model;
-    private DatagramSocket socket;
-    private boolean running;
     private InetAddress address;
     private byte[] buf = new byte[512];
 
@@ -53,8 +51,8 @@ public class SwingRendererServer {
     }
 
     public void run() throws IOException {
-        running = true;
-        socket = new DatagramSocket(4000, address);
+        boolean running = true;
+        DatagramSocket socket = new DatagramSocket(4000, address);
 
         while (running) {
             LOG.debug("Wait for incoming packet...");
@@ -110,7 +108,8 @@ public class SwingRendererServer {
                 super.paintComponent(g);
 
                 Graphics2D g2d = (Graphics2D) g.create();
-                int x, y = 0;
+                int x = 0;
+                int y = 0;
                 for (int column = 0; column < 24; column++) {
                     for (int row = 0; row < 24; row++) {
                         x = column * FIELD_SIZE_PX;

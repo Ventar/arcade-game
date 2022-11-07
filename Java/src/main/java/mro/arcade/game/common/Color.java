@@ -70,7 +70,6 @@ public class Color {
      */
     public static final Color COLOR_SPRINGGREEN = new Color(0,255,127);
 
-
     public static final Color[] COLORS = new Color[]{
 
             COLOR_BABYBLUE,

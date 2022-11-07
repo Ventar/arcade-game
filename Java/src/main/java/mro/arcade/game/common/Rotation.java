@@ -30,7 +30,7 @@ public enum Rotation {
 
 
 
-    public final static Rotation[] ROTATIONS = new Rotation[]{
+    protected final static Rotation[] ROTATIONS = new Rotation[]{
 
             DEGREE_0,
             DEGREE_90,

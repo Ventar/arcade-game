@@ -11,6 +11,8 @@ import java.util.Arrays;
  */
 public class TileLibary {
 
+    private TileLibary(){}
+
 
     public static final Tile L_TEMPLATE = new Tile("L_TEMPLATE", Arrays.asList(
             new Position(0, 0),
@@ -311,7 +313,7 @@ public class TileLibary {
             p(0, 0)
     ));
 
-    public static final Tile[] TILE_TEMPLATES = new Tile[]{
+    protected static final Tile[] TILE_TEMPLATES = new Tile[]{
             L_TEMPLATE,
             O_TEMPLATE,
             S_TEMPLATE,
@@ -321,21 +323,6 @@ public class TileLibary {
 //            S_TEMPLATE_REVERSE,
 //            T_TEMPLATE_REVERSE,
     };
-
-
-//    public static final Tile[] TILE_NUMBERS = new Tile[]{
-//            NUMBER_TEMPLATE_ZERO,
-//            NUMBER_TEMPLATE_ONE,
-//
-//
-//            NUMBER_TEMPLATE_FOUR,
-//
-//
-//            NUMBER_TEMPLATE_NINE,
-//
-//
-//    };
-
 
     private static Position p(int x, int y) {
         return new Position(x, y);

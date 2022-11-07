@@ -33,7 +33,7 @@ public class Counter extends TileContainer {
             value = MAX_VALUE;
         }
         calculateDigits();
-        if (showWholeCounter == true) {
+        if (showWholeCounter) {
             addDigitTileToField();
         } else {
             addSingleDigitTileToField();

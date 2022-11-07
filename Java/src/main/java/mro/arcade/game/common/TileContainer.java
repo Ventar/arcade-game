@@ -50,8 +50,9 @@ public class        TileContainer implements RenderData {
                 position.getRow() < 0 ||
                 position.getColumn() < 0) {
             return false;
+        }else {
+            return true;
         }
-        return true;
     }
 
     /**

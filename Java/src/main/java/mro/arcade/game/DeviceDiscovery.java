@@ -70,12 +70,10 @@ public class DeviceDiscovery {
 
                 @Override
                 public void serviceAdded(ServiceEvent serviceEvent) {
-                    //  LOG.info("Added MDNS service ::= [{}]", serviceEvent.getInfo());
                 }
 
                 @Override
                 public void serviceRemoved(ServiceEvent serviceEvent) {
-                    //  LOG.debug("Removed MDNS service ::= [{}]", serviceEvent.getInfo());
                 }
 
                 @Override
@@ -108,6 +106,7 @@ public class DeviceDiscovery {
 
         } catch (Exception e) {
             LOG.debug("Exception during start of discovery service:", e);
+            throw new RuntimeException(e);
         }
 
 

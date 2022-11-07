@@ -44,14 +44,12 @@ public class TetrisGame implements NativeKeyListener {
      */
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-        // To see key codes use: System.out.println(nativeEvent.getKeyCode());
 
         if (nativeEvent.getKeyCode() == 1) {
             renderer.clear();
             System.exit(0);
         }
         if (activeTile != null) {
-//            LOG.debug("Key pressed: {} ", nativeEvent.getKeyCode());
 
             switch (nativeEvent.getKeyCode()) {
                 case 25:
@@ -101,22 +99,16 @@ public class TetrisGame implements NativeKeyListener {
      */
     public Tile generateNextTile() {
         Random random = new Random();
-
+        int colorValue = random.nextInt(Color.COLORS.length);
         // Take a random tile from the TileLibary
         Tile nextTile = TileLibary.O_TEMPLATE;//[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
 
         // Create a copy of the random tile and assign a random color. This is necessary because TileTemplates
         // do not have a color.
-        nextTile = new Tile(nextTile.getName(), nextTile.getPositions(), Color.COLORS[random.nextInt(Color.COLORS.length)]);
+        nextTile = new Tile(nextTile.getName(), nextTile.getPositions(), Color.COLORS[colorValue]);
 
         // Perform a random rotation.
         //nextTile.rotate(Rotation.ROTATIONS[random.nextInt(Rotation.ROTATIONS.length)]);
-
-        if (nextTile.equals(TileLibary.O_TEMPLATE)) {
-
-
-        }
-
 
         return nextTile;
     }
@@ -139,7 +131,6 @@ public class TetrisGame implements NativeKeyListener {
         int speedcounter = 0;
 
         while (loop) {
-
 
             if (speedcounter > TetrisConfig.SPEED_COUNTER_LIMIT) {
                 speedcounter = 0;
