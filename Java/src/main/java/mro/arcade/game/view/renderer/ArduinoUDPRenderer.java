@@ -68,9 +68,8 @@ public class ArduinoUDPRenderer implements BoardRenderer {
 
         int rows = size.getHeight();
         int columns = size.getWidth();
-        byte[] dataBytes = new byte[512];
 
-        ByteBuffer buf = ByteBuffer.allocate(512);
+        ByteBuffer buf = ByteBuffer.allocate(2048);
         buf.put((byte) 1);
         buf.put((byte) 0);
 

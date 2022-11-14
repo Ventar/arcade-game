@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class        TileContainer implements RenderData {
+public class TileContainer implements RenderData {
 
     public static final Logger LOG = LoggerFactory.getLogger(TileContainer.class);
 
@@ -22,7 +22,6 @@ public class        TileContainer implements RenderData {
     }
 
     /**
-     *
      * Checks if a tile collides with another tile or the end of the playing field
      *
      * @param position
@@ -41,6 +40,7 @@ public class        TileContainer implements RenderData {
 
     /**
      * Checks if the current position of a tile is already taken
+     *
      * @param position
      * @return if the the position is on board.
      */
@@ -50,13 +50,14 @@ public class        TileContainer implements RenderData {
                 position.getRow() < 0 ||
                 position.getColumn() < 0) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
     /**
      * Checks if the rotated or moved tile would still be in the field
+     *
      * @param tile to check
      * @return boolean
      */
@@ -71,6 +72,7 @@ public class        TileContainer implements RenderData {
 
     /**
      * Places the current tile into the playfield.
+     *
      * @param tileTemplate
      * @param position
      * @return a tile.
@@ -95,8 +97,8 @@ public class        TileContainer implements RenderData {
 
     /**
      * Get the color of a position on the field
-     * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
      *
+     * @param position the position to fetch the color. If no color is set at that position {@link Color#COLOR_BLACK} is returned
      * @return a color
      */
     @Override
@@ -115,14 +117,33 @@ public class        TileContainer implements RenderData {
         return Color.COLOR_BLACK;
     }
 
+    public Color getFieldColorWithoutOffset(Position position) {
+        Position pos = new Position(position.getColumn(), position.getRow());
+
+        for (Tile tileInList : tiles) {
+            for (Position positionInList : tileInList.getPositions()) {
+                if (positionInList.equals(pos)) {
+                    return tileInList.getColor();
+                }
+            }
+        }
+
+        return Color.COLOR_BLACK;
+    }
+
     /**
      * Remove a tile from the field
+     *
      * @param tile to remove
      */
     public void removeTile(Tile tile) {
 
         tiles.remove(tile);
-
     }
 
+    public void clearField(){
+        for (Tile tile:tiles) {
+            removeTile(tile);
+        }
+    }
 }

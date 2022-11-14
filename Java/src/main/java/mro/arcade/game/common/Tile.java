@@ -68,6 +68,10 @@ public class Tile {
         return color;
     }
 
+    public void setColor(Color color){
+        this.color = color;
+    }
+
     /**
      * Get the name of the tile
      *

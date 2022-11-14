@@ -101,7 +101,7 @@ public class TetrisGame implements NativeKeyListener {
         Random random = new Random();
         int colorValue = random.nextInt(Color.COLORS.length);
         // Take a random tile from the TileLibary
-        Tile nextTile = TileLibary.O_TEMPLATE;//[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
+        Tile nextTile = TileLibary.TILE_TEMPLATES[random.nextInt(TileLibary.TILE_TEMPLATES.length)];
 
         // Create a copy of the random tile and assign a random color. This is necessary because TileTemplates
         // do not have a color.
@@ -145,6 +145,7 @@ public class TetrisGame implements NativeKeyListener {
 
                 if (board.canMove(activeTile, Direction.DOWN)) {
                     activeTile = board.moveTile(activeTile, Direction.DOWN);
+                    render();
                 } else {
                     LOG.trace("End of board reached");
                     int score = board.removeFullRows() * TetrisConfig.POINTS_PER_ROW;
@@ -162,13 +163,14 @@ public class TetrisGame implements NativeKeyListener {
                         LOG.trace("GAME OVER");
                         renderer.clear();
                         loop = false;
+                    } else {
+                        nextTileField.removeTile(t);
+                        nextTile = generateNextTile();
+                        t = nextTileField.addTileToField(nextTile, new Position(1, 1));
+                        render();
                     }
-
-                    nextTileField.removeTile(t);
-                    nextTile = generateNextTile();
-                    t = nextTileField.addTileToField(nextTile, new Position(1, 1));
                 }
-                render();
+
             }
         }
         renderEndScreen();

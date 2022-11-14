@@ -313,7 +313,7 @@ public class TileLibary {
             p(0, 0)
     ));
 
-    protected static final Tile[] TILE_TEMPLATES = new Tile[]{
+    public static final Tile[] TILE_TEMPLATES = new Tile[]{
             L_TEMPLATE,
             O_TEMPLATE,
             S_TEMPLATE,

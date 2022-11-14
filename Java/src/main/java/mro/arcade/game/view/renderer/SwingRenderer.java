@@ -63,9 +63,7 @@ public class SwingRenderer implements BoardRenderer {
     }
 
     @Override
-    public void clear() {
-
-    }
+    public void clear() {}
 
 
     @Override

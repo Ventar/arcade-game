@@ -20,9 +20,5 @@ public interface RenderData {
      */
     Color getFieldColor(Position position);
 
-
-
-
-
 }
 

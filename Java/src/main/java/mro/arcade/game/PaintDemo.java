@@ -52,7 +52,7 @@ public class PaintDemo {
                 return Color.COLOR_BLACK;
             }
 
-
+            public void setFieldColor(Position position) {}
         });
 
     }
