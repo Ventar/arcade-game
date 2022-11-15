@@ -1,17 +1,13 @@
-package mro.arcade.game.match4;
+package mro.arcade.game.games.match4;
 
 import mro.arcade.game.common.Color;
 import mro.arcade.game.common.Position;
 import mro.arcade.game.common.Size;
 import mro.arcade.game.common.Tile;
 import mro.arcade.game.common.TileContainer;
-import mro.arcade.game.tetris.TetrisBoard;
 import mro.arcade.game.view.RenderData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.awt.*;
-import java.util.SimpleTimeZone;
 
 public class Match4Board extends TileContainer implements RenderData {
 

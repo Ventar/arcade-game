@@ -1,6 +1,5 @@
 package mro.arcade.game.view.renderer;
 
-import mro.arcade.game.DeviceDiscovery;
 import mro.arcade.game.common.Color;
 import mro.arcade.game.common.Position;
 import mro.arcade.game.common.Size;
@@ -14,17 +13,39 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
+/**
+ * Implementation of a renderer that uses the UDP protocol to send commands to an Arduino device that is able to render the pixels of the game board.
+ *
+ * @author Michael Rodenbuecher
+ * @since 2022-11-15
+ */
 public class ArduinoUDPRenderer implements BoardRenderer {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArduinoUDPRenderer.class);
+
+    /**
+     * The address of the Arduino device. This address is identified by the MDNS protocol during the creation of this class.
+     */
     private InetAddress deviceAddress;
 
+    /**
+     * The UDP port of the device that is listening for UDP packages send by this application.
+     */
     private int devicePort;
 
+    /**
+     * The UDP socket to transmit the data.
+     */
     private DatagramSocket socket;
 
+    /**
+     * A local matrix of color data for all pixels. Used to send only the delta information to the Arduino device.
+     */
     private Color[][] colorData;
 
+    /**
+     * The number of pixels (rows and columns) the Arduino device can display.
+     */
     private Size size;
 
     private int frameCounter = 0;
@@ -32,7 +53,7 @@ public class ArduinoUDPRenderer implements BoardRenderer {
     public ArduinoUDPRenderer(Size size, String ipAddress) {
         try {
 
-            DeviceDiscovery discovery = new DeviceDiscovery(InetAddress.getByName(ipAddress));
+            ArduinoDeviceDiscovery discovery = new ArduinoDeviceDiscovery(InetAddress.getByName(ipAddress));
             discovery.discover();
 
             this.size = size;

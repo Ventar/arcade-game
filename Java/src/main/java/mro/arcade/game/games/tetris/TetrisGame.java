@@ -1,4 +1,4 @@
-package mro.arcade.game.tetris;
+package mro.arcade.game.games.tetris;
 
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;

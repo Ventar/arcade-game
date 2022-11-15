@@ -1,15 +1,13 @@
-package mro.arcade.game.match4;
+package mro.arcade.game.games.match4;
 
 
 import mro.arcade.game.common.*;
 import mro.arcade.game.common.Color;
-import mro.arcade.game.tetris.TetrisBoard;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderDataContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.util.Scanner;
 
 public class Match4Game {

@@ -1,4 +1,4 @@
-package mro.arcade.game;
+package mro.arcade.game.view.renderer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,12 +18,12 @@ import java.net.UnknownHostException;
  * @author Michael Rodenbuecher
  * @since 2022-09-08
  */
-public class DeviceDiscovery {
+public class ArduinoDeviceDiscovery {
 
     /**
      * Logger.
      */
-    public static final Logger LOG = LoggerFactory.getLogger(DeviceDiscovery.class);
+    public static final Logger LOG = LoggerFactory.getLogger(ArduinoDeviceDiscovery.class);
 
     /**
      * The mDNS service handler.
@@ -52,7 +52,7 @@ public class DeviceDiscovery {
      * @param localAddress The local IP address of this client. The address is needed in case multiple network adapters are available (regular ethernet and WIFI for example). In
      *                     that case it is important to choose the one that is connected to the same network that the Arduino device uses. Usually that is the WIFI one.
      */
-    public DeviceDiscovery(InetAddress localAddress) {
+    public ArduinoDeviceDiscovery(InetAddress localAddress) {
         this.localAddress = localAddress;
     }
 
@@ -146,7 +146,7 @@ public class DeviceDiscovery {
     }
 
     public static void main(String[] args) throws UnknownHostException {
-        DeviceDiscovery discovery = new DeviceDiscovery(InetAddress.getByName("192.168.51.51"));
+        ArduinoDeviceDiscovery discovery = new ArduinoDeviceDiscovery(InetAddress.getByName("192.168.51.51"));
         discovery.discover();
     }
 

@@ -1,4 +1,4 @@
-package mro.arcade.game.match4;
+package mro.arcade.game.games.match4;
 
 import mro.arcade.game.common.Color;
 import mro.arcade.game.common.Position;

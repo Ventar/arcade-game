@@ -1,4 +1,4 @@
-package mro.arcade.game.tetris;
+package mro.arcade.game.games.tetris;
 
 import mro.arcade.game.common.*;
 import mro.arcade.game.view.RenderData;

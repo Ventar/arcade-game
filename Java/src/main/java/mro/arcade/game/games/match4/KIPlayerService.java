@@ -1,4 +1,4 @@
-package mro.arcade.game.match4;
+package mro.arcade.game.games.match4;
 
 
 
