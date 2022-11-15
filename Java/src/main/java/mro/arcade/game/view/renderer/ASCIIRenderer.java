@@ -32,6 +32,13 @@ public class ASCIIRenderer implements BoardRenderer {
     }
 
 
+    @Override
+    public void showIntro() {
+
+    }
+
+
+
     public void render(RenderData data) {
 
         int columnCount = size.getWidth();

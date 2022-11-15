@@ -65,6 +65,10 @@ public class SwingRenderer implements BoardRenderer {
     @Override
     public void clear() {}
 
+    @Override
+    public void showIntro() {
+
+    }
 
     @Override
     public Size getSize() {

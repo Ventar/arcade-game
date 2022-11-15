@@ -68,8 +68,9 @@ public class Tile {
         return color;
     }
 
-    public void setColor(Color color){
+    public Tile setColor(Color color){
         this.color = color;
+        return this;
     }
 
     /**

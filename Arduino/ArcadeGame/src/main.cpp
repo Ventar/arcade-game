@@ -22,7 +22,7 @@ void setup()
 void loop()
 {
  // wifiManager.process();
-  ArduinoOTA.handle();
+  //ArduinoOTA.handle();
   MDNS.update();
 
   if (WiFi.status() == WL_CONNECTED)

@@ -16,5 +16,7 @@ public interface BoardRenderer {
 
     void clear();
 
+    void showIntro();
+
     Size getSize();
 }

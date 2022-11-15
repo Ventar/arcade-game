@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class ArcadeGameMain implements NativeKeyListener {
     private static final Size SIZE = new Size(24, 24);
 
-    private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.50");
+    private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.51");
     //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
     //private BoardRenderer renderer = new ArduinoHTTPRenderer("192.168.2.207");
     //private BoardRenderer renderer = new ASCIIRenderer();
@@ -32,6 +32,8 @@ public class ArcadeGameMain implements NativeKeyListener {
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
 
+        renderer.showIntro();
+
         while (loop){
             System.out.println("Which Game do you want to Play?");
             System.out.println("1: Tetris");
@@ -41,6 +43,7 @@ public class ArcadeGameMain implements NativeKeyListener {
             int input = Integer.parseInt(scanner.nextLine());
 
             if(input == 1){
+                renderer.clear();
                 TetrisGame tetrisGame = new TetrisGame(renderer);
                 GlobalScreen.addNativeKeyListener(tetrisGame);
                 tetrisGame.run();
@@ -49,10 +52,11 @@ public class ArcadeGameMain implements NativeKeyListener {
                 Match4Game match4Game = new Match4Game(renderer);
                 match4Game.run();
             } else if (input == 3) {
+                renderer.showIntro();
+                System.exit(0);
                 break;
             }
-            //renderer.clear();
-        }
+         }
     }
 }
 

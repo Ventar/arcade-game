@@ -18,10 +18,12 @@ const char *NB_MDNS_SERVICE = "arcade";
  */
 const uint16_t NB_UDP_PORT = 5000;
 
+const uint16_t PACKET_SIZE = 2048;
+
 /**
  * The size of incoming UDP packets
  */
-uint8_t incomingPacket[512];
+uint8_t incomingPacket[PACKET_SIZE];
 
 /**
  * Sleep while no game is in progress
@@ -37,7 +39,7 @@ void handleUDP()
     if (packetSize)
     {
         Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
-        int len = Udp.read(incomingPacket, 512);
+        int len = Udp.read(incomingPacket, PACKET_SIZE);
 
         if (len > 0)
         {
@@ -58,14 +60,14 @@ void handleUDP()
             Serial.printf("command: SET PIXEL COLOR\n");
 
             int recordSize = 5;
-            for (int i = 0; i < incomingPacket[1]; i++)
+            for (int i = 0; i < (incomingPacket[1] << 8) + (incomingPacket[2]) ; i++)
             {
 
-                int column = incomingPacket[2 + (i * recordSize) + 0];
-                int row = incomingPacket[2 + (i * recordSize) + 1];
-                int red = incomingPacket[2 + (i * recordSize) + 2];
-                int green = incomingPacket[2 + (i * recordSize) + 3];
-                int blue = incomingPacket[2 + (i * recordSize) + 4];
+                int column = incomingPacket[3 + (i * recordSize) + 0];
+                int row = incomingPacket[3 + (i * recordSize) + 1];
+                int red = incomingPacket[3 + (i * recordSize) + 2];
+                int green = incomingPacket[3 + (i * recordSize) + 3];
+                int blue = incomingPacket[3 + (i * recordSize) + 4];
 
                 setColor(column, row, red, green, blue);
             }
@@ -91,6 +93,8 @@ void handleUDP()
             break;
         }
         }
+
+        // delay(2000);
     }
 }
 

@@ -75,13 +75,13 @@ public class TetrisGame implements NativeKeyListener {
                         break;
                     } else {
                         activeTile = board.moveTile(activeTile, Direction.DOWN);
-
                     }
+
                     break;
 
-//                case 57416:
-//                    activeTile = board.moveTile(activeTile, Direction.UP);
-//                    break;
+                //                case 57416:
+                //                    activeTile = board.moveTile(activeTile, Direction.UP);
+                //                    break;
                 default:
                     break;  // nothing to do
             }
@@ -174,6 +174,7 @@ public class TetrisGame implements NativeKeyListener {
             }
         }
         renderEndScreen();
+
     }
 
 
@@ -199,14 +200,14 @@ public class TetrisGame implements NativeKeyListener {
      * Generates the screen when the game is over.
      */
     private void generateGameOverScreen() {
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G, new Position(3, 17));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_A, new Position(8, 17));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_M, new Position(12, 17));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(18, 17));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_O, new Position(4, 9));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_V, new Position(8, 9));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E, new Position(12, 9));
-        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_R, new Position(16, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_G.setColor(Color.COLOR_RED), new Position(3, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_A.setColor(Color.COLOR_RED), new Position(8, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_M.setColor(Color.COLOR_RED), new Position(12, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E.setColor(Color.COLOR_RED), new Position(18, 17));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_O.setColor(Color.COLOR_RED), new Position(4, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_V.setColor(Color.COLOR_RED), new Position(8, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_E.setColor(Color.COLOR_RED), new Position(12, 9));
+        gameOverDisplay.addTileToField(TileLibary.LETTER_TEMPLATE_R.setColor(Color.COLOR_RED), new Position(16, 9));
     }
 
 }
