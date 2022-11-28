@@ -1,8 +1,9 @@
 package mro.arcade.game.games.match4;
 
 
-import mro.arcade.game.common.*;
 import mro.arcade.game.common.Color;
+import mro.arcade.game.common.Position;
+import mro.arcade.game.common.Size;
 import mro.arcade.game.view.BoardRenderer;
 import mro.arcade.game.view.RenderDataContainer;
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import java.util.Scanner;
 public class Match4Game {
 
     public static final Logger LOG = LoggerFactory.getLogger(Match4Game.class);
-    Match4Board match4Board = new Match4Board(new Size(11, 10), new Position(4, 1));
 
     Match4BoardFrame match4BoardFrame = new Match4BoardFrame(new Size(12, 12), new Position(3, 0), new Color(150, 150, 150));
 
@@ -23,81 +23,53 @@ public class Match4Game {
         this.renderer = renderer;
     }
 
-
-    /**
-     * Checks if one of ther Winning Pattern is true and a Player has won.
-     *
-     * @return true if one of the pattern is also true.
-     */
-    public boolean hasWon(int column) {
-        return match4Board.verticalWinPattern(column) || match4Board.horizontallyWinPattern() || match4Board.diagonallyWinPattern();
-    }
-
     public void run() throws InterruptedException {
-        boolean loop = true;
-        boolean win = false;
+
         Scanner scanner = new Scanner(System.in);
-        String player = "Player";
-        String player2 = "Opponent";
 
-        renderer.clear();
-        render();
+        System.out.println("Which Gamemode do you want to play?\n" +
+                                   "1. Player vs Player\n" +
+                                   "2. Player vs KI\n" +
+                                   "3. Exit");
 
-        while (!win) {
-            System.out.println("In which column do you want to insert the Coin?");
-            String input = scanner.nextLine();
-            int columnInsertCoinTo = Integer.parseInt(input) - 1;
-            match4Board.insertTileToField(TileLibary.DOT_TEMPLATE, columnInsertCoinTo, player);
-            render();
-            if (hasWon(columnInsertCoinTo)) {
-                render();
-                System.out.println("Player has Won");
-                System.out.println("1. Continue Playing\n" +
-                        "2. Return to Menu\n" +
-                        "3. Exit Game");
-                int choiceInt = Integer.parseInt(scanner.nextLine());
-                if (choiceInt == 1) {
-                    match4Board.clearField();
-                    render();
-                    continue;
-                } else if (choiceInt == 2) {
-                    break;
-                } else if (choiceInt == 3) {
-                    System.exit(0);
-                }
-            }
-            System.out.println("Opponents turn");
-            System.out.println("In which column do you want to insert the Coin?");
-            String input2 = scanner.nextLine();
-            int columnInsertCoinTo2 = Integer.parseInt(input2) - 1;
-            match4Board.insertTileToField(TileLibary.DOT_TEMPLATE, columnInsertCoinTo2, player2);
-            render();
-            if (hasWon(columnInsertCoinTo2)) {
-                render();
-                System.out.println("Opponent has Won");
-                System.out.println("1. Continue Playing\n" +
-                        "2. Return to Menu\n" +
-                        "3. Exit Game");
-                int choiceInt = Integer.parseInt(scanner.nextLine());
-                if (choiceInt == 1) {
-                    renderer.clear();
-                    render();
-                    continue;
-                } else if (choiceInt == 2) {
-                    break;
-                } else if (choiceInt == 3) {
-                    System.exit(0);
-                }
-            }
+        int gamemodeToSelect = Integer.parseInt(scanner.nextLine());
+
+        if (gamemodeToSelect == 1) {
+            Match4BaseGame game = new Match4PlayerGame();
+            game.play(model -> render(model));
+            System.out.println("End game");
+        } else if (gamemodeToSelect == 2) {
+            Match4BaseGame game = new Match4KIGame();
+            game.play(model -> render(model));
+            System.out.println("End game");
+        } else if (gamemodeToSelect == 3) {
+            System.out.println("Exit game");
+            System.exit(0);
         }
     }
 
-    public void render() {
-        RenderDataContainer container = new RenderDataContainer();
-        container.addRenderData(match4Board);
-        container.addRenderData(match4BoardFrame);
 
+    public void render(Match4Model model) {
+        RenderDataContainer container = new RenderDataContainer();
+
+        container.addRenderData(position -> {
+
+            //LOG.debug("Try to render model ::= [] at position ::= [{}]",  position);
+            if (model == null) {
+                return Color.COLOR_BLACK;
+            } else {
+                Color c =  model.getColor(position.getColumn() - 4, (6 -  position.getRow() - 1) + 1);
+
+                if (c.equals(Color.COLOR_RED) || c.equals(Color.COLOR_BLUE)) {
+                    LOG.debug("Return player color for position ::= {}", position);
+                }
+                return c;
+            }
+        });
+
+        container.addRenderData(match4BoardFrame);
         renderer.render(container);
     }
+
 
 }

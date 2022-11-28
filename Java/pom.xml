@@ -65,7 +65,7 @@
     </build>
     
     <dependencies>
-
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -111,6 +111,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
         </dependency>
-
+    
     </dependencies>
 </project>

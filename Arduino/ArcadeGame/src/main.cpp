@@ -14,7 +14,7 @@ void setup()
 
   connectToWifi();
   setupUDP();
-  setupOTA();
+  // setupOTA();
 
   Serial.println("\n\nStarted Arcade Game...");
 }

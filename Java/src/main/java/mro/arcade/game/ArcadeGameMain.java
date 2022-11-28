@@ -7,19 +7,17 @@ import mro.arcade.game.common.*;
 import mro.arcade.game.games.match4.Match4Game;
 import mro.arcade.game.games.tetris.TetrisGame;
 import mro.arcade.game.view.BoardRenderer;
-import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
+import mro.arcade.game.view.renderer.SwingRenderer;
+
 
 import java.util.Scanner;
 
 public class ArcadeGameMain implements NativeKeyListener {
     private static final Size SIZE = new Size(24, 24);
 
-    private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.51");
-    //private BoardRenderer renderer = new ArduinoUDPRenderer(new Size(24, 24), "172.17.196.70");
-
+    //private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.2.181");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    //private static BoardRenderer renderer = new SwingRenderer(SIZE);
-
+    private static BoardRenderer renderer = new SwingRenderer(SIZE);
 
 
     public static void main(String[] args) throws Exception {

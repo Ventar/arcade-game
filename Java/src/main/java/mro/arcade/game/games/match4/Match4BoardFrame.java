@@ -51,6 +51,4 @@ public class Match4BoardFrame implements RenderData {
         return Color.COLOR_BLACK;
     }
 
-    public void setFieldColor(Position position){
-    }
 }

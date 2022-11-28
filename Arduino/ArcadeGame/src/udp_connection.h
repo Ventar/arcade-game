@@ -18,7 +18,7 @@ const char *NB_MDNS_SERVICE = "arcade";
  */
 const uint16_t NB_UDP_PORT = 5000;
 
-const uint16_t PACKET_SIZE = 2048;
+const uint16_t PACKET_SIZE = 4096;
 
 /**
  * The size of incoming UDP packets
@@ -27,13 +27,12 @@ uint8_t incomingPacket[PACKET_SIZE];
 
 /**
  * Sleep while no game is in progress
- */ 
+ */
 int sleepMS = 500;
-
 
 void handleUDP()
 {
-    
+
     int packetSize = Udp.parsePacket();
 
     if (packetSize)
@@ -60,7 +59,7 @@ void handleUDP()
             Serial.printf("command: SET PIXEL COLOR\n");
 
             int recordSize = 5;
-            for (int i = 0; i < (incomingPacket[1] << 8) + (incomingPacket[2]) ; i++)
+            for (int i = 0; i < (incomingPacket[1] << 8) + (incomingPacket[2]); i++)
             {
 
                 int column = incomingPacket[3 + (i * recordSize) + 0];
@@ -76,7 +75,7 @@ void handleUDP()
             sleepMS = 0;
             break;
         }
-          case 2:
+        case 2:
         {
             Serial.println("command: Render Logo");
             renderArcade();
@@ -85,16 +84,38 @@ void handleUDP()
             sleepMS = 500;
             break;
         }
-         case 3:
+        case 3:
         {
             Serial.println("command: Reset WIFI");
             wifiManager.resetSettings();
             sleepMS = 500;
             break;
         }
-        }
+        case 4:
+        {
+            Serial.println("command: Clear And Set");
+            clearNeoPixel();
 
-        // delay(2000);
+            int recordSize = 5;
+            for (int i = 0; i < (incomingPacket[1] << 8) + (incomingPacket[2]); i++)
+            {
+
+                int column = incomingPacket[3 + (i * recordSize) + 0];
+                int row = incomingPacket[3 + (i * recordSize) + 1];
+                int red = incomingPacket[3 + (i * recordSize) + 2];
+                int green = incomingPacket[3 + (i * recordSize) + 3];
+                int blue = incomingPacket[3 + (i * recordSize) + 4];
+
+                setColor(column, row, red, green, blue);
+            }
+
+            showNeoPixel();
+
+
+            sleepMS = 0;
+            break;
+        }
+        }
     }
 }
 
@@ -104,7 +125,6 @@ void handleUDP()
 void setupUDP()
 {
 
-    
     if (!MDNS.begin(NB_MDNS_SERVICE))
     {
         Serial.println("Error setting up MDNS responder!");
@@ -114,7 +134,6 @@ void setupUDP()
 
     MDNS.addService(NB_MDNS_SERVICE, "udp", NB_UDP_PORT);
 
-    
     Udp.begin(NB_UDP_PORT);
     Serial.printf("\nSetup UDP server on port ::= [%d]\n", NB_UDP_PORT);
 }

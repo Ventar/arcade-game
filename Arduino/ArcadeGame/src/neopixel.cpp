@@ -43,7 +43,7 @@ void setColor(int column, int row, uint32_t color)
 void setupNeopixel()
 {
     strip.begin();
-    strip.setBrightness(128);
+    strip.setBrightness(192);
     strip.clear();
     strip.show();
 }

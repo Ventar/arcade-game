@@ -110,7 +110,7 @@ public class ArduinoUDPRenderer implements BoardRenderer {
         int counter = 0;
 
 
-        ByteBuffer buf = ByteBuffer.allocate(2048);
+        ByteBuffer buf = ByteBuffer.allocate(4096);
         buf.put((byte) 1);
         buf.put((byte) 0);
         buf.put((byte) 0);
@@ -122,7 +122,7 @@ public class ArduinoUDPRenderer implements BoardRenderer {
                     colorData[column][row] = color;
 
                     counter++;
-                    buf.put(1, (byte) (byte) ((counter >> 8) & 0xff));
+                    buf.put(1, (byte) ((counter >> 8) & 0xff));
                     buf.put(2, (byte) (counter));
 
                     buf.put((byte) column);
