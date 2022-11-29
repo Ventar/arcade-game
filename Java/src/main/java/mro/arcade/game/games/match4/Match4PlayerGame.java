@@ -141,8 +141,9 @@ public class Match4PlayerGame extends Match4BaseGame {
                             insertCoin(model, columnInsertCoinTo, opponentColor);
                             modelListener.modelUpdated(model);
                             if (hasWon(model, columnInsertCoinTo)) {
-                                win = true;
+                                modelListener.modelUpdated(model);
                                 System.out.println("Opponent has Won");
+                                win = true;
                                 continue OUTER;
                             }
                         } else {

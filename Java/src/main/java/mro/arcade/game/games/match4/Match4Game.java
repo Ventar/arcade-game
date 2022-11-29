@@ -16,7 +16,7 @@ public class Match4Game {
 
     public static final Logger LOG = LoggerFactory.getLogger(Match4Game.class);
 
-    Match4BoardFrame match4BoardFrame = new Match4BoardFrame(new Size(12, 12), new Position(3, 0), new Color(150, 150, 150));
+    Match4BoardFrame match4BoardFrame = new Match4BoardFrame(new Size(13, 16), new Position(3, 1), new Color(150, 150, 150));
 
     private BoardRenderer renderer;
 
@@ -70,7 +70,7 @@ public class Match4Game {
             }
         });
 
-        //container.addRenderData(match4BoardFrame);
+        container.addRenderData(match4BoardFrame);
         renderer.render(container);
     }
 
