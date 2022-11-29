@@ -7,6 +7,7 @@ import mro.arcade.game.common.*;
 import mro.arcade.game.games.match4.Match4Game;
 import mro.arcade.game.games.tetris.TetrisGame;
 import mro.arcade.game.view.BoardRenderer;
+import mro.arcade.game.view.renderer.ArduinoUDPRenderer;
 import mro.arcade.game.view.renderer.SwingRenderer;
 
 
@@ -15,9 +16,9 @@ import java.util.Scanner;
 public class ArcadeGameMain implements NativeKeyListener {
     private static final Size SIZE = new Size(24, 24);
 
-    //private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.2.181");
+    private static BoardRenderer renderer = new ArduinoUDPRenderer(SIZE, "192.168.51.50");
     //private BoardRenderer renderer = new ASCIIRenderer();
-    private static BoardRenderer renderer = new SwingRenderer(SIZE);
+    //private static BoardRenderer renderer = new SwingRenderer(SIZE);
 
 
     public static void main(String[] args) throws Exception {
@@ -29,7 +30,7 @@ public class ArcadeGameMain implements NativeKeyListener {
 
         renderer.showIntro();
 
-        while (loop){
+        while (loop) {
             System.out.println("Which Game do you want to Play?");
             System.out.println("1: Tetris");
             System.out.println("2: Match 4");
@@ -37,13 +38,14 @@ public class ArcadeGameMain implements NativeKeyListener {
 
             int input = Integer.parseInt(scanner.nextLine());
 
-            if(input == 1){
+            if (input == 1) {
                 renderer.clear();
                 TetrisGame tetrisGame = new TetrisGame(renderer);
                 GlobalScreen.addNativeKeyListener(tetrisGame);
                 tetrisGame.run();
                 GlobalScreen.removeNativeKeyListener(tetrisGame);
             } else if (input == 2) {
+                renderer.clear();
                 Match4Game match4Game = new Match4Game(renderer);
                 match4Game.run();
             } else if (input == 3) {
@@ -51,7 +53,7 @@ public class ArcadeGameMain implements NativeKeyListener {
                 System.exit(0);
                 break;
             }
-         }
+        }
     }
 }
 

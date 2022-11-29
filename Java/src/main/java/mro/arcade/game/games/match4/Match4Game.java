@@ -9,6 +9,7 @@ import mro.arcade.game.view.RenderDataContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Match4Game {
@@ -51,6 +52,7 @@ public class Match4Game {
 
     public void render(Match4Model model) {
         RenderDataContainer container = new RenderDataContainer();
+        ArrayList<Color> colorList = new ArrayList<>();
 
         container.addRenderData(position -> {
 
@@ -58,16 +60,17 @@ public class Match4Game {
             if (model == null) {
                 return Color.COLOR_BLACK;
             } else {
-                Color c =  model.getColor(position.getColumn() - 4, (6 -  position.getRow() - 1) + 1);
+                Color c =  model.getColor(position.getColumn() /2 - 2, (model.getRows()  - position.getRow() / 2) );
 
-                if (c.equals(Color.COLOR_RED) || c.equals(Color.COLOR_BLUE)) {
+                if (c.equals(Color.COLOR_RED)|| c.equals(Color.COLOR_BLUE)) {
                     LOG.debug("Return player color for position ::= {}", position);
+                    colorList.add(c);
                 }
                 return c;
             }
         });
 
-        container.addRenderData(match4BoardFrame);
+        //container.addRenderData(match4BoardFrame);
         renderer.render(container);
     }
 

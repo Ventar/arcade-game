@@ -20,6 +20,45 @@ public class Match4KIGame extends Match4BaseGame {
         modelListener.modelUpdated(model);
         System.out.println("Match 4 started...");
 
+        System.out.println("Choose a color: \n" +
+                "Red\n" +
+                "Blue\n" +
+                "Green\n" +
+                "Purple\n" +
+                "Brown\"" +
+                "Orange\n" +
+                "Rose\n" +
+                "Babyblue");
+
+        String colorInput = scanner.nextLine();
+
+        switch (colorInput) {
+            case "Red":
+                playerColor = Color.COLOR_RED;
+                break;
+            case "Blue":
+                playerColor = Color.COLOR_BLUE;
+                break;
+            case "Green":
+                playerColor = Color.COLOR_GREEN;
+                break;
+            case "Purple":
+                playerColor = Color.COLOR_PURPLE;
+                break;
+            case "Brown":
+                playerColor = Color.COLOR_BROWN;
+                break;
+            case "Orange":
+                playerColor = Color.COLOR_ORANGE;
+                break;
+            case "Rose":
+                playerColor = Color.COLOR_ROSE;
+                break;
+            case "Babyblue":
+                playerColor = Color.COLOR_BABYBLUE;
+                break;
+        }
+
         win = false;
         while (!win) {
 
@@ -30,7 +69,7 @@ public class Match4KIGame extends Match4BaseGame {
                 columnInsertCoinTo = Integer.parseInt(input) - 1;
 
                 if (canInsertCoin(model, columnInsertCoinTo)) {
-                    insertCoin(model, columnInsertCoinTo, mro.arcade.game.common.Color.COLOR_BLUE);
+                    insertCoin(model, columnInsertCoinTo, playerColor);
                     modelListener.modelUpdated(model);
                     if (hasWon(model, columnInsertCoinTo)) {
                         win = true;
@@ -57,6 +96,7 @@ public class Match4KIGame extends Match4BaseGame {
 
     private boolean kiPlayerTurn(Match4ModelListener modelListener, Match4Model gameBoardModel) {
         Match4Model original = gameBoardModel;
+        opponentColor = Color.COLOR_RED;
         Match4Model copy;
         Random randomNumber = new Random();
         int positionToCheck = randomNumber.nextInt(original.getColumns());
@@ -68,10 +108,10 @@ public class Match4KIGame extends Match4BaseGame {
         for (int column = 0; column < original.getColumns(); column++) {
             copy = new Match4Model(gameBoardModel);
             if (canInsertCoin(copy, column)) {
-                insertCoin(copy, column, mro.arcade.game.common.Color.COLOR_RED);
+                insertCoin(copy, column, opponentColor);
 
                 if (hasWon(copy, column)) {
-                    insertCoin(original, column, mro.arcade.game.common.Color.COLOR_RED);
+                    insertCoin(original, column, opponentColor);
                     hasWon(original, column);
                     modelListener.modelUpdated(model);
                     System.out.println("Ki has Won");
@@ -83,10 +123,10 @@ public class Match4KIGame extends Match4BaseGame {
         for (int column = 0; column < original.getColumns(); column++) {
             copy = new Match4Model(original);
             if (canInsertCoin(copy, column)) {
-                insertCoin(copy, column, mro.arcade.game.common.Color.COLOR_BLUE);
+                insertCoin(copy, column, playerColor);
 
                 if (hasWon(copy, column)) {
-                    insertCoin(original, column, mro.arcade.game.common.Color.COLOR_RED);
+                    insertCoin(original, column, opponentColor);
                     modelListener.modelUpdated(model);
                     return false;
                 }
@@ -97,20 +137,20 @@ public class Match4KIGame extends Match4BaseGame {
             copy = new Match4Model(original);
             positionToCheck = randomNumber.nextInt(columnNumber.size());
             if (canInsertCoin(copy, positionToCheck)) {
-                insertCoin(copy, positionToCheck, mro.arcade.game.common.Color.COLOR_RED);
+                insertCoin(copy, positionToCheck, opponentColor);
                 if (canInsertCoin(copy, positionToCheck)) {
-                    insertCoin(copy, positionToCheck, Color.COLOR_BLUE);
+                    insertCoin(copy, positionToCheck, playerColor);
                     if (hasWon(copy, positionToCheck)) {
                         columnNumber.remove(positionToCheck);
                         continue;
                     } else if (columnNumber.isEmpty()) {
                         if (canInsertCoin(original, positionToCheck)) {
-                            insertCoin(original, positionToCheck, mro.arcade.game.common.Color.COLOR_RED);
+                            insertCoin(original, positionToCheck, opponentColor);
                             modelListener.modelUpdated(model);
                         }
                         return false;
                     } else {
-                        insertCoin(original, positionToCheck, mro.arcade.game.common.Color.COLOR_RED);
+                        insertCoin(original, positionToCheck, opponentColor);
                         modelListener.modelUpdated(model);
                         return false;
                     }
@@ -122,7 +162,7 @@ public class Match4KIGame extends Match4BaseGame {
             }
 
         }
-        insertCoin(original, randomNumber.nextInt(original.getColumns()), mro.arcade.game.common.Color.COLOR_RED);
+        insertCoin(original, randomNumber.nextInt(original.getColumns()), opponentColor);
         return false;
     }
 }
